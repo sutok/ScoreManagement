@@ -1,10 +1,12 @@
 # Firebase
 .firebase/
-.firebaserc
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
 *.cache
+
+# Firebase本番プロジェクト設定（デモプロジェクト設定は除外）
+# .firebaserc は本番プロジェクト設定時のみignore
 
 # Firebase Functions
 functions/node_modules/
