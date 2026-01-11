@@ -1,5 +1,7 @@
 import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
 
+type ThrowType = 'first' | 'second' | 'third';
+
 interface NumberPickerProps {
   value: number | null;
   onChange: (value: number) => void;
@@ -7,6 +9,7 @@ interface NumberPickerProps {
   max?: number;
   label?: string;
   disabled?: boolean;
+  throwType?: ThrowType;
 }
 
 export const NumberPicker = ({
@@ -16,8 +19,31 @@ export const NumberPicker = ({
   max = 10,
   label,
   disabled = false,
+  throwType = 'first',
 }: NumberPickerProps) => {
   const numbers = Array.from({ length: max - min + 1 }, (_, i) => min + i);
+
+  const getDisplayValue = (num: number): string => {
+    if (throwType === 'first') {
+      if (num === 0) return 'G';
+      if (num === 10) return 'X';
+      return num.toString();
+    }
+
+    if (throwType === 'second') {
+      if (num === 0) return '-';
+      if (num === max) return '/';
+      return num.toString();
+    }
+
+    if (throwType === 'third') {
+      if (num === 0) return '-';
+      if (num === 10) return 'X';
+      return num.toString();
+    }
+
+    return num.toString();
+  };
 
   return (
     <Box sx={{ textAlign: 'center', minWidth: 100 }}>
@@ -40,7 +66,7 @@ export const NumberPicker = ({
           )}
           {numbers.map((num) => (
             <MenuItem key={num} value={num}>
-              {num}
+              {getDisplayValue(num)}
             </MenuItem>
           ))}
         </Select>

@@ -150,6 +150,7 @@ export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
           onChange={handleFirstThrowChange}
           min={0}
           max={10}
+          throwType="first"
         />
 
         {/* Second Throw */}
@@ -161,6 +162,7 @@ export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
             min={0}
             max={maxSecondThrow}
             disabled={frame.firstThrow === null}
+            throwType="second"
           />
         )}
 
@@ -173,6 +175,7 @@ export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
             min={0}
             max={maxThirdThrow}
             disabled={frame.secondThrow === null}
+            throwType="third"
           />
         )}
       </Box>
