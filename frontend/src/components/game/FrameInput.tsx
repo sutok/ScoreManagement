@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { Box, TextField, Typography, Paper, Slide, Chip } from '@mui/material';
+import { Box, Typography, Paper, Slide, Chip } from '@mui/material';
 import { type Frame } from '../../types/game';
 import { keyframes } from '@mui/system';
 import { trackStrike, trackSpare } from '../../utils/analytics';
+import { NumberPicker } from './NumberPicker';
 
 interface FrameInputProps {
   frame: Frame;
@@ -39,32 +40,29 @@ export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
     100% { box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
   `;
 
-  const handleFirstThrowChange = (value: string) => {
-    const numValue = value === '' ? null : parseInt(value, 10);
+  const handleFirstThrowChange = (value: number) => {
     onChange({
       ...frame,
-      firstThrow: numValue,
+      firstThrow: value,
       // Clear subsequent throws if first throw changes
       secondThrow: null,
       thirdThrow: null,
     });
   };
 
-  const handleSecondThrowChange = (value: string) => {
-    const numValue = value === '' ? null : parseInt(value, 10);
+  const handleSecondThrowChange = (value: number) => {
     onChange({
       ...frame,
-      secondThrow: numValue,
+      secondThrow: value,
       // Clear third throw if second throw changes
       thirdThrow: null,
     });
   };
 
-  const handleThirdThrowChange = (value: string) => {
-    const numValue = value === '' ? null : parseInt(value, 10);
+  const handleThirdThrowChange = (value: number) => {
     onChange({
       ...frame,
-      thirdThrow: numValue,
+      thirdThrow: value,
     });
   };
 
@@ -144,42 +142,36 @@ export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
         {isFrame10 ? '10フレーム' : `${frame.frameNumber}フレーム`}
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', alignItems: 'center' }}>
         {/* First Throw */}
-        <TextField
+        <NumberPicker
           label="1投目"
-          type="number"
-          value={frame.firstThrow ?? ''}
-          onChange={(e) => handleFirstThrowChange(e.target.value)}
-          inputProps={{ min: 0, max: 10, step: 1 }}
-          sx={{ width: 80 }}
-          size="small"
+          value={frame.firstThrow}
+          onChange={handleFirstThrowChange}
+          min={0}
+          max={10}
         />
 
         {/* Second Throw */}
         {!isStrike && shouldShowSecondThrow() && (
-          <TextField
+          <NumberPicker
             label="2投目"
-            type="number"
-            value={frame.secondThrow ?? ''}
-            onChange={(e) => handleSecondThrowChange(e.target.value)}
-            inputProps={{ min: 0, max: maxSecondThrow, step: 1 }}
-            sx={{ width: 80 }}
-            size="small"
+            value={frame.secondThrow}
+            onChange={handleSecondThrowChange}
+            min={0}
+            max={maxSecondThrow}
             disabled={frame.firstThrow === null}
           />
         )}
 
         {/* Third Throw (Frame 10 only) */}
         {shouldShowThirdThrow() && (
-          <TextField
+          <NumberPicker
             label="3投目"
-            type="number"
-            value={frame.thirdThrow ?? ''}
-            onChange={(e) => handleThirdThrowChange(e.target.value)}
-            inputProps={{ min: 0, max: maxThirdThrow, step: 1 }}
-            sx={{ width: 80 }}
-            size="small"
+            value={frame.thirdThrow}
+            onChange={handleThirdThrowChange}
+            min={0}
+            max={maxThirdThrow}
             disabled={frame.secondThrow === null}
           />
         )}
