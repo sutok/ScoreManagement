@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { type User, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { type User, signInWithPopup, GoogleAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { trackLogin, trackLogout } from '../utils/analytics';
 import { trackAuthError } from '../utils/errorTracking';
@@ -32,6 +32,21 @@ export const useAuth = () => {
     }
   };
 
+  const loginWithApple = async () => {
+    const provider = new OAuthProvider('apple.com');
+    try {
+      await signInWithPopup(auth, provider);
+      trackLogin('apple');
+    } catch (error) {
+      console.error('Login error:', error);
+      trackAuthError(error instanceof Error ? error : new Error('Apple login failed'), {
+        page: window.location.pathname,
+        action: 'apple_login',
+      });
+      throw error;
+    }
+  };
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -46,5 +61,5 @@ export const useAuth = () => {
     }
   };
 
-  return { user, loading, loginWithGoogle, logout };
+  return { user, loading, loginWithGoogle, loginWithApple, logout };
 };
