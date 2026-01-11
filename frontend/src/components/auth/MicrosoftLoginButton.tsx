@@ -40,13 +40,14 @@ export const MicrosoftLoginButton = () => {
           py: 1.5,
           borderColor: '#00A4EF',
           color: '#00A4EF',
+          textTransform: 'none',
           '&:hover': {
             borderColor: '#00A4EF',
             bgcolor: 'rgba(0, 164, 239, 0.04)',
           }
         }}
       >
-        {loading ? 'ログイン中...' : 'Microsoftでログイン'}
+        {loading ? 'ログイン中...' : 'Microsoftアカウントでログイン'}
       </Button>
     </>
   );
