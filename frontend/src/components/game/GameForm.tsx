@@ -7,9 +7,13 @@ import {
   Alert,
   CircularProgress,
   Paper,
+  Collapse,
+  Fade,
 } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import CelebrationIcon from '@mui/icons-material/Celebration';
+import { keyframes } from '@mui/system';
 import { type Frame } from '../../types/game';
 import { useAuth } from '../../hooks/useAuth';
 import { createGame } from '../../firebase/firestore';
@@ -31,6 +35,13 @@ export const GameForm = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  // Celebration animation for perfect game
+  const bounceAnimation = keyframes`
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-30px); }
+    60% { transform: translateY(-15px); }
+  `;
 
   // Recalculate scores whenever frames change
   useEffect(() => {
@@ -179,17 +190,38 @@ export const GameForm = () => {
       </Box>
 
       {/* Game Status */}
-      <Box sx={{ mt: 3, textAlign: 'center' }}>
-        {gameComplete ? (
-          <Alert severity="success">
-            ゲーム完了！合計スコア: {totalScore}点
-          </Alert>
-        ) : (
-          <Alert severity="info">
-            すべてのフレームを入力してください
-          </Alert>
-        )}
-      </Box>
+      <Collapse in={gameComplete || !gameComplete} timeout={500}>
+        <Box sx={{ mt: 3, textAlign: 'center' }}>
+          {gameComplete ? (
+            <Fade in={true} timeout={600}>
+              <Alert
+                severity={totalScore === 300 ? 'success' : 'success'}
+                sx={{
+                  animation: totalScore === 300 ? `${bounceAnimation} 1s ease-in-out` : 'none',
+                  position: 'relative',
+                  overflow: 'visible',
+                }}
+                icon={totalScore === 300 ? <CelebrationIcon fontSize="large" /> : undefined}
+              >
+                <Typography variant="h6" fontWeight="bold">
+                  ゲーム完了！合計スコア: {totalScore}点
+                </Typography>
+                {totalScore === 300 && (
+                  <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+                    🏆 パーフェクトゲーム達成！ 🏆
+                  </Typography>
+                )}
+              </Alert>
+            </Fade>
+          ) : (
+            <Fade in={true} timeout={300}>
+              <Alert severity="info">
+                すべてのフレームを入力してください
+              </Alert>
+            </Fade>
+          )}
+        </Box>
+      </Collapse>
     </Box>
   );
 };

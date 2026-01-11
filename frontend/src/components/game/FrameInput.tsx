@@ -1,5 +1,6 @@
-import { Box, TextField, Typography, Paper } from '@mui/material';
+import { Box, TextField, Typography, Paper, Slide, Chip } from '@mui/material';
 import { type Frame } from '../../types/game';
+import { keyframes } from '@mui/system';
 
 interface FrameInputProps {
   frame: Frame;
@@ -8,6 +9,19 @@ interface FrameInputProps {
 
 export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
   const isFrame10 = frame.frameNumber === 10;
+
+  // Shine animation for strikes and spares
+  const shineAnimation = keyframes`
+    0% { box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
+  `;
+
+  const spareShineAnimation = keyframes`
+    0% { box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 0 20px rgba(33, 150, 243, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
+  `;
 
   const handleFirstThrowChange = (value: string) => {
     const numValue = value === '' ? null : parseInt(value, 10);
@@ -97,6 +111,17 @@ export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
         bgcolor: frame.isStrike ? 'success.light' : frame.isSpare ? 'info.light' : 'background.paper',
         border: 2,
         borderColor: frame.isStrike ? 'success.main' : frame.isSpare ? 'info.main' : 'divider',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        animation: frame.isStrike
+          ? `${shineAnimation} 1.5s ease-in-out`
+          : frame.isSpare
+          ? `${spareShineAnimation} 1.5s ease-in-out`
+          : 'none',
+        transform: frame.isStrike || frame.isSpare ? 'scale(1.02)' : 'scale(1)',
+        '&:hover': {
+          transform: 'translateY(-4px) scale(1.02)',
+          boxShadow: 4,
+        },
       }}
     >
       <Typography variant="h6" gutterBottom align="center">
@@ -146,22 +171,41 @@ export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
 
       {/* Score Display */}
       <Box sx={{ mt: 2, textAlign: 'center' }}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            transition: 'all 0.3s ease',
+          }}
+        >
           フレームスコア: {frame.frameScore}
         </Typography>
-        <Typography variant="body1" fontWeight="bold">
+        <Typography
+          variant="body1"
+          fontWeight="bold"
+          sx={{
+            transition: 'all 0.3s ease',
+            color: frame.cumulativeScore > 0 ? 'primary.main' : 'text.primary',
+          }}
+        >
           累積スコア: {frame.cumulativeScore}
         </Typography>
-        {frame.isStrike && (
-          <Typography variant="caption" color="success.main" fontWeight="bold">
-            ストライク！
-          </Typography>
-        )}
-        {frame.isSpare && (
-          <Typography variant="caption" color="info.main" fontWeight="bold">
-            スペア！
-          </Typography>
-        )}
+        <Slide direction="up" in={frame.isStrike} timeout={300} mountOnEnter unmountOnExit>
+          <Chip
+            label="ストライク！"
+            color="success"
+            size="small"
+            sx={{ mt: 1, fontWeight: 'bold' }}
+          />
+        </Slide>
+        <Slide direction="up" in={frame.isSpare && !frame.isStrike} timeout={300} mountOnEnter unmountOnExit>
+          <Chip
+            label="スペア！"
+            color="info"
+            size="small"
+            sx={{ mt: 1, fontWeight: 'bold' }}
+          />
+        </Slide>
       </Box>
     </Paper>
   );

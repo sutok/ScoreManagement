@@ -11,6 +11,7 @@ import {
   CircularProgress,
   Alert,
   Chip,
+  Grow,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -173,9 +174,23 @@ export const HistoryPage = () => {
           </Paper>
         ) : (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-            {games.map((game) => (
-              <Box key={game.id} sx={{ flex: '1 1 300px', minWidth: '300px', maxWidth: '100%' }}>
-                <Card elevation={2}>
+            {games.map((game, index) => (
+              <Grow
+                in={true}
+                timeout={300 + index * 100}
+                key={game.id}
+              >
+                <Box sx={{ flex: '1 1 300px', minWidth: '300px', maxWidth: '100%' }}>
+                  <Card
+                    elevation={2}
+                    sx={{
+                      transition: 'all 0.3s ease-in-out',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: 6,
+                      },
+                    }}
+                  >
                   <CardContent>
                     <Box
                       sx={{
@@ -195,7 +210,19 @@ export const HistoryPage = () => {
                       />
                     </Box>
 
-                    <Typography variant="h4" fontWeight="bold" align="center" sx={{ my: 2 }}>
+                    <Typography
+                      variant="h4"
+                      fontWeight="bold"
+                      align="center"
+                      sx={{
+                        my: 2,
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                          color: 'primary.main',
+                        },
+                      }}
+                    >
                       {game.totalScore}
                     </Typography>
 
@@ -226,8 +253,9 @@ export const HistoryPage = () => {
                       削除
                     </Button>
                   </CardActions>
-                </Card>
-              </Box>
+                  </Card>
+                </Box>
+              </Grow>
             ))}
           </Box>
         )}
