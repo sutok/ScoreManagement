@@ -47,6 +47,21 @@ export const useAuth = () => {
     }
   };
 
+  const loginWithMicrosoft = async () => {
+    const provider = new OAuthProvider('microsoft.com');
+    try {
+      await signInWithPopup(auth, provider);
+      trackLogin('microsoft');
+    } catch (error) {
+      console.error('Login error:', error);
+      trackAuthError(error instanceof Error ? error : new Error('Microsoft login failed'), {
+        page: window.location.pathname,
+        action: 'microsoft_login',
+      });
+      throw error;
+    }
+  };
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -61,5 +76,5 @@ export const useAuth = () => {
     }
   };
 
-  return { user, loading, loginWithGoogle, loginWithApple, logout };
+  return { user, loading, loginWithGoogle, loginWithApple, loginWithMicrosoft, logout };
 };
