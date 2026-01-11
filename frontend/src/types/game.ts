@@ -16,6 +16,7 @@ export interface Game {
   totalScore: number;
   gameNumber: number;
   memo?: string;
+  frames?: Frame[]; // Optional: loaded on demand for detail view
   createdAt: Date;
   updatedAt: Date;
 }
