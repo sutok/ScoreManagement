@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getAnalytics, type Analytics } from 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -15,6 +16,13 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Analytics初期化（本番環境のみ）
+let analyticsInstance: Analytics | null = null;
+if (!import.meta.env.DEV && typeof window !== 'undefined') {
+  analyticsInstance = getAnalytics(app);
+}
+export const analytics = analyticsInstance;
 
 // ローカル開発環境ではエミュレーターに接続
 if (import.meta.env.DEV) {

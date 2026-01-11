@@ -26,6 +26,8 @@ import {
 import { FrameInput } from './FrameInput';
 import { ScoreBoard } from './ScoreBoard';
 import { useNavigate } from 'react-router-dom';
+import { trackGameComplete, trackGameSave } from '../../utils/analytics';
+import { trackValidationError, trackFirestoreError } from '../../utils/errorTracking';
 
 export const GameForm = () => {
   const { user } = useAuth();
@@ -48,6 +50,15 @@ export const GameForm = () => {
     const updatedFrames = calculateTotalScore(frames);
     setFrames(updatedFrames);
   }, [frames.map(f => `${f.firstThrow}-${f.secondThrow}-${f.thirdThrow}`).join('|')]);
+
+  // Track game completion
+  useEffect(() => {
+    if (isGameComplete(frames)) {
+      const totalScore = frames[9]?.cumulativeScore || 0;
+      const isPerfect = totalScore === 300;
+      trackGameComplete(totalScore, isPerfect);
+    }
+  }, [frames]);
 
   const handleFrameChange = (index: number, updatedFrame: Frame) => {
     const newFrames = [...frames];
@@ -93,11 +104,20 @@ export const GameForm = () => {
     const validation = validateAllFrames();
     if (!validation.valid) {
       setError(validation.errors.join('\n'));
+      trackValidationError(validation.errors.join('; '), {
+        page: '/new-game',
+        action: 'validate_frames',
+        metadata: { errorCount: validation.errors.length },
+      });
       return;
     }
 
     if (!isGameComplete(frames)) {
       setError('すべてのフレームを入力してください');
+      trackValidationError('Game incomplete', {
+        page: '/new-game',
+        action: 'check_game_complete',
+      });
       return;
     }
 
@@ -106,6 +126,10 @@ export const GameForm = () => {
       await createGame(user.uid, frames, memo);
       setSuccess(true);
 
+      // Track game save
+      const totalScore = frames[9]?.cumulativeScore || 0;
+      trackGameSave(totalScore, !!memo);
+
       // Redirect to history page after 2 seconds
       setTimeout(() => {
         navigate('/history');
@@ -113,6 +137,11 @@ export const GameForm = () => {
     } catch (err) {
       console.error('Failed to save game:', err);
       setError('ゲームの保存に失敗しました');
+      trackFirestoreError(err instanceof Error ? err : new Error('Failed to save game'), {
+        page: '/new-game',
+        action: 'save_game',
+        userId: user?.uid,
+      });
       setSaving(false);
     }
   };

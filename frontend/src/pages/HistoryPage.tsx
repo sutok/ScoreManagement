@@ -21,6 +21,8 @@ import { getGames, deleteGame, getUserStats } from '../firebase/firestore';
 import { type Game } from '../types/game';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { trackGameDelete, trackPageView } from '../utils/analytics';
+import { trackFirestoreError } from '../utils/errorTracking';
 
 export const HistoryPage = () => {
   const navigate = useNavigate();
@@ -50,6 +52,11 @@ export const HistoryPage = () => {
     } catch (err) {
       console.error('Failed to load games:', err);
       setError('ゲーム履歴の読み込みに失敗しました');
+      trackFirestoreError(err instanceof Error ? err : new Error('Failed to load games'), {
+        page: '/history',
+        action: 'load_games',
+        userId: user?.uid,
+      });
     } finally {
       setLoading(false);
     }
@@ -57,17 +64,25 @@ export const HistoryPage = () => {
 
   useEffect(() => {
     loadGames();
+    trackPageView('/history');
   }, [user]);
 
-  const handleDelete = async (gameId: string) => {
+  const handleDelete = async (gameId: string, totalScore: number) => {
     if (!confirm('このゲームを削除しますか？')) return;
 
     try {
       await deleteGame(gameId);
+      trackGameDelete(totalScore);
       await loadGames(); // Reload games after deletion
     } catch (err) {
       console.error('Failed to delete game:', err);
       setError('ゲームの削除に失敗しました');
+      trackFirestoreError(err instanceof Error ? err : new Error('Failed to delete game'), {
+        page: '/history',
+        action: 'delete_game',
+        userId: user?.uid,
+        metadata: { gameId, totalScore },
+      });
     }
   };
 
@@ -248,7 +263,7 @@ export const HistoryPage = () => {
                       size="small"
                       color="error"
                       startIcon={<DeleteIcon />}
-                      onClick={() => handleDelete(game.id)}
+                      onClick={() => handleDelete(game.id, game.totalScore)}
                     >
                       削除
                     </Button>
