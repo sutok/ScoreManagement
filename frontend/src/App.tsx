@@ -1,49 +1,41 @@
-import { useState } from 'react';
-import { Container, Typography, Box, Button } from '@mui/material';
-import { auth } from './firebase/config';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { LoginPage } from './pages/LoginPage';
+import { HomePage } from './pages/HomePage';
+import { NewGamePage } from './pages/NewGamePage';
+import { HistoryPage } from './pages/HistoryPage';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 function App() {
-  const [user] = useState(auth.currentUser);
-
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4, textAlign: 'center' }}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          🎳 ボーリングスコア管理
-        </Typography>
-
-        <Typography variant="h6" color="text.secondary" gutterBottom>
-          Firebase + React プロジェクトセットアップ完了
-        </Typography>
-
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="body1" paragraph>
-            ✅ React + TypeScript + Vite
-          </Typography>
-          <Typography variant="body1" paragraph>
-            ✅ Firebase SDK インストール済み
-          </Typography>
-          <Typography variant="body1" paragraph>
-            ✅ Material-UI セットアップ済み
-          </Typography>
-          <Typography variant="body1" paragraph>
-            ✅ Firebase エミュレーター設定済み
-          </Typography>
-        </Box>
-
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="body2" color="text.secondary">
-            認証状態: {user ? `ログイン中 (${user.email})` : '未ログイン'}
-          </Typography>
-        </Box>
-
-        <Box sx={{ mt: 4 }}>
-          <Button variant="outlined" color="primary" sx={{ mr: 2 }}>
-            次のステップ: 認証機能実装
-          </Button>
-        </Box>
-      </Box>
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/new-game"
+          element={
+            <ProtectedRoute>
+              <NewGamePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <HistoryPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
