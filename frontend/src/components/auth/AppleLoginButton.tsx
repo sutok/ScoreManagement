@@ -42,6 +42,7 @@ export const AppleLoginButton = () => {
           py: 1.5,
           borderColor: '#000',
           color: '#000',
+          textTransform: 'none',
           '&:hover': {
             borderColor: '#000',
             bgcolor: 'rgba(0, 0, 0, 0.04)',

@@ -38,7 +38,7 @@ export const GoogleLoginButton = () => {
         onClick={handleLogin}
         fullWidth
         disabled={loading}
-        sx={{ py: 1.5 }}
+        sx={{ py: 1.5, textTransform: 'none' }}
       >
         {loading ? 'ログイン中...' : 'Googleでログイン'}
       </Button>
