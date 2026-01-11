@@ -1,0 +1,55 @@
+# Firebase
+.firebase/
+.firebaserc
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+*.cache
+
+# Firebase Functions
+functions/node_modules/
+functions/lib/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# VSCode
+.vscode/
+
+# IDEs
+.idea/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Frontend build
+frontend/dist/
+frontend/build/
+frontend/.vite/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Claude Code settings
+.claude/
