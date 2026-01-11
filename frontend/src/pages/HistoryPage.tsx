@@ -21,6 +21,7 @@ import { getGames, deleteGame, getUserStats } from '../firebase/firestore';
 import { type Game } from '../types/game';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
+import { trackGameDelete, trackPageView } from '../utils/analytics';
 
 export const HistoryPage = () => {
   const navigate = useNavigate();
@@ -57,13 +58,15 @@ export const HistoryPage = () => {
 
   useEffect(() => {
     loadGames();
+    trackPageView('/history');
   }, [user]);
 
-  const handleDelete = async (gameId: string) => {
+  const handleDelete = async (gameId: string, totalScore: number) => {
     if (!confirm('このゲームを削除しますか？')) return;
 
     try {
       await deleteGame(gameId);
+      trackGameDelete(totalScore);
       await loadGames(); // Reload games after deletion
     } catch (err) {
       console.error('Failed to delete game:', err);
@@ -248,7 +251,7 @@ export const HistoryPage = () => {
                       size="small"
                       color="error"
                       startIcon={<DeleteIcon />}
-                      onClick={() => handleDelete(game.id)}
+                      onClick={() => handleDelete(game.id, game.totalScore)}
                     >
                       削除
                     </Button>

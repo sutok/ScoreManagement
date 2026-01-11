@@ -1,13 +1,19 @@
+import { useEffect } from 'react';
 import { Container, Typography, Box, Button, Paper, Avatar } from '@mui/material';
 import { useAuth } from '../hooks/useAuth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SportsIcon from '@mui/icons-material/Sports';
 import HistoryIcon from '@mui/icons-material/History';
 import { useNavigate } from 'react-router-dom';
+import { trackPageView } from '../utils/analytics';
 
 export const HomePage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    trackPageView('/');
+  }, []);
 
   const handleLogout = async () => {
     try {

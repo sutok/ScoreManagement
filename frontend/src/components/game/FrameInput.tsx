@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { Box, TextField, Typography, Paper, Slide, Chip } from '@mui/material';
 import { type Frame } from '../../types/game';
 import { keyframes } from '@mui/system';
+import { trackStrike, trackSpare } from '../../utils/analytics';
 
 interface FrameInputProps {
   frame: Frame;
@@ -9,6 +11,20 @@ interface FrameInputProps {
 
 export const FrameInput = ({ frame, onChange }: FrameInputProps) => {
   const isFrame10 = frame.frameNumber === 10;
+  const prevStrikeRef = useRef(frame.isStrike);
+  const prevSpareRef = useRef(frame.isSpare);
+
+  // Track strikes and spares
+  useEffect(() => {
+    if (frame.isStrike && !prevStrikeRef.current) {
+      trackStrike(frame.frameNumber);
+    }
+    if (frame.isSpare && !frame.isStrike && !prevSpareRef.current) {
+      trackSpare(frame.frameNumber);
+    }
+    prevStrikeRef.current = frame.isStrike;
+    prevSpareRef.current = frame.isSpare;
+  }, [frame.isStrike, frame.isSpare, frame.frameNumber]);
 
   // Shine animation for strikes and spares
   const shineAnimation = keyframes`

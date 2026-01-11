@@ -26,6 +26,7 @@ import {
 import { FrameInput } from './FrameInput';
 import { ScoreBoard } from './ScoreBoard';
 import { useNavigate } from 'react-router-dom';
+import { trackGameComplete, trackGameSave } from '../../utils/analytics';
 
 export const GameForm = () => {
   const { user } = useAuth();
@@ -48,6 +49,15 @@ export const GameForm = () => {
     const updatedFrames = calculateTotalScore(frames);
     setFrames(updatedFrames);
   }, [frames.map(f => `${f.firstThrow}-${f.secondThrow}-${f.thirdThrow}`).join('|')]);
+
+  // Track game completion
+  useEffect(() => {
+    if (isGameComplete(frames)) {
+      const totalScore = frames[9]?.cumulativeScore || 0;
+      const isPerfect = totalScore === 300;
+      trackGameComplete(totalScore, isPerfect);
+    }
+  }, [frames]);
 
   const handleFrameChange = (index: number, updatedFrame: Frame) => {
     const newFrames = [...frames];
@@ -105,6 +115,10 @@ export const GameForm = () => {
       setSaving(true);
       await createGame(user.uid, frames, memo);
       setSuccess(true);
+
+      // Track game save
+      const totalScore = frames[9]?.cumulativeScore || 0;
+      trackGameSave(totalScore, !!memo);
 
       // Redirect to history page after 2 seconds
       setTimeout(() => {
