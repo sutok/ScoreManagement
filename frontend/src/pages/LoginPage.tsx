@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Paper } from '@mui/material';
 import { GoogleLoginButton } from '../components/auth/GoogleLoginButton';
-import { AppleLoginButton } from '../components/auth/AppleLoginButton';
+// import { AppleLoginButton } from '../components/auth/AppleLoginButton';
 import { useAuth } from '../hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 
@@ -34,10 +34,7 @@ export const LoginPage = () => {
               ゲームのスコアを記録・管理するアプリケーション
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <GoogleLoginButton />
-            <AppleLoginButton />
-          </Box>
+          <GoogleLoginButton />
         </Paper>
       </Box>
     </Container>
