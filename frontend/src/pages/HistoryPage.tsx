@@ -12,16 +12,20 @@ import {
   Alert,
   Chip,
   Grow,
+  Collapse,
+  IconButton,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAuth } from '../hooks/useAuth';
-import { getGames, deleteGame, getUserStats } from '../firebase/firestore';
+import { getGames, getFrames, deleteGame, getUserStats } from '../firebase/firestore';
 import { type Game } from '../types/game';
+import { ScoreBoard } from '../components/game/ScoreBoard';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
-import { trackGameDelete, trackPageView } from '../utils/analytics';
+import { trackGameDelete, trackPageView, trackEvent } from '../utils/analytics';
 import { trackFirestoreError } from '../utils/errorTracking';
 
 export const HistoryPage = () => {
@@ -30,6 +34,8 @@ export const HistoryPage = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedGameId, setExpandedGameId] = useState<string | null>(null);
+  const [loadingFrames, setLoadingFrames] = useState<string | null>(null);
   const [stats, setStats] = useState({
     totalGames: 0,
     averageScore: 0,
@@ -66,6 +72,52 @@ export const HistoryPage = () => {
     loadGames();
     trackPageView('/history');
   }, [user]);
+
+  const handleExpandGame = async (gameId: string) => {
+    // If clicking the same game, just toggle
+    if (expandedGameId === gameId) {
+      setExpandedGameId(null);
+      return;
+    }
+
+    // Find the game in the list
+    const game = games.find((g) => g.id === gameId);
+    if (!game) return;
+
+    // If game already has frames loaded, just expand
+    if (game.frames) {
+      setExpandedGameId(gameId);
+      trackEvent('view_game_detail', { game_id: gameId, total_score: game.totalScore });
+      return;
+    }
+
+    // Load frames from Firestore
+    try {
+      setLoadingFrames(gameId);
+      const frames = await getFrames(gameId);
+
+      // Update the game with frames
+      setGames((prevGames) =>
+        prevGames.map((g) =>
+          g.id === gameId ? { ...g, frames } : g
+        )
+      );
+
+      setExpandedGameId(gameId);
+      trackEvent('view_game_detail', { game_id: gameId, total_score: game.totalScore });
+    } catch (err) {
+      console.error('Failed to load frames:', err);
+      setError('フレームの読み込みに失敗しました');
+      trackFirestoreError(err instanceof Error ? err : new Error('Failed to load frames'), {
+        page: '/history',
+        action: 'load_frames',
+        userId: user?.uid,
+        metadata: { gameId },
+      });
+    } finally {
+      setLoadingFrames(null);
+    }
+  };
 
   const handleDelete = async (gameId: string, totalScore: number) => {
     if (!confirm('このゲームを削除しますか？')) return;
@@ -201,12 +253,15 @@ export const HistoryPage = () => {
                     sx={{
                       transition: 'all 0.3s ease-in-out',
                       '&:hover': {
-                        transform: 'translateY(-8px)',
+                        transform: expandedGameId === game.id ? 'none' : 'translateY(-8px)',
                         boxShadow: 6,
                       },
                     }}
                   >
-                  <CardContent>
+                  <CardContent
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => handleExpandGame(game.id)}
+                  >
                     <Box
                       sx={{
                         display: 'flex',
@@ -218,11 +273,22 @@ export const HistoryPage = () => {
                       <Typography variant="body2" color="text.secondary">
                         {format(game.playedAt, 'yyyy年M月d日(E)', { locale: ja })}
                       </Typography>
-                      <Chip
-                        label={`${game.totalScore}点`}
-                        color={getScoreColor(game.totalScore)}
-                        size="small"
-                      />
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Chip
+                          label={`${game.totalScore}点`}
+                          color={getScoreColor(game.totalScore)}
+                          size="small"
+                        />
+                        <IconButton
+                          size="small"
+                          sx={{
+                            transform: expandedGameId === game.id ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.3s',
+                          }}
+                        >
+                          <ExpandMoreIcon />
+                        </IconButton>
+                      </Box>
                     </Box>
 
                     <Typography
@@ -258,12 +324,34 @@ export const HistoryPage = () => {
                       </Typography>
                     )}
                   </CardContent>
+
+                  {/* Expanded Detail View */}
+                  <Collapse in={expandedGameId === game.id} timeout="auto" unmountOnExit>
+                    <CardContent sx={{ pt: 0, bgcolor: 'grey.50' }}>
+                      {loadingFrames === game.id ? (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+                          <CircularProgress size={24} />
+                        </Box>
+                      ) : game.frames ? (
+                        <Box>
+                          <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                            スコア詳細
+                          </Typography>
+                          <ScoreBoard frames={game.frames} />
+                        </Box>
+                      ) : null}
+                    </CardContent>
+                  </Collapse>
+
                   <CardActions>
                     <Button
                       size="small"
                       color="error"
                       startIcon={<DeleteIcon />}
-                      onClick={() => handleDelete(game.id, game.totalScore)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(game.id, game.totalScore);
+                      }}
                     >
                       削除
                     </Button>
