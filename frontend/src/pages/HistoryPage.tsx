@@ -22,6 +22,7 @@ import { type Game } from '../types/game';
 import { format } from 'date-fns';
 import { ja } from 'date-fns/locale';
 import { trackGameDelete, trackPageView } from '../utils/analytics';
+import { trackFirestoreError } from '../utils/errorTracking';
 
 export const HistoryPage = () => {
   const navigate = useNavigate();
@@ -51,6 +52,11 @@ export const HistoryPage = () => {
     } catch (err) {
       console.error('Failed to load games:', err);
       setError('ゲーム履歴の読み込みに失敗しました');
+      trackFirestoreError(err instanceof Error ? err : new Error('Failed to load games'), {
+        page: '/history',
+        action: 'load_games',
+        userId: user?.uid,
+      });
     } finally {
       setLoading(false);
     }
@@ -71,6 +77,12 @@ export const HistoryPage = () => {
     } catch (err) {
       console.error('Failed to delete game:', err);
       setError('ゲームの削除に失敗しました');
+      trackFirestoreError(err instanceof Error ? err : new Error('Failed to delete game'), {
+        page: '/history',
+        action: 'delete_game',
+        userId: user?.uid,
+        metadata: { gameId, totalScore },
+      });
     }
   };
 

@@ -27,6 +27,7 @@ import { FrameInput } from './FrameInput';
 import { ScoreBoard } from './ScoreBoard';
 import { useNavigate } from 'react-router-dom';
 import { trackGameComplete, trackGameSave } from '../../utils/analytics';
+import { trackValidationError, trackFirestoreError } from '../../utils/errorTracking';
 
 export const GameForm = () => {
   const { user } = useAuth();
@@ -103,11 +104,20 @@ export const GameForm = () => {
     const validation = validateAllFrames();
     if (!validation.valid) {
       setError(validation.errors.join('\n'));
+      trackValidationError(validation.errors.join('; '), {
+        page: '/new-game',
+        action: 'validate_frames',
+        metadata: { errorCount: validation.errors.length },
+      });
       return;
     }
 
     if (!isGameComplete(frames)) {
       setError('すべてのフレームを入力してください');
+      trackValidationError('Game incomplete', {
+        page: '/new-game',
+        action: 'check_game_complete',
+      });
       return;
     }
 
@@ -127,6 +137,11 @@ export const GameForm = () => {
     } catch (err) {
       console.error('Failed to save game:', err);
       setError('ゲームの保存に失敗しました');
+      trackFirestoreError(err instanceof Error ? err : new Error('Failed to save game'), {
+        page: '/new-game',
+        action: 'save_game',
+        userId: user?.uid,
+      });
       setSaving(false);
     }
   };

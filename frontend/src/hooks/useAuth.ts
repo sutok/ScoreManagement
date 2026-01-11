@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { type User, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { trackLogin, trackLogout } from '../utils/analytics';
+import { trackAuthError } from '../utils/errorTracking';
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -23,6 +24,10 @@ export const useAuth = () => {
       trackLogin('google');
     } catch (error) {
       console.error('Login error:', error);
+      trackAuthError(error instanceof Error ? error : new Error('Login failed'), {
+        page: window.location.pathname,
+        action: 'google_login',
+      });
       throw error;
     }
   };
@@ -33,6 +38,10 @@ export const useAuth = () => {
       trackLogout();
     } catch (error) {
       console.error('Logout error:', error);
+      trackAuthError(error instanceof Error ? error : new Error('Logout failed'), {
+        page: window.location.pathname,
+        action: 'logout',
+      });
       throw error;
     }
   };
