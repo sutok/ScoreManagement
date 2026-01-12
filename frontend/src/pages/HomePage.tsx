@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SportsIcon from '@mui/icons-material/Sports';
 import HistoryIcon from '@mui/icons-material/History';
+import StoreIcon from '@mui/icons-material/Store';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
@@ -85,6 +86,15 @@ export const HomePage = () => {
             sx={{ py: 2 }}
           >
             {t('home.viewHistory')}
+          </Button>
+          <Button
+            variant="outlined"
+            size="large"
+            startIcon={<StoreIcon />}
+            onClick={() => navigate('/facilities')}
+            sx={{ py: 2 }}
+          >
+            施設管理
           </Button>
         </Box>
       </Box>
