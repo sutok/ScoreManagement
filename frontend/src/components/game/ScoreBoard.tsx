@@ -49,7 +49,8 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
           <Paper
             elevation={1}
             sx={{
-              p: 0.5,
+              px: '4px',
+              py: '4px',
               bgcolor: frame.isStrike
                 ? 'success.light'
                 : frame.isSpare
