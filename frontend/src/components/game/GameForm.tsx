@@ -14,6 +14,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import { keyframes } from '@mui/system';
+import { useTranslation } from 'react-i18next';
 import { type Frame } from '../../types/game';
 import { useAuth } from '../../hooks/useAuth';
 import { createGame } from '../../firebase/firestore';
@@ -32,6 +33,7 @@ import { trackValidationError, trackFirestoreError } from '../../utils/errorTrac
 export const GameForm = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [frames, setFrames] = useState<Frame[]>(initializeFrames());
   const [memo, setMemo] = useState('');
   const [saving, setSaving] = useState(false);
@@ -85,7 +87,7 @@ export const GameForm = () => {
       );
 
       if (!validation.valid && validation.error) {
-        errors.push(`${frame.frameNumber}フレーム: ${validation.error}`);
+        errors.push(`${t('newGame.frame', { number: frame.frameNumber })}: ${validation.error}`);
       }
     }
 
@@ -94,7 +96,7 @@ export const GameForm = () => {
 
   const handleSubmit = async () => {
     if (!user) {
-      setError('ログインが必要です');
+      setError(t('newGame.loginRequired'));
       return;
     }
 
@@ -113,7 +115,7 @@ export const GameForm = () => {
     }
 
     if (!isGameComplete(frames)) {
-      setError('すべてのフレームを入力してください');
+      setError(t('newGame.fillAllFrames'));
       trackValidationError('Game incomplete', {
         page: '/new-game',
         action: 'check_game_complete',
@@ -136,7 +138,7 @@ export const GameForm = () => {
       }, 2000);
     } catch (err) {
       console.error('Failed to save game:', err);
-      setError('ゲームの保存に失敗しました');
+      setError(t('newGame.saveError'));
       trackFirestoreError(err instanceof Error ? err : new Error('Failed to save game'), {
         page: '/new-game',
         action: 'save_game',
@@ -158,7 +160,7 @@ export const GameForm = () => {
 
       {/* Frame Inputs */}
       <Typography variant="h5" gutterBottom>
-        スコア入力
+        {t('newGame.scoreInput')}
       </Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 3 }}>
         {frames.map((frame, index) => (
@@ -173,14 +175,14 @@ export const GameForm = () => {
 
       {/* Memo */}
       <TextField
-        label="メモ（任意）"
+        label={t('newGame.memo')}
         value={memo}
         onChange={(e) => setMemo(e.target.value)}
         fullWidth
         multiline
         rows={3}
         sx={{ mb: 3 }}
-        placeholder="ゲームの感想やメモを記録できます"
+        placeholder={t('newGame.memoPlaceholder')}
       />
 
       {/* Error Display */}
@@ -193,7 +195,7 @@ export const GameForm = () => {
       {/* Success Display */}
       {success && (
         <Alert severity="success" sx={{ mb: 2 }}>
-          ゲームを保存しました！履歴ページに移動します...
+          {t('newGame.gameSaved')}
         </Alert>
       )}
 
@@ -205,7 +207,7 @@ export const GameForm = () => {
           onClick={handleReset}
           disabled={saving}
         >
-          リセット
+          {t('newGame.reset')}
         </Button>
         <Button
           variant="contained"
@@ -214,7 +216,7 @@ export const GameForm = () => {
           disabled={!gameComplete || saving || success}
           size="large"
         >
-          {saving ? '保存中...' : 'ゲームを保存'}
+          {saving ? t('newGame.saving') : t('newGame.saveGame')}
         </Button>
       </Box>
 
@@ -233,11 +235,11 @@ export const GameForm = () => {
                 icon={totalScore === 300 ? <CelebrationIcon fontSize="large" /> : undefined}
               >
                 <Typography variant="h6" fontWeight="bold">
-                  ゲーム完了！合計スコア: {totalScore}点
+                  {t('newGame.gameComplete', { score: totalScore })}
                 </Typography>
                 {totalScore === 300 && (
                   <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
-                    🏆 パーフェクトゲーム達成！ 🏆
+                    {t('newGame.perfectGame')}
                   </Typography>
                 )}
               </Alert>
@@ -245,7 +247,7 @@ export const GameForm = () => {
           ) : (
             <Fade in={true} timeout={300}>
               <Alert severity="info">
-                すべてのフレームを入力してください
+                {t('newGame.fillAllFrames')}
               </Alert>
             </Fade>
           )}
