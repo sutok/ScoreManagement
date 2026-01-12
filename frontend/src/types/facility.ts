@@ -34,6 +34,8 @@ export interface Facility {
   };
   numberOfLanes: number;
   companyId: string;
+  createdBy?: string; // 作成者のuserId（申請者）
+  approved?: Date; // 承認日時（未設定の場合は申請中）
   createdAt: Date;
   updatedAt: Date;
 }

@@ -96,7 +96,7 @@ export const createFacility = async (
 };
 
 /**
- * Get all facilities
+ * Get all facilities (approved only - Firestore rules enforce this for non-admin users)
  */
 export const getFacilities = async (): Promise<Facility[]> => {
   try {
@@ -117,6 +117,7 @@ export const getFacilities = async (): Promise<Facility[]> => {
         businessHours: data.businessHours,
         numberOfLanes: data.numberOfLanes,
         companyId: data.companyId,
+        approved: data.approved ? timestampToDate(data.approved) : undefined,
         createdAt: timestampToDate(data.createdAt),
         updatedAt: timestampToDate(data.updatedAt),
       } as Facility;
@@ -155,6 +156,7 @@ export const getFacilitiesByPrefecture = async (
         businessHours: data.businessHours,
         numberOfLanes: data.numberOfLanes,
         companyId: data.companyId,
+        approved: data.approved ? timestampToDate(data.approved) : undefined,
         createdAt: timestampToDate(data.createdAt),
         updatedAt: timestampToDate(data.updatedAt),
       } as Facility;
@@ -189,6 +191,7 @@ export const getFacility = async (facilityId: string): Promise<Facility | null> 
       businessHours: data.businessHours,
       numberOfLanes: data.numberOfLanes,
       companyId: data.companyId,
+      approved: data.approved ? timestampToDate(data.approved) : undefined,
       createdAt: timestampToDate(data.createdAt),
       updatedAt: timestampToDate(data.updatedAt),
     } as Facility;
@@ -329,6 +332,131 @@ export const removeFacilityMember = async (memberId: string): Promise<void> => {
     await deleteDoc(memberRef);
   } catch (error) {
     console.error('Error removing facility member:', error);
+    throw error;
+  }
+};
+
+// ===== Facility Application Operations =====
+
+/**
+ * Apply for a new facility (creates facility with approved=null)
+ */
+export const applyFacility = async (
+  facilityData: Omit<Facility, 'id' | 'approved' | 'createdAt' | 'updatedAt'>,
+  userId: string
+): Promise<string> => {
+  try {
+    const facilitiesRef = collection(db, 'facilities');
+    const facilityDoc = await addDoc(facilitiesRef, {
+      ...facilityData,
+      createdBy: userId, // Track who submitted the application
+      // approved field is intentionally NOT set (null/undefined = pending)
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    });
+    return facilityDoc.id;
+  } catch (error) {
+    console.error('Error applying for facility:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get pending facilities (unapproved only - admin only)
+ */
+export const getPendingFacilities = async (): Promise<Facility[]> => {
+  try {
+    const facilitiesRef = collection(db, 'facilities');
+    const q = query(facilitiesRef, orderBy('createdAt', 'desc'));
+    const snapshot = await getDocs(q);
+
+    // Filter for unapproved facilities (approved field doesn't exist or is null)
+    // Note: Firestore rules ensure only admins can see these
+    return snapshot.docs
+      .filter((doc) => {
+        const data = doc.data();
+        return !data.approved;
+      })
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          name: data.name,
+          branchName: data.branchName,
+          address: data.address,
+          prefecture: data.prefecture,
+          city: data.city,
+          phoneNumber: data.phoneNumber,
+          businessHours: data.businessHours,
+          numberOfLanes: data.numberOfLanes,
+          companyId: data.companyId,
+          createdBy: data.createdBy, // Include applicant userId
+          approved: data.approved ? timestampToDate(data.approved) : undefined,
+          createdAt: timestampToDate(data.createdAt),
+          updatedAt: timestampToDate(data.updatedAt),
+        } as Facility;
+      });
+  } catch (error) {
+    console.error('Error getting pending facilities:', error);
+    throw error;
+  }
+};
+
+/**
+ * Approve a facility application (admin only)
+ * - Sets approved timestamp
+ * - Updates applicant's role to facility_manager if they are 'user'
+ * - Adds facility to applicant's managed facilities
+ */
+export const approveFacility = async (
+  facilityId: string,
+  applicantUserId: string
+): Promise<void> => {
+  try {
+    // Update facility: set approved timestamp
+    const facilityRef = doc(db, 'facilities', facilityId);
+    await updateDoc(facilityRef, {
+      approved: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    });
+
+    // Update user role: import is needed
+    // This function will be imported from roles.ts
+    // For now, we'll do it directly
+    const roleRef = doc(db, 'roles', applicantUserId);
+    const roleSnap = await getDoc(roleRef);
+
+    if (roleSnap.exists()) {
+      const roleData = roleSnap.data();
+
+      // Update role to facility_manager if currently 'user'
+      if (roleData.role === 'user') {
+        await updateDoc(roleRef, {
+          role: 'facility_manager',
+          facilities: [facilityId],
+          updatedAt: Timestamp.now(),
+        });
+      } else if (roleData.role === 'facility_manager') {
+        // If already facility_manager, just add to facilities array
+        const currentFacilities = roleData.facilities || [];
+        if (!currentFacilities.includes(facilityId)) {
+          await updateDoc(roleRef, {
+            facilities: [...currentFacilities, facilityId],
+            updatedAt: Timestamp.now(),
+          });
+        }
+      }
+    } else {
+      // Create role document if it doesn't exist
+      await updateDoc(roleRef, {
+        role: 'facility_manager',
+        facilities: [facilityId],
+        createdAt: Timestamp.now(),
+        updatedAt: Timestamp.now(),
+      });
+    }
+  } catch (error) {
+    console.error('Error approving facility:', error);
     throw error;
   }
 };
