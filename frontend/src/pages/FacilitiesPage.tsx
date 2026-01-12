@@ -20,6 +20,7 @@ import {
   updateFacility,
   deleteFacility,
 } from '../firebase/facilities';
+import { addManagedFacility } from '../firebase/roles';
 import { FacilityList } from '../components/facility/FacilityList';
 import { FacilityForm } from '../components/facility/FacilityForm';
 import { type Facility } from '../types/facility';
@@ -41,16 +42,33 @@ export const FacilitiesPage = () => {
   // TODO: Get company ID from user data or allow selection
   const companyId = 'default-company'; // This should come from user's company
 
+  // Get unique facility names for facility_manager to choose from
+  const existingFacilityNames = Array.from(
+    new Set(facilities.map((f) => f.name))
+  ).sort();
+
   useEffect(() => {
-    loadFacilities();
-  }, []);
+    // Only load facilities when user information is available
+    if (user) {
+      loadFacilities();
+    }
+  }, [user, userRole]); // Re-run when user or userRole changes
 
   const loadFacilities = async () => {
     try {
       setLoading(true);
       setError('');
       const data = await getFacilities();
-      setFacilities(data);
+
+      // Filter facilities based on user role
+      let filteredData = data;
+      if (userRole === 'facility_manager' && user?.facilities) {
+        // Facility managers can only see their assigned facilities
+        filteredData = data.filter(facility => user.facilities?.includes(facility.id));
+      }
+      // Admin can see all facilities (no filtering)
+
+      setFacilities(filteredData);
     } catch (err) {
       console.error('Error loading facilities:', err);
       setError('施設の読み込みに失敗しました');
@@ -63,7 +81,13 @@ export const FacilitiesPage = () => {
     facilityData: Omit<Facility, 'id' | 'createdAt' | 'updatedAt'>
   ) => {
     try {
-      await createFacility(facilityData);
+      const newFacilityId = await createFacility(facilityData);
+
+      // If facility_manager created the facility, add it to their managed facilities
+      if (userRole === 'facility_manager' && user?.uid) {
+        await addManagedFacility(user.uid, newFacilityId);
+      }
+
       setShowForm(false);
       await loadFacilities();
     } catch (err) {
@@ -188,6 +212,8 @@ export const FacilitiesPage = () => {
               companyId={companyId}
               initialData={editingFacility || undefined}
               isEdit={!!editingFacility}
+              userRole={userRole}
+              existingFacilityNames={existingFacilityNames}
             />
           </Box>
         </DialogContent>

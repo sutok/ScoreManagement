@@ -23,6 +23,7 @@ export interface Company {
 export interface Facility {
   id: string;
   name: string;
+  branchName?: string; // 支店名（オプション）
   address: string;
   prefecture: string;
   city: string;
