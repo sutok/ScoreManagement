@@ -18,6 +18,7 @@ export const PhoneLoginButton = () => {
   useEffect(() => {
     // Initialize RecaptchaVerifier
     const verifier = new RecaptchaVerifier(
+      auth,
       'recaptcha-container',
       {
         size: 'invisible',
@@ -27,8 +28,7 @@ export const PhoneLoginButton = () => {
         'expired-callback': () => {
           setError('reCAPTCHAの有効期限が切れました。もう一度お試しください。');
         }
-      },
-      auth
+      }
     );
     setRecaptchaVerifier(verifier);
 
@@ -79,9 +79,9 @@ export const PhoneLoginButton = () => {
       // Recreate recaptcha verifier on error
       recaptchaVerifier.clear();
       const newVerifier = new RecaptchaVerifier(
+        auth,
         'recaptcha-container',
-        { size: 'invisible' },
-        auth
+        { size: 'invisible' }
       );
       setRecaptchaVerifier(newVerifier);
     } finally {
