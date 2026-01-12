@@ -340,15 +340,11 @@ export const searchRecurringTournaments = async (
 ): Promise<RecurringTournament[]> => {
   try {
     const tournamentsRef = collection(db, 'recurringTournaments');
-    let q = query(tournamentsRef, orderBy('createdAt', 'desc'));
+    // Simple query without where clause to avoid index requirement
+    const q = query(tournamentsRef, orderBy('createdAt', 'desc'));
 
-    // Apply active filter
-    if (filters.isActive !== undefined) {
-      q = query(q, where('isActive', '==', filters.isActive));
-    }
-
-    // Note: Level filter is applied in memory to support both single and array values
-    // Firestore queries don't work well with mixed types (string vs array)
+    // Note: All filters are applied in memory to avoid Firestore index requirements
+    // This is acceptable for small to medium datasets
 
     const snapshot = await getDocs(q);
 
@@ -369,6 +365,11 @@ export const searchRecurringTournaments = async (
       } as RecurringTournament;
     });
 
+    // Apply isActive filter in memory
+    if (filters.isActive !== undefined) {
+      results = results.filter((t) => t.isActive === filters.isActive);
+    }
+
     // Apply level filter in memory (supports both single value and array)
     if (filters.level) {
       results = results.filter((t) => {
@@ -379,7 +380,7 @@ export const searchRecurringTournaments = async (
       });
     }
 
-    // Apply entry fee filters in memory (Firestore doesn't support range queries on non-indexed fields)
+    // Apply entry fee filters in memory
     if (filters.minEntryFee !== undefined) {
       results = results.filter((t) => t.entryFee >= filters.minEntryFee!);
     }
