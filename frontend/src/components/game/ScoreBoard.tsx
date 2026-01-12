@@ -153,14 +153,14 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                 {!frame.isStrike && (
                   <Box
                     sx={{
-                      width: 24,
-                      height: 24,
+                      width: 20,
+                      height: 20,
                       border: '1px solid',
                       borderColor: 'divider',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '0.75rem',
+                      fontSize: '0.7rem',
                       fontWeight: 'bold',
                     }}
                   >
