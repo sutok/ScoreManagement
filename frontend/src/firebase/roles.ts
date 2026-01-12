@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from './config';
 import { type UserRoleDocument } from '../types/user';
 
@@ -101,4 +101,24 @@ export const getManagedFacilities = async (userId: string): Promise<string[] | '
   }
 
   return [];
+};
+
+/**
+ * Add a facility to user's managed facilities list
+ * Only facility_manager can add facilities to their own list
+ */
+export const addManagedFacility = async (
+  userId: string,
+  facilityId: string
+): Promise<void> => {
+  try {
+    const roleRef = doc(db, 'roles', userId);
+    await updateDoc(roleRef, {
+      facilities: arrayUnion(facilityId),
+      updatedAt: new Date(),
+    });
+  } catch (error) {
+    console.error('Error adding managed facility:', error);
+    throw error;
+  }
 };

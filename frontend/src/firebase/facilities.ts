@@ -109,6 +109,7 @@ export const getFacilities = async (): Promise<Facility[]> => {
       return {
         id: doc.id,
         name: data.name,
+        branchName: data.branchName,
         address: data.address,
         prefecture: data.prefecture,
         city: data.city,
@@ -146,6 +147,7 @@ export const getFacilitiesByPrefecture = async (
       return {
         id: doc.id,
         name: data.name,
+        branchName: data.branchName,
         address: data.address,
         prefecture: data.prefecture,
         city: data.city,
@@ -179,6 +181,7 @@ export const getFacility = async (facilityId: string): Promise<Facility | null> 
     return {
       id: facilitySnap.id,
       name: data.name,
+      branchName: data.branchName,
       address: data.address,
       prefecture: data.prefecture,
       city: data.city,

@@ -41,8 +41,11 @@ export const RecurringTournamentsPage = () => {
   const canManageTournaments = userRole === 'admin' || userRole === 'facility_manager';
 
   useEffect(() => {
-    loadData();
-  }, []);
+    // Only load data when user information is available
+    if (user) {
+      loadData();
+    }
+  }, [user, userRole]); // Re-run when user or userRole changes
 
   const loadData = async () => {
     try {
@@ -54,9 +57,26 @@ export const RecurringTournamentsPage = () => {
         getFacilities(),
       ]);
 
+      // Filter data based on user role
+      let filteredFacilities = facilitiesData;
+      let filteredTournaments = tournamentsData;
+
+      if (userRole === 'facility_manager' && user?.facilities) {
+        // Facility managers can only see their assigned facilities
+        filteredFacilities = facilitiesData.filter(facility =>
+          user.facilities?.includes(facility.id)
+        );
+
+        // And only tournaments for their facilities
+        filteredTournaments = tournamentsData.filter(tournament =>
+          user.facilities?.includes(tournament.facilityId)
+        );
+      }
+      // Admin can see all tournaments and facilities (no filtering)
+
       // Enrich tournaments with facility information
-      const enrichedTournaments = tournamentsData.map((tournament) => {
-        const facility = facilitiesData.find((f) => f.id === tournament.facilityId);
+      const enrichedTournaments = filteredTournaments.map((tournament) => {
+        const facility = filteredFacilities.find((f) => f.id === tournament.facilityId);
         return {
           ...tournament,
           facilityName: facility?.name,
@@ -65,7 +85,7 @@ export const RecurringTournamentsPage = () => {
       });
 
       setTournaments(enrichedTournaments);
-      setFacilities(facilitiesData);
+      setFacilities(filteredFacilities);
     } catch (err) {
       console.error('Error loading data:', err);
       setError('データの読み込みに失敗しました');

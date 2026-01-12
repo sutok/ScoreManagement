@@ -52,9 +52,16 @@ export const FacilityList = ({
                   mb: 1,
                 }}
               >
-                <Typography variant="h6" component="div">
-                  {facility.name}
-                </Typography>
+                <Box>
+                  <Typography variant="h6" component="div">
+                    {facility.name}
+                  </Typography>
+                  {facility.branchName && (
+                    <Typography variant="caption" color="text.secondary">
+                      {facility.branchName}
+                    </Typography>
+                  )}
+                </Box>
                 {canEdit && (
                   <Box>
                     {onEdit && (

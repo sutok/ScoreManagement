@@ -29,8 +29,7 @@ service cloud.firestore {
     function canManageFacility(facilityId) {
       return request.auth != null &&
              (isAdmin() ||
-              (isFacilityManager() &&
-               getUserRole().facilities.hasAny([facilityId])));
+              (isFacilityManager() && facilityId in getUserRole().facilities));
     }
 
     // Legacy: Check if user is member of specified facility (via facilityMembers collection)
@@ -45,6 +44,12 @@ service cloud.firestore {
     match /roles/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;
       allow write: if isAdmin();
+      // facility_managerは自分のfacilities配列のみ更新可能
+      allow update: if request.auth != null &&
+                       request.auth.uid == userId &&
+                       isFacilityManager() &&
+                       request.resource.data.role == resource.data.role &&
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['facilities', 'updatedAt']);
     }
 
     // ユーザー情報: 本人のみ読み書き可能

@@ -21,6 +21,8 @@ interface FacilityFormProps {
   companyId: string;
   initialData?: Facility;
   isEdit?: boolean;
+  userRole?: string;
+  existingFacilityNames?: string[];
 }
 
 export const FacilityForm = ({
@@ -29,10 +31,13 @@ export const FacilityForm = ({
   companyId,
   initialData,
   isEdit = false,
+  userRole = 'user',
+  existingFacilityNames = [],
 }: FacilityFormProps) => {
 
   const [formData, setFormData] = useState({
     name: initialData?.name || '',
+    branchName: initialData?.branchName || '',
     address: initialData?.address || '',
     prefecture: initialData?.prefecture || '',
     city: initialData?.city || '',
@@ -94,6 +99,7 @@ export const FacilityForm = ({
     try {
       await onSubmit({
         name: formData.name,
+        branchName: formData.branchName || undefined,
         address: formData.address,
         prefecture: formData.prefecture,
         city: formData.city,
@@ -127,13 +133,56 @@ export const FacilityForm = ({
       <Box component="form" onSubmit={handleSubmit}>
         <Stack spacing={2}>
           {/* 施設名 */}
+          {userRole === 'facility_manager' && !isEdit ? (
+            // facility_manager: 新規作成時は既存の施設名から選択
+            <FormControl fullWidth required>
+              <InputLabel>施設名</InputLabel>
+              <Select
+                value={formData.name}
+                label="施設名"
+                onChange={(e) => handleChange('name', e.target.value)}
+                disabled={isSubmitting}
+              >
+                {existingFacilityNames.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          ) : userRole === 'facility_manager' && isEdit ? (
+            // facility_manager: 編集時は読み取り専用
+            <TextField
+              required
+              fullWidth
+              label="施設名"
+              value={formData.name}
+              disabled
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          ) : (
+            // admin: 自由に入力・編集可能
+            <TextField
+              required
+              fullWidth
+              label="施設名"
+              value={formData.name}
+              onChange={(e) => handleChange('name', e.target.value)}
+              disabled={isSubmitting}
+            />
+          )}
+
+          {/* 支店名 */}
           <TextField
-            required
             fullWidth
-            label="施設名"
-            value={formData.name}
-            onChange={(e) => handleChange('name', e.target.value)}
+            label="支店名"
+            value={formData.branchName}
+            onChange={(e) => handleChange('branchName', e.target.value)}
             disabled={isSubmitting}
+            placeholder="例: 新宿店、渋谷店"
+            helperText="複数店舗がある場合に入力してください（任意）"
           />
 
           {/* 都道府県・市区町村 */}
