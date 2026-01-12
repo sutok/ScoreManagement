@@ -87,22 +87,6 @@ export const HomePage = () => {
             {t('home.viewHistory')}
           </Button>
         </Box>
-
-        {/* Info */}
-        <Paper elevation={1} sx={{ p: 3, mt: 4, bgcolor: 'grey.50' }}>
-          <Typography variant="h6" gutterBottom>
-            📝 機能一覧
-          </Typography>
-          <Typography variant="body2" paragraph>
-            ✅ Google認証機能
-          </Typography>
-          <Typography variant="body2" paragraph>
-            ⏳ スコア記録機能（実装予定）
-          </Typography>
-          <Typography variant="body2" paragraph>
-            ⏳ ゲーム履歴管理（実装予定）
-          </Typography>
-        </Paper>
       </Box>
     </Container>
   );
