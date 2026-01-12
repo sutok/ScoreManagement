@@ -5,6 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SportsIcon from '@mui/icons-material/Sports';
 import HistoryIcon from '@mui/icons-material/History';
 import StoreIcon from '@mui/icons-material/Store';
+import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
@@ -95,6 +96,15 @@ export const HomePage = () => {
             sx={{ py: 2 }}
           >
             施設管理
+          </Button>
+          <Button
+            variant="outlined"
+            size="large"
+            startIcon={<EventRepeatIcon />}
+            onClick={() => navigate('/recurring-tournaments')}
+            sx={{ py: 2 }}
+          >
+            定期開催試合管理
           </Button>
         </Box>
       </Box>
