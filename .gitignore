@@ -55,3 +55,9 @@ logs/
 
 # Claude Code settings
 .claude/
+
+# Serena MCP
+.serena/
+
+# Firebase Service Account Key (NEVER COMMIT)
+serviceAccountKey.json
