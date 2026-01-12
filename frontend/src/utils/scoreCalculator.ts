@@ -66,10 +66,12 @@ const getThrowValue = (frames: Frame[], frameIndex: number, throwIndex: number):
 export const calculateTotalScore = (frames: Frame[]): Frame[] => {
   const updatedFrames = [...frames];
   let cumulativeScore = 0;
+  let scorePending = false;
 
   for (let i = 0; i < updatedFrames.length; i++) {
     const frame = updatedFrames[i];
     let frameScore = 0;
+    let canCalculate = true;
 
     // Frame 10 (index 9) - special scoring
     if (i === 9) {
@@ -90,34 +92,72 @@ export const calculateTotalScore = (frames: Frame[]): Frame[] => {
         frame.isStrike = true;
         frame.isSpare = false;
 
-        const nextThrow1 = getThrowValue(frames, i + 1, 0);
-        const nextThrow2 = i + 1 === 9
-          ? getThrowValue(frames, i + 1, 1) // Frame 10 second throw
-          : getThrowValue(frames, i + 1, 0) === 10
-            ? getThrowValue(frames, i + 2, 0) // Next frame is also strike
-            : getThrowValue(frames, i + 1, 1); // Next frame second throw
+        // Check if next throws are available
+        const nextFrame = frames[i + 1];
+        if (!nextFrame || nextFrame.firstThrow === null) {
+          canCalculate = false;
+        } else if (nextFrame.firstThrow === 10) {
+          // Next frame is also strike, need frame after that
+          const nextNextFrame = frames[i + 2];
+          if (!nextNextFrame || nextNextFrame.firstThrow === null) {
+            canCalculate = false;
+          }
+        } else if (nextFrame.secondThrow === null && i + 1 !== 9) {
+          // Next frame is not strike and second throw is missing (and not frame 10)
+          canCalculate = false;
+        }
 
-        frameScore = 10 + nextThrow1 + nextThrow2;
+        if (canCalculate) {
+          const nextThrow1 = getThrowValue(frames, i + 1, 0);
+          const nextThrow2 = i + 1 === 9
+            ? getThrowValue(frames, i + 1, 1) // Frame 10 second throw
+            : getThrowValue(frames, i + 1, 0) === 10
+              ? getThrowValue(frames, i + 2, 0) // Next frame is also strike
+              : getThrowValue(frames, i + 1, 1); // Next frame second throw
+
+          frameScore = 10 + nextThrow1 + nextThrow2;
+        }
       }
       // Spare bonus: 10 + next 1 throw
       else if (isSpare(frame.firstThrow, frame.secondThrow)) {
         frame.isStrike = false;
         frame.isSpare = true;
 
-        const nextThrow = getThrowValue(frames, i + 1, 0);
-        frameScore = 10 + nextThrow;
+        // Check if next throw is available
+        const nextFrame = frames[i + 1];
+        if (!nextFrame || nextFrame.firstThrow === null) {
+          canCalculate = false;
+        }
+
+        if (canCalculate) {
+          const nextThrow = getThrowValue(frames, i + 1, 0);
+          frameScore = 10 + nextThrow;
+        }
       }
       // Open frame: no bonus
       else {
         frame.isStrike = false;
         frame.isSpare = false;
-        frameScore = firstThrow + secondThrow;
+
+        // For open frame, check if both throws are entered
+        if (frame.firstThrow === null || (frame.firstThrow !== 10 && frame.secondThrow === null)) {
+          canCalculate = false;
+        } else {
+          frameScore = firstThrow + secondThrow;
+        }
       }
     }
 
     frame.frameScore = frameScore;
-    cumulativeScore += frameScore;
-    frame.cumulativeScore = cumulativeScore;
+
+    // If score cannot be calculated for this frame, set cumulative to 0 for this and all following frames
+    if (!canCalculate || scorePending) {
+      frame.cumulativeScore = 0;
+      scorePending = true;
+    } else {
+      cumulativeScore += frameScore;
+      frame.cumulativeScore = cumulativeScore;
+    }
   }
 
   return updatedFrames;
