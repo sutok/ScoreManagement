@@ -43,7 +43,8 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         <Box
           sx={{
             flex: '0 0 auto',
-            width: isFrame10 ? '80px' : '60px',
+            width: isFrame10 ? '60px' : '40px',
+            mt: 0.5,
           }}
         >
           <Paper
@@ -217,9 +218,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
           elevation={3}
           sx={{
             mt: 1,
-            mb: 0,
             p: 2,
-            pb: 1,
             bgcolor: totalScore === 300 ? 'success.main' : 'primary.main',
             color: 'white',
             transition: 'all 0.5s ease-in-out',
