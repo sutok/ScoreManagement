@@ -17,6 +17,10 @@ export const HomePage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  // Check if user can manage facilities/tournaments
+  const userRole = user?.role || 'user';
+  const canManage = userRole === 'admin' || userRole === 'facility_manager';
+
   useEffect(() => {
     trackPageView('/');
   }, []);
@@ -92,30 +96,36 @@ export const HomePage = () => {
           <Button
             variant="outlined"
             size="large"
-            startIcon={<StoreIcon />}
-            onClick={() => navigate('/facilities')}
-            sx={{ py: 2 }}
-          >
-            施設管理
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            startIcon={<EventRepeatIcon />}
-            onClick={() => navigate('/recurring-tournaments')}
-            sx={{ py: 2 }}
-          >
-            定期開催試合管理
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
             startIcon={<SearchIcon />}
             onClick={() => navigate('/tournament-search')}
             sx={{ py: 2 }}
           >
             試合検索
           </Button>
+
+          {/* Management buttons - only for admin and facility_manager */}
+          {canManage && (
+            <>
+              <Button
+                variant="outlined"
+                size="large"
+                startIcon={<StoreIcon />}
+                onClick={() => navigate('/facilities')}
+                sx={{ py: 2 }}
+              >
+                施設管理
+              </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                startIcon={<EventRepeatIcon />}
+                onClick={() => navigate('/recurring-tournaments')}
+                sx={{ py: 2 }}
+              >
+                定期開催試合管理
+              </Button>
+            </>
+          )}
         </Box>
       </Box>
     </Container>
