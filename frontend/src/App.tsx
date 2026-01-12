@@ -12,6 +12,9 @@ const FacilitiesPage = lazy(() => import('./pages/FacilitiesPage').then(m => ({ 
 const RecurringTournamentsPage = lazy(() => import('./pages/RecurringTournamentsPage').then(m => ({ default: m.RecurringTournamentsPage })));
 const TournamentSearchPage = lazy(() => import('./pages/TournamentSearchPage').then(m => ({ default: m.TournamentSearchPage })));
 const DebugTournamentsPage = lazy(() => import('./pages/DebugTournamentsPage').then(m => ({ default: m.DebugTournamentsPage })));
+const ApplyFacilityPage = lazy(() => import('./pages/ApplyFacilityPage').then(m => ({ default: m.ApplyFacilityPage })));
+const PendingFacilitiesPage = lazy(() => import('./pages/PendingFacilitiesPage').then(m => ({ default: m.PendingFacilitiesPage })));
+const FacilityRegistrationInfoPage = lazy(() => import('./pages/FacilityRegistrationInfoPage').then(m => ({ default: m.FacilityRegistrationInfoPage })));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -84,6 +87,23 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/apply-facility"
+            element={
+              <ProtectedRoute>
+                <ApplyFacilityPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pending-facilities"
+            element={
+              <ProtectedRoute>
+                <PendingFacilitiesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/facility-registration-info" element={<FacilityRegistrationInfoPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -1,11 +1,11 @@
-import { Box, Container, Typography, Paper } from '@mui/material';
+import { Box, Container, Typography, Paper, Link } from '@mui/material';
 import { GoogleLoginButton } from '../components/auth/GoogleLoginButton';
 // import { AppleLoginButton } from '../components/auth/AppleLoginButton';
 import { MicrosoftLoginButton } from '../components/auth/MicrosoftLoginButton';
 // import { PhoneLoginButton } from '../components/auth/PhoneLoginButton';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { useAuth } from '../hooks/useAuth';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export const LoginPage = () => {
@@ -45,6 +45,21 @@ export const LoginPage = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <GoogleLoginButton />
             <MicrosoftLoginButton />
+          </Box>
+
+          {/* Facility Registration Link */}
+          <Box sx={{ mt: 3, pt: 3, borderTop: 1, borderColor: 'divider', textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              ボウリング場の施設管理者の方へ
+            </Typography>
+            <Link
+              component={RouterLink}
+              to="/facility-registration-info"
+              variant="body2"
+              sx={{ fontWeight: 'medium' }}
+            >
+              店舗の登録について
+            </Link>
           </Box>
         </Paper>
       </Box>

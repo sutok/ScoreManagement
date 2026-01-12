@@ -100,10 +100,20 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // 施設: 全ユーザー閲覧可、admin/施設メンバーのみ編集可
+    // 施設: 承認済みは全ユーザー閲覧可、未承認はadminのみ閲覧可
     match /facilities/{facilityId} {
-      allow read: if request.auth != null;
-      allow create: if isAdmin() || isFacilityManager();
+      // 読み取り: adminはすべて、一般ユーザーは承認済みのみ
+      allow read: if request.auth != null &&
+                     (isAdmin() ||
+                      !('approved' in resource.data) ||  // 既存データ（approvedフィールドなし）
+                      resource.data.approved != null);    // 承認済み
+
+      // 作成: ログイン済みユーザーは申請可能（approved未設定で作成）
+      allow create: if request.auth != null &&
+                       (!('approved' in request.resource.data) ||
+                        request.resource.data.approved == null);
+
+      // 更新・削除: adminまたは施設管理者のみ
       allow update, delete: if canManageFacility(facilityId) || isFacilityMember(facilityId);
     }
 

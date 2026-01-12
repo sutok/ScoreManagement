@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Container, Typography, Box, Button, Paper, Avatar } from '@mui/material';
+import { Container, Typography, Box, Button, Paper, Avatar, Link, Divider } from '@mui/material';
 import { useAuth } from '../hooks/useAuth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SportsIcon from '@mui/icons-material/Sports';
@@ -7,7 +7,9 @@ import HistoryIcon from '@mui/icons-material/History';
 import StoreIcon from '@mui/icons-material/Store';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from 'react-router-dom';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
 import { LanguageSelector } from '../components/LanguageSelector';
@@ -124,9 +126,45 @@ export const HomePage = () => {
               >
                 定期開催試合管理
               </Button>
+              {/* Admin only: Pending facilities */}
+              {userRole === 'admin' && (
+                <Button
+                  variant="outlined"
+                  size="large"
+                  startIcon={<PendingActionsIcon />}
+                  onClick={() => navigate('/pending-facilities')}
+                  sx={{ py: 2 }}
+                  color="warning"
+                >
+                  申請中店舗一覧
+                </Button>
+              )}
             </>
           )}
         </Box>
+
+        {/* Facility Application Link */}
+        <Paper elevation={1} sx={{ mt: 4, p: 3, bgcolor: 'background.default' }}>
+          <Divider sx={{ mb: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              店舗管理者の方へ
+            </Typography>
+          </Divider>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              ボウリング場を運営されている方は、施設管理者として登録できます
+            </Typography>
+            <Button
+              variant="text"
+              startIcon={<AddBusinessIcon />}
+              component={RouterLink}
+              to="/apply-facility"
+              sx={{ mt: 1 }}
+            >
+              店舗登録申請はこちら
+            </Button>
+          </Box>
+        </Paper>
       </Box>
     </Container>
   );
