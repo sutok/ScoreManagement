@@ -43,7 +43,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         <Box
           sx={{
             flex: isFrame10 ? '1 1 100%' : '0 0 auto',
-            width: isFrame10 ? '100%' : '80px',
+            width: isFrame10 ? '60%' : '40px',
           }}
         >
           <Paper
@@ -204,7 +204,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: 1,
+          gap: 0,
           justifyContent: 'flex-start',
         }}
       >
