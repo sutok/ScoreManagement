@@ -93,12 +93,15 @@ export const RecurringTournamentList = ({
             </Box>
 
             <Box sx={{ mb: 1, display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              <Chip
-                label={LEVEL_LABELS[tournament.level] || tournament.level}
-                size="small"
-                color="primary"
-                variant="outlined"
-              />
+              {(Array.isArray(tournament.level) ? tournament.level : [tournament.level]).map((level, index) => (
+                <Chip
+                  key={index}
+                  label={LEVEL_LABELS[level] || level}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                />
+              ))}
               <Chip
                 label={`¥${tournament.entryFee.toLocaleString()}`}
                 size="small"

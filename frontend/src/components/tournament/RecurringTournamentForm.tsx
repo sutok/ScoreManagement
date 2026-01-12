@@ -13,6 +13,10 @@ import {
   Stack,
   FormControlLabel,
   Switch,
+  Autocomplete,
+  Checkbox,
+  FormGroup,
+  FormLabel,
 } from '@mui/material';
 import { type RecurringTournament, type Facility } from '../../types/facility';
 import {
@@ -49,7 +53,7 @@ export const RecurringTournamentForm = ({
     dayOfWeek: initialData?.pattern.dayOfWeek || 3,
     time: initialData?.pattern.time || '19:00',
     entryFee: initialData?.entryFee || 1000,
-    level: initialData?.level || 'intermediate' as 'beginner' | 'intermediate' | 'advanced',
+    levels: (Array.isArray(initialData?.level) ? initialData.level : initialData?.level ? [initialData.level] : ['intermediate']) as ('beginner' | 'intermediate' | 'advanced')[],
     isActive: initialData?.isActive ?? true,
   });
 
@@ -96,6 +100,10 @@ export const RecurringTournamentForm = ({
       setError('タイトルを入力してください');
       return false;
     }
+    if (formData.levels.length === 0) {
+      setError('レベルを少なくとも1つ選択してください');
+      return false;
+    }
     if (formData.entryFee < 0 || formData.entryFee > 100000) {
       setError('参加費は0〜100,000の範囲で入力してください');
       return false;
@@ -139,7 +147,7 @@ export const RecurringTournamentForm = ({
           time: formData.time,
         },
         entryFee: formData.entryFee,
-        level: formData.level,
+        level: formData.levels.length === 1 ? formData.levels[0] : formData.levels,
         isActive: formData.isActive,
         createdBy: currentUserId,
       });
@@ -172,21 +180,27 @@ export const RecurringTournamentForm = ({
       <Box component="form" onSubmit={handleSubmit}>
         <Stack spacing={2}>
           {/* 施設選択 */}
-          <FormControl fullWidth required>
-            <InputLabel>開催施設</InputLabel>
-            <Select
-              value={formData.facilityId}
-              label="開催施設"
-              onChange={(e) => handleChange('facilityId', e.target.value)}
-              disabled={isSubmitting}
-            >
-              {facilities.map((facility) => (
-                <MenuItem key={facility.id} value={facility.id}>
-                  {facility.name} ({facility.prefecture}{facility.city})
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <Autocomplete
+            fullWidth
+            options={facilities}
+            value={facilities.find((f) => f.id === formData.facilityId) || null}
+            onChange={(_, newValue) => {
+              handleChange('facilityId', newValue?.id || '');
+            }}
+            getOptionLabel={(option) =>
+              `${option.name}${option.branchName ? ` - ${option.branchName}` : ''} (${option.prefecture}${option.city})`
+            }
+            disabled={isSubmitting}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="開催施設"
+                required
+                placeholder="施設名で検索..."
+              />
+            )}
+            noOptionsText="該当する施設が見つかりません"
+          />
 
           {/* タイトル */}
           <TextField
@@ -298,33 +312,69 @@ export const RecurringTournamentForm = ({
             )}
           </Alert>
 
-          {/* 参加費・レベル */}
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <TextField
-              required
-              fullWidth
-              type="number"
-              label="参加費（円）"
-              value={formData.entryFee}
-              onChange={(e) => handleChange('entryFee', parseInt(e.target.value) || 0)}
-              disabled={isSubmitting}
-              inputProps={{ min: 0, max: 100000, step: 100 }}
-            />
+          {/* 参加費 */}
+          <TextField
+            required
+            fullWidth
+            type="number"
+            label="参加費（円）"
+            value={formData.entryFee}
+            onChange={(e) => handleChange('entryFee', parseInt(e.target.value) || 0)}
+            disabled={isSubmitting}
+            inputProps={{ min: 0, max: 100000, step: 100 }}
+          />
 
-            <FormControl fullWidth required>
-              <InputLabel>レベル</InputLabel>
-              <Select
-                value={formData.level}
-                label="レベル"
-                onChange={(e) => handleChange('level', e.target.value)}
-                disabled={isSubmitting}
-              >
-                <MenuItem value="beginner">初心者</MenuItem>
-                <MenuItem value="intermediate">中級者</MenuItem>
-                <MenuItem value="advanced">上級者</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+          {/* レベル */}
+          <FormControl component="fieldset" required error={formData.levels.length === 0}>
+            <FormLabel component="legend">レベル（複数選択可）</FormLabel>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.levels.includes('beginner')}
+                    onChange={(e) => {
+                      const newLevels = e.target.checked
+                        ? [...formData.levels, 'beginner']
+                        : formData.levels.filter((l) => l !== 'beginner');
+                      handleChange('levels', newLevels);
+                    }}
+                    disabled={isSubmitting}
+                  />
+                }
+                label="初心者"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.levels.includes('intermediate')}
+                    onChange={(e) => {
+                      const newLevels = e.target.checked
+                        ? [...formData.levels, 'intermediate']
+                        : formData.levels.filter((l) => l !== 'intermediate');
+                      handleChange('levels', newLevels);
+                    }}
+                    disabled={isSubmitting}
+                  />
+                }
+                label="中級者"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.levels.includes('advanced')}
+                    onChange={(e) => {
+                      const newLevels = e.target.checked
+                        ? [...formData.levels, 'advanced']
+                        : formData.levels.filter((l) => l !== 'advanced');
+                      handleChange('levels', newLevels);
+                    }}
+                    disabled={isSubmitting}
+                  />
+                }
+                label="上級者"
+              />
+            </FormGroup>
+          </FormControl>
 
           {/* 有効/無効 */}
           <FormControlLabel
