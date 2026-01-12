@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Container, Typography, Box, Button, Paper, Avatar, Link, Divider } from '@mui/material';
+import { Container, Typography, Box, Button, Paper, Avatar, Divider } from '@mui/material';
 import { useAuth } from '../hooks/useAuth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SportsIcon from '@mui/icons-material/Sports';

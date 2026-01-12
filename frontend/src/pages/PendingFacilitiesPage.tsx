@@ -14,7 +14,6 @@ import {
   Button,
   CircularProgress,
   IconButton,
-  Chip,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -32,7 +31,7 @@ import { type Facility } from '../types/facility';
 
 export const PendingFacilitiesPage = () => {
   const navigate = useNavigate();
-  const { user, userRole } = useAuth();
+  const { user } = useAuth();
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -41,6 +40,8 @@ export const PendingFacilitiesPage = () => {
     open: boolean;
     facility: Facility | null;
   }>({ open: false, facility: null });
+
+  const userRole = user?.role || 'user';
 
   useEffect(() => {
     if (user && userRole === 'admin') {
