@@ -1,7 +1,8 @@
-import { Box, Container, Typography, Paper } from '@mui/material';
+import { Box, Container, Typography, Paper, Divider } from '@mui/material';
 import { GoogleLoginButton } from '../components/auth/GoogleLoginButton';
 // import { AppleLoginButton } from '../components/auth/AppleLoginButton';
 import { MicrosoftLoginButton } from '../components/auth/MicrosoftLoginButton';
+import { PhoneLoginButton } from '../components/auth/PhoneLoginButton';
 import { useAuth } from '../hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 
@@ -38,6 +39,8 @@ export const LoginPage = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <GoogleLoginButton />
             <MicrosoftLoginButton />
+            <Divider sx={{ my: 1 }}>または</Divider>
+            <PhoneLoginButton />
           </Box>
         </Paper>
       </Box>
