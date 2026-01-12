@@ -6,6 +6,7 @@ import translationJA from './locales/ja/translation.json';
 import translationEN from './locales/en/translation.json';
 import translationFIL from './locales/fil/translation.json';
 import translationID from './locales/id/translation.json';
+import translationTH from './locales/th/translation.json';
 
 const resources = {
   ja: {
@@ -19,6 +20,9 @@ const resources = {
   },
   id: {
     translation: translationID
+  },
+  th: {
+    translation: translationTH
   }
 };
 
@@ -28,7 +32,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'en',
-    supportedLngs: ['ja', 'en', 'fil', 'id'],
+    supportedLngs: ['ja', 'en', 'fil', 'id', 'th'],
     interpolation: {
       escapeValue: false
     },
