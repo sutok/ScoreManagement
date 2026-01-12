@@ -40,21 +40,18 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         timeout={300 + frame.frameNumber * 50}
         key={frame.frameNumber}
       >
-        <Box sx={{ flex: isFrame10 ? '0 0 16%' : '0 0 8%', minWidth: '80px' }}>
+        <Box sx={{ flex: '0 0 auto', width: isFrame10 ? 100 : 70 }}>
           <Paper
             elevation={1}
             sx={{
-              p: 1,
+              p: 0.5,
               bgcolor: frame.isStrike
                 ? 'success.light'
                 : frame.isSpare
                 ? 'info.light'
                 : 'background.paper',
               transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: 3,
-              },
+              height: '100%',
             }}
           >
           {/* Frame Number */}
@@ -63,6 +60,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
             align="center"
             display="block"
             fontWeight="bold"
+            sx={{ fontSize: '0.7rem' }}
           >
             {frame.frameNumber}
           </Typography>
@@ -72,9 +70,9 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
             sx={{
               display: 'flex',
               justifyContent: 'center',
-              gap: 0.5,
-              my: 0.5,
-              minHeight: 24,
+              gap: 0.25,
+              my: 0.25,
+              minHeight: 20,
             }}
           >
             {/* Frame 10 - special layout */}
@@ -82,14 +80,14 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
               <>
                 <Box
                   sx={{
-                    width: 24,
-                    height: 24,
+                    width: 20,
+                    height: 20,
                     border: '1px solid',
                     borderColor: 'divider',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -97,14 +95,14 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                 </Box>
                 <Box
                   sx={{
-                    width: 24,
-                    height: 24,
+                    width: 20,
+                    height: 20,
                     border: '1px solid',
                     borderColor: 'divider',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -112,14 +110,14 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                 </Box>
                 <Box
                   sx={{
-                    width: 24,
-                    height: 24,
+                    width: 20,
+                    height: 20,
                     border: '1px solid',
                     borderColor: 'divider',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -131,14 +129,14 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                 {/* First throw */}
                 <Box
                   sx={{
-                    width: 24,
-                    height: 24,
+                    width: 20,
+                    height: 20,
                     border: '1px solid',
                     borderColor: 'divider',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -169,13 +167,15 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
 
           {/* Cumulative Score */}
           <Typography
-            variant="h6"
+            variant="body1"
             align="center"
             sx={{
               fontWeight: 'bold',
+              fontSize: '0.9rem',
               color: frame.cumulativeScore > 0 ? 'primary.main' : 'text.secondary',
               animation: frame.cumulativeScore > 0 ? `${pulseAnimation} 0.5s ease-in-out` : 'none',
               transition: 'color 0.3s ease',
+              mt: 0.25,
             }}
           >
             {frame.cumulativeScore > 0 ? frame.cumulativeScore : '-'}
@@ -195,7 +195,22 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
       </Typography>
 
       {/* Frames */}
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'nowrap',
+          gap: 0.5,
+          overflowX: 'auto',
+          pb: 1,
+          '&::-webkit-scrollbar': {
+            height: 8,
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            borderRadius: 4,
+          },
+        }}
+      >
         {frames.map((frame) => renderFrame(frame))}
       </Box>
 
