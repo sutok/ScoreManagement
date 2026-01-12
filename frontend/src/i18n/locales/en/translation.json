@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Billiards/Bowling Score Management",
+    "title": "Billiards/Bowling",
     "description": "Record and manage your billiards and bowling game scores"
   },
   "auth": {
@@ -12,7 +12,7 @@
     "logout": "Logout"
   },
   "home": {
-    "title": "Billiards/Bowling Score Management",
+    "title": "Billiards/Bowling",
     "welcome": "Welcome, {{name}}",
     "newGame": "New Game",
     "viewHistory": "View History"

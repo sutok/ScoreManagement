@@ -63,7 +63,7 @@ export const HomePage = () => {
 
         {/* Title */}
         <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
-          🎳 🎱 {t('home.title')}
+          🎳 {t('home.title')}
         </Typography>
 
         {/* Action Buttons */}

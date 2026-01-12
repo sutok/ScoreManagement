@@ -34,8 +34,6 @@ export const LoginPage = () => {
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography variant="h3" component="h1" gutterBottom sx={{ lineHeight: 1.4 }}>
               🎳
-              <br />
-              🎱🎱🎱
             </Typography>
             <Typography variant="h4" component="h2" gutterBottom>
               {t('app.title')}

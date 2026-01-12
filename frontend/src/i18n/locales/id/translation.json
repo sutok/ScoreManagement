@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Manajemen Skor Biliar/Bowling",
+    "title": "Biliar/Bowling",
     "description": "Catat dan kelola skor permainan biliar dan bowling Anda"
   },
   "auth": {
@@ -12,7 +12,7 @@
     "logout": "Keluar"
   },
   "home": {
-    "title": "Manajemen Skor Biliar/Bowling",
+    "title": "Biliar/Bowling",
     "welcome": "Selamat datang, {{name}}",
     "newGame": "Permainan Baru",
     "viewHistory": "Lihat Riwayat"

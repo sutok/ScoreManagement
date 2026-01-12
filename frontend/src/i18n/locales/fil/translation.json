@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Pamamahala ng Iskor sa Billiards/Bowling",
+    "title": "Billiards/Bowling",
     "description": "Itala at pamahalaan ang iyong mga iskor sa billiards at bowling"
   },
   "auth": {
@@ -12,7 +12,7 @@
     "logout": "Mag-logout"
   },
   "home": {
-    "title": "Pamamahala ng Iskor sa Billiards/Bowling",
+    "title": "Billiards/Bowling",
     "welcome": "Maligayang pagdating, {{name}}",
     "newGame": "Bagong Laro",
     "viewHistory": "Tingnan ang Kasaysayan"
