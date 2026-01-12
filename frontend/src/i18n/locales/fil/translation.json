@@ -56,8 +56,11 @@
     "points": "{{score}} pts"
   },
   "scoreBoard": {
+    "title": "Score Board",
     "frame": "Frame",
     "total": "Kabuuan",
+    "totalScore": "Kabuuang Iskor: {{score}}",
+    "perfectGame": "🎉 Perfect Game! 🎉",
     "firstThrow": "1st Throw",
     "secondThrow": "2nd Throw",
     "thirdThrow": "3rd Throw"

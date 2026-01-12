@@ -25,14 +25,14 @@ import { getGames, getFrames, deleteGame, getUserStats } from '../firebase/fires
 import { type Game } from '../types/game';
 import { ScoreBoard } from '../components/game/ScoreBoard';
 import { format } from 'date-fns';
-import { ja } from 'date-fns/locale';
+import { ja, enUS } from 'date-fns/locale';
 import { trackGameDelete, trackPageView, trackEvent } from '../utils/analytics';
 import { trackFirestoreError } from '../utils/errorTracking';
 
 export const HistoryPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -145,6 +145,15 @@ export const HistoryPage = () => {
     if (score >= 150) return 'primary';
     if (score >= 100) return 'info';
     return 'default';
+  };
+
+  const getDateFormat = () => {
+    const lang = i18n.language;
+    if (lang === 'ja') {
+      return { format: 'yyyy年M月d日(E)', locale: ja };
+    }
+    // For English, Filipino, Indonesian - use English format
+    return { format: 'MMM d, yyyy (EEE)', locale: enUS };
   };
 
   if (loading) {
@@ -273,7 +282,7 @@ export const HistoryPage = () => {
                       }}
                     >
                       <Typography variant="body2" color="text.secondary">
-                        {format(game.playedAt, 'yyyy年M月d日(E)', { locale: ja })}
+                        {format(game.playedAt, getDateFormat().format, { locale: getDateFormat().locale })}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Chip
