@@ -6,6 +6,30 @@ import { useAuth } from '../../hooks/useAuth';
 import { auth } from '../../firebase/config';
 import { OTPVerificationDialog } from './OTPVerificationDialog';
 
+// 電話番号を国際形式（E.164）に自動変換
+const formatPhoneNumber = (input: string): string => {
+  // 数字のみを抽出
+  const digitsOnly = input.replace(/\D/g, '');
+
+  // 日本の電話番号（0で始まる10-11桁）を+81形式に変換
+  if (digitsOnly.startsWith('0') && (digitsOnly.length === 10 || digitsOnly.length === 11)) {
+    return '+81' + digitsOnly.substring(1);
+  }
+
+  // +81の後に0が来る場合（+0817...など）、0を削除
+  if (input.startsWith('+81') && digitsOnly.startsWith('810')) {
+    return '+81' + digitsOnly.substring(3);
+  }
+
+  // +から始まる場合はそのまま（数字のみに整形）
+  if (input.startsWith('+')) {
+    return '+' + digitsOnly;
+  }
+
+  // その他の場合は数字のみを返す
+  return digitsOnly;
+};
+
 export const PhoneLoginButton = () => {
   const { loginWithPhone, verifyOTP } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -43,11 +67,17 @@ export const PhoneLoginButton = () => {
       return;
     }
 
+    // 自動フォーマット
+    const formattedNumber = formatPhoneNumber(phoneNumber);
+
     // Validate phone number format (must start with +)
-    if (!phoneNumber.startsWith('+')) {
+    if (!formattedNumber.startsWith('+')) {
       setError('電話番号は国際形式で入力してください（例: +819012345678）');
       return;
     }
+
+    // 入力フィールドをフォーマット済みの値に更新
+    setPhoneNumber(formattedNumber);
 
     if (!recaptchaVerifier) {
       setError('reCAPTCHAの初期化に失敗しました。ページを再読み込みしてください。');
@@ -57,7 +87,7 @@ export const PhoneLoginButton = () => {
     try {
       setError(null);
       setLoading(true);
-      const result = await loginWithPhone(phoneNumber, recaptchaVerifier);
+      const result = await loginWithPhone(formattedNumber, recaptchaVerifier);
       setConfirmationResult(result);
       setDialogOpen(true);
     } catch (err: any) {
@@ -111,9 +141,9 @@ export const PhoneLoginButton = () => {
           label="電話番号"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
-          placeholder="+819012345678"
+          placeholder="09012345678 または +819012345678"
           disabled={loading}
-          helperText="国際形式で入力（例: +819012345678）"
+          helperText="日本の番号は自動で国際形式に変換されます（例: 09012345678 → +819012345678）"
           inputProps={{
             inputMode: 'tel',
           }}
