@@ -317,3 +317,71 @@ export const deleteTournament = async (tournamentId: string): Promise<void> => {
     throw error;
   }
 };
+
+// ===== Tournament Search Operations =====
+
+/**
+ * Search filters for recurring tournaments
+ */
+export interface TournamentSearchFilters {
+  prefecture?: string;
+  city?: string;
+  minEntryFee?: number;
+  maxEntryFee?: number;
+  level?: string;
+  isActive?: boolean;
+}
+
+/**
+ * Search recurring tournaments with filters
+ */
+export const searchRecurringTournaments = async (
+  filters: TournamentSearchFilters
+): Promise<RecurringTournament[]> => {
+  try {
+    const tournamentsRef = collection(db, 'recurringTournaments');
+    let q = query(tournamentsRef, orderBy('createdAt', 'desc'));
+
+    // Apply active filter
+    if (filters.isActive !== undefined) {
+      q = query(q, where('isActive', '==', filters.isActive));
+    }
+
+    // Apply level filter
+    if (filters.level) {
+      q = query(q, where('level', '==', filters.level));
+    }
+
+    const snapshot = await getDocs(q);
+
+    let results = snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        facilityId: data.facilityId,
+        title: data.title,
+        description: data.description,
+        pattern: data.pattern,
+        entryFee: data.entryFee,
+        level: data.level,
+        isActive: data.isActive,
+        createdBy: data.createdBy,
+        createdAt: timestampToDate(data.createdAt),
+        updatedAt: timestampToDate(data.updatedAt),
+      } as RecurringTournament;
+    });
+
+    // Apply entry fee filters in memory (Firestore doesn't support range queries on non-indexed fields)
+    if (filters.minEntryFee !== undefined) {
+      results = results.filter((t) => t.entryFee >= filters.minEntryFee!);
+    }
+    if (filters.maxEntryFee !== undefined) {
+      results = results.filter((t) => t.entryFee <= filters.maxEntryFee!);
+    }
+
+    return results;
+  } catch (error) {
+    console.error('Error searching recurring tournaments:', error);
+    throw error;
+  }
+};
