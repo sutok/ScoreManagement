@@ -89,11 +89,14 @@ export const TournamentSearchResultCard = ({
                 参加費: ¥{tournament.entryFee.toLocaleString()}
               </Typography>
             </Box>
-            <Chip
-              label={LEVEL_LABELS[tournament.level] || tournament.level}
-              size="small"
-              variant="outlined"
-            />
+            {(Array.isArray(tournament.level) ? tournament.level : [tournament.level]).map((level, index) => (
+              <Chip
+                key={index}
+                label={LEVEL_LABELS[level] || level}
+                size="small"
+                variant="outlined"
+              />
+            ))}
           </Box>
 
           {/* Description */}

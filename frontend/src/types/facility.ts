@@ -74,7 +74,7 @@ export interface RecurringTournament {
   description: string;
   pattern: RecurringPattern;
   entryFee: number;
-  level: TournamentLevel;
+  level: TournamentLevel | TournamentLevel[]; // 単一または複数レベル対応
   isActive: boolean;
   createdBy: string;
   createdAt: Date;
