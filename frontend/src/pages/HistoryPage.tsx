@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import { getGames, getFrames, deleteGame, getUserStats } from '../firebase/firestore';
 import { type Game } from '../types/game';
@@ -31,6 +32,7 @@ import { trackFirestoreError } from '../utils/errorTracking';
 export const HistoryPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +59,7 @@ export const HistoryPage = () => {
       setStats(statsData);
     } catch (err) {
       console.error('Failed to load games:', err);
-      setError('ゲーム履歴の読み込みに失敗しました');
+      setError(t('history.loadError'));
       trackFirestoreError(err instanceof Error ? err : new Error('Failed to load games'), {
         page: '/history',
         action: 'load_games',
@@ -107,7 +109,7 @@ export const HistoryPage = () => {
       trackEvent('view_game_detail', { game_id: gameId, total_score: game.totalScore });
     } catch (err) {
       console.error('Failed to load frames:', err);
-      setError('フレームの読み込みに失敗しました');
+      setError(t('history.framesLoadError'));
       trackFirestoreError(err instanceof Error ? err : new Error('Failed to load frames'), {
         page: '/history',
         action: 'load_frames',
@@ -120,7 +122,7 @@ export const HistoryPage = () => {
   };
 
   const handleDelete = async (gameId: string, totalScore: number) => {
-    if (!confirm('このゲームを削除しますか？')) return;
+    if (!confirm(t('history.deleteConfirm'))) return;
 
     try {
       await deleteGame(gameId);
@@ -128,7 +130,7 @@ export const HistoryPage = () => {
       await loadGames(); // Reload games after deletion
     } catch (err) {
       console.error('Failed to delete game:', err);
-      setError('ゲームの削除に失敗しました');
+      setError(t('history.deleteError'));
       trackFirestoreError(err instanceof Error ? err : new Error('Failed to delete game'), {
         page: '/history',
         action: 'delete_game',
@@ -151,7 +153,7 @@ export const HistoryPage = () => {
         <Box sx={{ my: 4, textAlign: 'center' }}>
           <CircularProgress />
           <Typography variant="body1" sx={{ mt: 2 }}>
-            読み込み中...
+            {t('history.loading')}
           </Typography>
         </Box>
       </Container>
@@ -166,11 +168,11 @@ export const HistoryPage = () => {
           onClick={() => navigate('/')}
           sx={{ mb: 3 }}
         >
-          ホームに戻る
+          {t('history.backToHome')}
         </Button>
 
         <Typography variant="h4" component="h1" gutterBottom align="center">
-          📊 ゲーム履歴
+          📊 {t('history.title')}
         </Typography>
 
         {error && (
@@ -183,12 +185,12 @@ export const HistoryPage = () => {
         {stats.totalGames > 0 && (
           <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
             <Typography variant="h6" gutterBottom>
-              統計情報
+              {t('history.statistics')}
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
               <Box sx={{ flex: '1 1 150px' }}>
                 <Typography variant="body2" color="text.secondary">
-                  総ゲーム数
+                  {t('history.totalGames')}
                 </Typography>
                 <Typography variant="h5" fontWeight="bold">
                   {stats.totalGames}
@@ -196,7 +198,7 @@ export const HistoryPage = () => {
               </Box>
               <Box sx={{ flex: '1 1 150px' }}>
                 <Typography variant="body2" color="text.secondary">
-                  平均スコア
+                  {t('history.averageScore')}
                 </Typography>
                 <Typography variant="h5" fontWeight="bold" color="primary">
                   {stats.averageScore}
@@ -204,7 +206,7 @@ export const HistoryPage = () => {
               </Box>
               <Box sx={{ flex: '1 1 150px' }}>
                 <Typography variant="body2" color="text.secondary">
-                  最高スコア
+                  {t('history.highScore')}
                 </Typography>
                 <Typography variant="h5" fontWeight="bold" color="success.main">
                   {stats.highScore}
@@ -212,7 +214,7 @@ export const HistoryPage = () => {
               </Box>
               <Box sx={{ flex: '1 1 150px' }}>
                 <Typography variant="body2" color="text.secondary">
-                  最低スコア
+                  {t('history.lowScore')}
                 </Typography>
                 <Typography variant="h5" fontWeight="bold">
                   {stats.lowScore}
@@ -226,17 +228,17 @@ export const HistoryPage = () => {
         {games.length === 0 ? (
           <Paper elevation={2} sx={{ p: 4, textAlign: 'center' }}>
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              まだゲームが記録されていません
+              {t('history.noGamesYet')}
             </Typography>
             <Typography variant="body1" sx={{ mb: 3 }}>
-              新しいゲームを記録して、スコアを管理しましょう！
+              {t('history.startRecording')}
             </Typography>
             <Button
               variant="contained"
               onClick={() => navigate('/new-game')}
               size="large"
             >
-              ゲームを記録
+              {t('history.recordGame')}
             </Button>
           </Paper>
         ) : (
@@ -275,7 +277,7 @@ export const HistoryPage = () => {
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Chip
-                          label={`${game.totalScore}点`}
+                          label={t('history.points', { score: game.totalScore })}
                           color={getScoreColor(game.totalScore)}
                           size="small"
                         />
@@ -335,7 +337,7 @@ export const HistoryPage = () => {
                       ) : game.frames ? (
                         <Box>
                           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                            スコア詳細
+                            {t('history.scoreDetail')}
                           </Typography>
                           <ScoreBoard frames={game.frames} />
                         </Box>
@@ -353,7 +355,7 @@ export const HistoryPage = () => {
                         handleDelete(game.id, game.totalScore);
                       }}
                     >
-                      削除
+                      {t('history.delete')}
                     </Button>
                   </CardActions>
                   </Card>
