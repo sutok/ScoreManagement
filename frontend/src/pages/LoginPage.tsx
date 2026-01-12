@@ -26,14 +26,16 @@ export const LoginPage = () => {
       <Box sx={{ mt: 8 }}>
         <Paper elevation={3} sx={{ p: 4 }}>
           <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Typography variant="h3" component="h1" gutterBottom>
+            <Typography variant="h3" component="h1" gutterBottom sx={{ lineHeight: 1.4 }}>
               🎳
+              <br />
+              🎱🎱🎱
             </Typography>
             <Typography variant="h4" component="h2" gutterBottom>
-              ボーリングスコア管理
+              ボーラード/ボーリングスコア管理
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-              ゲームのスコアを記録・管理するアプリケーション
+              ボーラード・ボーリングゲームのスコアを記録・管理するアプリケーション
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
