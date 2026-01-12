@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Button, Alert } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import { useAuth } from '../../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export const GoogleLoginButton = () => {
   const { loginWithGoogle } = useAuth();
+  const { t } = useTranslation();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -16,8 +18,8 @@ export const GoogleLoginButton = () => {
     } catch (err: any) {
       console.error('Login error details:', err);
       const errorCode = err?.code || 'unknown';
-      const errorMessage = err?.message || 'ログインに失敗しました';
-      setError(`エラー: ${errorCode}\n${errorMessage}`);
+      const errorMessage = err?.message || 'Login failed';
+      setError(`Error: ${errorCode}\n${errorMessage}`);
     } finally {
       setLoading(false);
     }
@@ -40,7 +42,7 @@ export const GoogleLoginButton = () => {
         disabled={loading}
         sx={{ py: 1.5, textTransform: 'none' }}
       >
-        {loading ? 'ログイン中...' : 'Googleでログイン'}
+        {loading ? t('auth.loggingIn') : t('auth.loginWithGoogle')}
       </Button>
     </>
   );

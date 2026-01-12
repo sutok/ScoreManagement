@@ -5,11 +5,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SportsIcon from '@mui/icons-material/Sports';
 import HistoryIcon from '@mui/icons-material/History';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
+import { LanguageSelector } from '../components/LanguageSelector';
 
 export const HomePage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     trackPageView('/');
@@ -29,7 +32,7 @@ export const HomePage = () => {
       <Box sx={{ my: 4 }}>
         {/* Header */}
         <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Avatar
                 src={user?.photoURL || undefined}
@@ -38,26 +41,29 @@ export const HomePage = () => {
               />
               <Box>
                 <Typography variant="h5" component="h1">
-                  {user?.displayName || 'ユーザー'}
+                  {t('home.welcome', { name: user?.displayName || 'User' })}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {user?.email}
                 </Typography>
               </Box>
             </Box>
-            <Button
-              variant="outlined"
-              startIcon={<LogoutIcon />}
-              onClick={handleLogout}
-            >
-              ログアウト
-            </Button>
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+              <LanguageSelector />
+              <Button
+                variant="outlined"
+                startIcon={<LogoutIcon />}
+                onClick={handleLogout}
+              >
+                {t('auth.logout')}
+              </Button>
+            </Box>
           </Box>
         </Paper>
 
         {/* Title */}
         <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
-          🎳  ボーラード/ボーリング
+          🎳 🎱 {t('home.title')}
         </Typography>
 
         {/* Action Buttons */}
@@ -69,7 +75,7 @@ export const HomePage = () => {
             onClick={() => navigate('/new-game')}
             sx={{ py: 2 }}
           >
-            新しいゲームを記録
+            {t('home.newGame')}
           </Button>
           <Button
             variant="outlined"
@@ -78,7 +84,7 @@ export const HomePage = () => {
             onClick={() => navigate('/history')}
             sx={{ py: 2 }}
           >
-            ゲーム履歴を見る
+            {t('home.viewHistory')}
           </Button>
         </Box>
 

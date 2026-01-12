@@ -1,0 +1,53 @@
+{
+  "app": {
+    "title": "ボーラード/ボーリングスコア管理",
+    "description": "ボーラード・ボーリングゲームのスコアを記録・管理するアプリケーション"
+  },
+  "auth": {
+    "loading": "読み込み中...",
+    "loginWithGoogle": "Googleでログイン",
+    "loginWithMicrosoft": "Microsoftアカウントでログイン",
+    "loginWithApple": "Appleでログイン",
+    "loggingIn": "ログイン中...",
+    "logout": "ログアウト"
+  },
+  "home": {
+    "title": "ボーラード/ボーリングスコア管理",
+    "welcome": "ようこそ、{{name}}さん",
+    "newGame": "新規ゲーム",
+    "viewHistory": "履歴を見る"
+  },
+  "newGame": {
+    "title": "新規ゲーム",
+    "gameName": "ゲーム名",
+    "gameNamePlaceholder": "例: 練習ゲーム",
+    "date": "日付",
+    "startGame": "ゲームを開始"
+  },
+  "history": {
+    "title": "ゲーム履歴",
+    "noGames": "まだゲームがありません",
+    "totalScore": "合計スコア"
+  },
+  "scoreBoard": {
+    "frame": "フレーム",
+    "total": "合計",
+    "firstThrow": "1投目",
+    "secondThrow": "2投目",
+    "thirdThrow": "3投目"
+  },
+  "language": {
+    "select": "言語を選択",
+    "ja": "日本語",
+    "en": "English",
+    "fil": "Filipino",
+    "id": "Bahasa Indonesia"
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "back": "戻る"
+  }
+}

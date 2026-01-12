@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Button, Alert } from '@mui/material';
 import { useAuth } from '../../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export const MicrosoftLoginButton = () => {
   const { loginWithMicrosoft } = useAuth();
+  const { t } = useTranslation();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -15,8 +17,8 @@ export const MicrosoftLoginButton = () => {
     } catch (err: any) {
       console.error('Login error details:', err);
       const errorCode = err?.code || 'unknown';
-      const errorMessage = err?.message || 'ログインに失敗しました';
-      setError(`エラー: ${errorCode}\n${errorMessage}`);
+      const errorMessage = err?.message || 'Login failed';
+      setError(`Error: ${errorCode}\n${errorMessage}`);
     } finally {
       setLoading(false);
     }
@@ -47,7 +49,7 @@ export const MicrosoftLoginButton = () => {
           }
         }}
       >
-        {loading ? 'ログイン中...' : 'Microsoftアカウントでログイン'}
+        {loading ? t('auth.loggingIn') : t('auth.loginWithMicrosoft')}
       </Button>
     </>
   );

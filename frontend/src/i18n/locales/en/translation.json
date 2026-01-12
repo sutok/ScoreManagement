@@ -1,0 +1,53 @@
+{
+  "app": {
+    "title": "Billiards/Bowling Score Management",
+    "description": "Record and manage your billiards and bowling game scores"
+  },
+  "auth": {
+    "loading": "Loading...",
+    "loginWithGoogle": "Login with Google",
+    "loginWithMicrosoft": "Login with Microsoft",
+    "loginWithApple": "Login with Apple",
+    "loggingIn": "Logging in...",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Billiards/Bowling Score Management",
+    "welcome": "Welcome, {{name}}",
+    "newGame": "New Game",
+    "viewHistory": "View History"
+  },
+  "newGame": {
+    "title": "New Game",
+    "gameName": "Game Name",
+    "gameNamePlaceholder": "e.g., Practice Game",
+    "date": "Date",
+    "startGame": "Start Game"
+  },
+  "history": {
+    "title": "Game History",
+    "noGames": "No games yet",
+    "totalScore": "Total Score"
+  },
+  "scoreBoard": {
+    "frame": "Frame",
+    "total": "Total",
+    "firstThrow": "1st Throw",
+    "secondThrow": "2nd Throw",
+    "thirdThrow": "3rd Throw"
+  },
+  "language": {
+    "select": "Select Language",
+    "ja": "日本語",
+    "en": "English",
+    "fil": "Filipino",
+    "id": "Bahasa Indonesia"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back"
+  }
+}
