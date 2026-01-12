@@ -216,7 +216,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         <Paper
           elevation={3}
           sx={{
-            mt: 2,
+            mt: 1,
             p: 2,
             bgcolor: totalScore === 300 ? 'success.main' : 'primary.main',
             color: 'white',
