@@ -11,6 +11,7 @@ const HistoryPage = lazy(() => import('./pages/HistoryPage').then(m => ({ defaul
 const FacilitiesPage = lazy(() => import('./pages/FacilitiesPage').then(m => ({ default: m.FacilitiesPage })));
 const RecurringTournamentsPage = lazy(() => import('./pages/RecurringTournamentsPage').then(m => ({ default: m.RecurringTournamentsPage })));
 const TournamentSearchPage = lazy(() => import('./pages/TournamentSearchPage').then(m => ({ default: m.TournamentSearchPage })));
+const DebugTournamentsPage = lazy(() => import('./pages/DebugTournamentsPage').then(m => ({ default: m.DebugTournamentsPage })));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -72,6 +73,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <TournamentSearchPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/debug-tournaments"
+            element={
+              <ProtectedRoute>
+                <DebugTournamentsPage />
               </ProtectedRoute>
             }
           />
