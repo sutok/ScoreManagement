@@ -217,7 +217,9 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
           elevation={3}
           sx={{
             mt: 1,
+            mb: 0,
             p: 2,
+            pb: 1,
             bgcolor: totalScore === 300 ? 'success.main' : 'primary.main',
             color: 'white',
             transition: 'all 0.5s ease-in-out',
