@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
-  type User,
+  type User as FirebaseUser,
   type ConfirmationResult,
   signInWithPopup,
   GoogleAuthProvider,
@@ -12,14 +12,45 @@ import {
 import { auth } from '../firebase/config';
 import { trackLogin, trackLogout } from '../utils/analytics';
 import { trackAuthError } from '../utils/errorTracking';
+import { getUserRole } from '../firebase/roles';
+import { type User } from '../types/user';
+
+/**
+ * Convert Firebase Auth User to our custom User type with role information
+ */
+const enrichUserWithRole = async (firebaseUser: FirebaseUser): Promise<User> => {
+  const roleDoc = await getUserRole(firebaseUser.uid);
+
+  return {
+    id: firebaseUser.uid,
+    displayName: firebaseUser.displayName || 'User',
+    email: firebaseUser.email,
+    profileImageUrl: firebaseUser.photoURL,
+    role: roleDoc?.role || 'user',
+    facilities: roleDoc?.facilities,
+    isActive: true,
+    lastLoginAt: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    // Firebase Auth compatibility properties
+    uid: firebaseUser.uid,
+    photoURL: firebaseUser.photoURL,
+  };
+};
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser) {
+        // Enrich Firebase user with role information
+        const enrichedUser = await enrichUserWithRole(firebaseUser);
+        setUser(enrichedUser);
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
 

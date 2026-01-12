@@ -36,9 +36,8 @@ export const RecurringTournamentsPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingTournament, setEditingTournament] = useState<RecurringTournament | null>(null);
 
-  // TODO: Get user role from Firestore users collection
-  const userRole = 'admin'; // This should come from user data
-
+  // Get user role from auth context (includes role from /roles collection)
+  const userRole = user?.role || 'user';
   const canManageTournaments = userRole === 'admin' || userRole === 'facility_manager';
 
   useEffect(() => {

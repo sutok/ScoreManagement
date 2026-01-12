@@ -4,25 +4,48 @@ service cloud.firestore {
 
     // ===== Helper Functions =====
 
+    // Check if user has a role document (for any privileged role)
+    function hasRoleDocument() {
+      return request.auth != null &&
+             exists(/databases/$(database)/documents/roles/$(request.auth.uid));
+    }
+
+    // Get user's role document
+    function getUserRole() {
+      return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data;
+    }
+
     // Check if user is admin
     function isAdmin() {
-      return request.auth != null &&
-             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      return hasRoleDocument() && getUserRole().role == 'admin';
     }
 
     // Check if user is facility manager
     function isFacilityManager() {
-      return request.auth != null &&
-             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'facility_manager';
+      return hasRoleDocument() && getUserRole().role == 'facility_manager';
     }
 
-    // Check if user is member of specified facility
+    // Check if user can manage specified facility
+    function canManageFacility(facilityId) {
+      return request.auth != null &&
+             (isAdmin() ||
+              (isFacilityManager() &&
+               getUserRole().facilities.hasAny([facilityId])));
+    }
+
+    // Legacy: Check if user is member of specified facility (via facilityMembers collection)
     function isFacilityMember(facilityId) {
       return request.auth != null &&
              exists(/databases/$(database)/documents/facilityMembers/$(request.auth.uid + '_' + facilityId));
     }
 
     // ===== User Collections =====
+
+    // ユーザー権限情報: 本人が読める、adminのみ書ける
+    match /roles/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if isAdmin();
+    }
 
     // ユーザー情報: 本人のみ読み書き可能
     match /users/{userId} {
@@ -76,7 +99,7 @@ service cloud.firestore {
     match /facilities/{facilityId} {
       allow read: if request.auth != null;
       allow create: if isAdmin() || isFacilityManager();
-      allow update, delete: if isAdmin() || isFacilityMember(facilityId);
+      allow update, delete: if canManageFacility(facilityId) || isFacilityMember(facilityId);
     }
 
     // 施設メンバー: 全ユーザー閲覧可、adminのみ管理可
@@ -89,7 +112,7 @@ service cloud.firestore {
     match /recurringTournaments/{recurringId} {
       allow read: if request.auth != null;
       allow create: if isAdmin() || isFacilityManager();
-      allow update, delete: if isAdmin() ||
+      allow update, delete: if canManageFacility(resource.data.facilityId) ||
                               isFacilityMember(resource.data.facilityId);
     }
 
@@ -97,13 +120,13 @@ service cloud.firestore {
     match /tournaments/{tournamentId} {
       allow read: if request.auth != null;
       allow create: if isAdmin() || isFacilityManager();
-      allow update, delete: if isAdmin() ||
+      allow update, delete: if canManageFacility(resource.data.facilityId) ||
                               isFacilityMember(resource.data.facilityId);
 
       // 試合結果: 全ユーザー閲覧可、施設メンバーのみ記録可
       match /results/{resultId} {
         allow read: if request.auth != null;
-        allow write: if isAdmin() ||
+        allow write: if canManageFacility(get(/databases/$(database)/documents/tournaments/$(tournamentId)).data.facilityId) ||
                        isFacilityMember(get(/databases/$(database)/documents/tournaments/$(tournamentId)).data.facilityId);
       }
     }

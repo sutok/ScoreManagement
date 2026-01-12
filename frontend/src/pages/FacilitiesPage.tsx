@@ -34,10 +34,8 @@ export const FacilitiesPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingFacility, setEditingFacility] = useState<Facility | null>(null);
 
-  // TODO: Get user role from Firestore users collection
-  // For now, check if user is admin or facility_manager
-  const userRole = 'admin'; // This should come from currentUser data
-
+  // Get user role from auth context (includes role from /roles collection)
+  const userRole = user?.role || 'user';
   const canManageFacilities = userRole === 'admin' || userRole === 'facility_manager';
 
   // TODO: Get company ID from user data or allow selection
