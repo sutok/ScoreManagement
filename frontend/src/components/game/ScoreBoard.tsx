@@ -76,7 +76,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
               display: 'flex',
               justifyContent: 'center',
               gap: 0.25,
-              my: 0,
+              my: 0.25,
               minHeight: 20,
             }}
           >
@@ -180,7 +180,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
               color: frame.cumulativeScore > 0 ? 'primary.main' : 'text.secondary',
               animation: frame.cumulativeScore > 0 ? `${pulseAnimation} 0.5s ease-in-out` : 'none',
               transition: 'color 0.3s ease',
-              mt: 0,
+              mt: 0.25,
             }}
           >
             {frame.cumulativeScore > 0 ? frame.cumulativeScore : '-'}
