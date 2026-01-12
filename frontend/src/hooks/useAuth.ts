@@ -1,5 +1,14 @@
 import { useState, useEffect } from 'react';
-import { type User, signInWithPopup, GoogleAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
+import {
+  type User,
+  type ConfirmationResult,
+  signInWithPopup,
+  GoogleAuthProvider,
+  OAuthProvider,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  signOut
+} from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { trackLogin, trackLogout } from '../utils/analytics';
 import { trackAuthError } from '../utils/errorTracking';
@@ -62,6 +71,34 @@ export const useAuth = () => {
     }
   };
 
+  const loginWithPhone = async (phoneNumber: string, recaptchaVerifier: RecaptchaVerifier): Promise<ConfirmationResult> => {
+    try {
+      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
+      return confirmationResult;
+    } catch (error) {
+      console.error('Phone login error:', error);
+      trackAuthError(error instanceof Error ? error : new Error('Phone login failed'), {
+        page: window.location.pathname,
+        action: 'phone_login',
+      });
+      throw error;
+    }
+  };
+
+  const verifyOTP = async (confirmationResult: ConfirmationResult, code: string) => {
+    try {
+      await confirmationResult.confirm(code);
+      trackLogin('phone');
+    } catch (error) {
+      console.error('OTP verification error:', error);
+      trackAuthError(error instanceof Error ? error : new Error('OTP verification failed'), {
+        page: window.location.pathname,
+        action: 'otp_verification',
+      });
+      throw error;
+    }
+  };
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -76,5 +113,5 @@ export const useAuth = () => {
     }
   };
 
-  return { user, loading, loginWithGoogle, loginWithApple, loginWithMicrosoft, logout };
+  return { user, loading, loginWithGoogle, loginWithApple, loginWithMicrosoft, loginWithPhone, verifyOTP, logout };
 };
