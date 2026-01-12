@@ -6,6 +6,7 @@ import SportsIcon from '@mui/icons-material/Sports';
 import HistoryIcon from '@mui/icons-material/History';
 import StoreIcon from '@mui/icons-material/Store';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
+import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
@@ -105,6 +106,15 @@ export const HomePage = () => {
             sx={{ py: 2 }}
           >
             定期開催試合管理
+          </Button>
+          <Button
+            variant="outlined"
+            size="large"
+            startIcon={<SearchIcon />}
+            onClick={() => navigate('/tournament-search')}
+            sx={{ py: 2 }}
+          >
+            試合検索
           </Button>
         </Box>
       </Box>
