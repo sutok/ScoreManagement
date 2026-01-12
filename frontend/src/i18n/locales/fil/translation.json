@@ -1,0 +1,53 @@
+{
+  "app": {
+    "title": "Pamamahala ng Iskor sa Billiards/Bowling",
+    "description": "Itala at pamahalaan ang iyong mga iskor sa billiards at bowling"
+  },
+  "auth": {
+    "loading": "Naglo-load...",
+    "loginWithGoogle": "Mag-login gamit ang Google",
+    "loginWithMicrosoft": "Mag-login gamit ang Microsoft",
+    "loginWithApple": "Mag-login gamit ang Apple",
+    "loggingIn": "Naglo-login...",
+    "logout": "Mag-logout"
+  },
+  "home": {
+    "title": "Pamamahala ng Iskor sa Billiards/Bowling",
+    "welcome": "Maligayang pagdating, {{name}}",
+    "newGame": "Bagong Laro",
+    "viewHistory": "Tingnan ang Kasaysayan"
+  },
+  "newGame": {
+    "title": "Bagong Laro",
+    "gameName": "Pangalan ng Laro",
+    "gameNamePlaceholder": "hal., Pagsasanay na Laro",
+    "date": "Petsa",
+    "startGame": "Simulan ang Laro"
+  },
+  "history": {
+    "title": "Kasaysayan ng Laro",
+    "noGames": "Walang laro pa",
+    "totalScore": "Kabuuang Iskor"
+  },
+  "scoreBoard": {
+    "frame": "Frame",
+    "total": "Kabuuan",
+    "firstThrow": "1st Throw",
+    "secondThrow": "2nd Throw",
+    "thirdThrow": "3rd Throw"
+  },
+  "language": {
+    "select": "Pumili ng Wika",
+    "ja": "日本語",
+    "en": "English",
+    "fil": "Filipino",
+    "id": "Bahasa Indonesia"
+  },
+  "common": {
+    "save": "I-save",
+    "cancel": "Kanselahin",
+    "delete": "Tanggalin",
+    "edit": "I-edit",
+    "back": "Bumalik"
+  }
+}

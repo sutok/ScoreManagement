@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import App from './App.tsx';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initializeErrorTracking } from './utils/errorTracking';
+import './i18n/config';
 import './index.css';
 
 // Initialize global error handlers

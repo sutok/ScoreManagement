@@ -1,0 +1,53 @@
+{
+  "app": {
+    "title": "Manajemen Skor Biliar/Bowling",
+    "description": "Catat dan kelola skor permainan biliar dan bowling Anda"
+  },
+  "auth": {
+    "loading": "Memuat...",
+    "loginWithGoogle": "Masuk dengan Google",
+    "loginWithMicrosoft": "Masuk dengan Microsoft",
+    "loginWithApple": "Masuk dengan Apple",
+    "loggingIn": "Masuk...",
+    "logout": "Keluar"
+  },
+  "home": {
+    "title": "Manajemen Skor Biliar/Bowling",
+    "welcome": "Selamat datang, {{name}}",
+    "newGame": "Permainan Baru",
+    "viewHistory": "Lihat Riwayat"
+  },
+  "newGame": {
+    "title": "Permainan Baru",
+    "gameName": "Nama Permainan",
+    "gameNamePlaceholder": "mis., Permainan Latihan",
+    "date": "Tanggal",
+    "startGame": "Mulai Permainan"
+  },
+  "history": {
+    "title": "Riwayat Permainan",
+    "noGames": "Belum ada permainan",
+    "totalScore": "Skor Total"
+  },
+  "scoreBoard": {
+    "frame": "Frame",
+    "total": "Total",
+    "firstThrow": "Lemparan 1",
+    "secondThrow": "Lemparan 2",
+    "thirdThrow": "Lemparan 3"
+  },
+  "language": {
+    "select": "Pilih Bahasa",
+    "ja": "日本語",
+    "en": "English",
+    "fil": "Filipino",
+    "id": "Bahasa Indonesia"
+  },
+  "common": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "back": "Kembali"
+  }
+}
