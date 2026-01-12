@@ -28,11 +28,9 @@ export const LoginPage = () => {
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography variant="h3" component="h1" gutterBottom sx={{ lineHeight: 1.4 }}>
               🎳
-              <br />
-              🎱🎱🎱
             </Typography>
             <Typography variant="h4" component="h2" gutterBottom>
-              ボーラード/ボーリングスコア管理
+              ボーラード/ボーリング
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
               ボーラード・ボーリングゲームのスコアを記録・管理するアプリケーション

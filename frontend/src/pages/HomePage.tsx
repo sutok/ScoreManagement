@@ -57,7 +57,7 @@ export const HomePage = () => {
 
         {/* Title */}
         <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
-          🎳 🎱 ボーラード/ボーリングスコア管理
+          🎳  ボーラード/ボーリング
         </Typography>
 
         {/* Action Buttons */}
