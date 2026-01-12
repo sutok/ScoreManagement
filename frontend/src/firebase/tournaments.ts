@@ -347,10 +347,8 @@ export const searchRecurringTournaments = async (
       q = query(q, where('isActive', '==', filters.isActive));
     }
 
-    // Apply level filter
-    if (filters.level) {
-      q = query(q, where('level', '==', filters.level));
-    }
+    // Note: Level filter is applied in memory to support both single and array values
+    // Firestore queries don't work well with mixed types (string vs array)
 
     const snapshot = await getDocs(q);
 
@@ -370,6 +368,16 @@ export const searchRecurringTournaments = async (
         updatedAt: timestampToDate(data.updatedAt),
       } as RecurringTournament;
     });
+
+    // Apply level filter in memory (supports both single value and array)
+    if (filters.level) {
+      results = results.filter((t) => {
+        if (Array.isArray(t.level)) {
+          return t.level.includes(filters.level as any);
+        }
+        return t.level === filters.level;
+      });
+    }
 
     // Apply entry fee filters in memory (Firestore doesn't support range queries on non-indexed fields)
     if (filters.minEntryFee !== undefined) {
