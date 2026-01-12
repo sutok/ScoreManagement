@@ -97,12 +97,12 @@ export const FacilityRegistrationInfoPage = () => {
         </Typography>
         <Typography variant="body1" component="div">
           <ul style={{ marginTop: 8 }}>
-            <li>施設名（ボウリング場の名前）</li>
+            <li>施設名</li>
             <li>支店名（複数店舗がある場合）</li>
             <li>住所（都道府県、市区町村、詳細住所）</li>
             <li>電話番号</li>
             <li>営業時間（開店・閉店時刻）</li>
-            <li>レーン数</li>
+            <li>台数/レーン数</li>
           </ul>
         </Typography>
       </Paper>

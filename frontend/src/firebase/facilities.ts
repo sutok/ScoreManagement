@@ -83,11 +83,33 @@ export const createFacility = async (
 ): Promise<string> => {
   try {
     const facilitiesRef = collection(db, 'facilities');
-    const facilityDoc = await addDoc(facilitiesRef, {
-      ...facilityData,
+
+    // Remove undefined fields (Firestore doesn't support undefined)
+    const cleanData: any = {
+      name: facilityData.name,
+      address: facilityData.address,
+      prefecture: facilityData.prefecture,
+      city: facilityData.city,
+      phoneNumber: facilityData.phoneNumber,
+      businessHours: facilityData.businessHours,
+      numberOfLanes: facilityData.numberOfLanes,
+      companyId: facilityData.companyId,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
-    });
+    };
+
+    // Only add optional fields if they have values
+    if (facilityData.branchName) {
+      cleanData.branchName = facilityData.branchName;
+    }
+    if (facilityData.createdBy) {
+      cleanData.createdBy = facilityData.createdBy;
+    }
+    if (facilityData.approved) {
+      cleanData.approved = Timestamp.fromDate(facilityData.approved);
+    }
+
+    const facilityDoc = await addDoc(facilitiesRef, cleanData);
     return facilityDoc.id;
   } catch (error) {
     console.error('Error creating facility:', error);
@@ -347,13 +369,28 @@ export const applyFacility = async (
 ): Promise<string> => {
   try {
     const facilitiesRef = collection(db, 'facilities');
-    const facilityDoc = await addDoc(facilitiesRef, {
-      ...facilityData,
-      createdBy: userId, // Track who submitted the application
-      // approved field is intentionally NOT set (null/undefined = pending)
+
+    // Remove undefined fields (Firestore doesn't support undefined)
+    const cleanData: any = {
+      name: facilityData.name,
+      address: facilityData.address,
+      prefecture: facilityData.prefecture,
+      city: facilityData.city,
+      phoneNumber: facilityData.phoneNumber,
+      businessHours: facilityData.businessHours,
+      numberOfLanes: facilityData.numberOfLanes,
+      companyId: facilityData.companyId,
+      createdBy: userId,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
-    });
+    };
+
+    // Only add optional fields if they have values
+    if (facilityData.branchName) {
+      cleanData.branchName = facilityData.branchName;
+    }
+
+    const facilityDoc = await addDoc(facilitiesRef, cleanData);
     return facilityDoc.id;
   } catch (error) {
     console.error('Error applying for facility:', error);
