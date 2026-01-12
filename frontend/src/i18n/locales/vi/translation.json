@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "Bi-a/Bowling",
+    "description": "Ghi lại và quản lý điểm số trò chơi bi-a và bowling của bạn"
+  },
+  "auth": {
+    "loading": "Đang tải...",
+    "loginWithGoogle": "Đăng nhập bằng Google",
+    "loginWithMicrosoft": "Đăng nhập bằng Microsoft",
+    "loginWithApple": "Đăng nhập bằng Apple",
+    "loggingIn": "Đang đăng nhập...",
+    "logout": "Đăng xuất"
+  },
+  "home": {
+    "title": "Bi-a/Bowling",
+    "welcome": "Chào mừng, {{name}}",
+    "newGame": "Trò chơi mới",
+    "viewHistory": "Xem lịch sử"
+  },
+  "newGame": {
+    "title": "Trò chơi mới",
+    "backToHome": "Quay lại trang chủ",
+    "recordNewGame": "Ghi lại trò chơi mới",
+    "scoreInput": "Nhập điểm",
+    "memo": "Ghi chú (Tùy chọn)",
+    "memoPlaceholder": "Ghi lại suy nghĩ và ghi chú của bạn về trò chơi",
+    "reset": "Đặt lại",
+    "saveGame": "Lưu trò chơi",
+    "saving": "Đang lưu...",
+    "gameSaved": "Đã lưu trò chơi! Chuyển đến trang lịch sử...",
+    "loginRequired": "Yêu cầu đăng nhập",
+    "fillAllFrames": "Vui lòng điền tất cả các khung",
+    "gameComplete": "Trò chơi hoàn thành! Tổng điểm: {{score}} điểm",
+    "perfectGame": "🏆 Trò chơi hoàn hảo! 🏆",
+    "frame": "Khung {{number}}",
+    "saveError": "Lưu trò chơi thất bại"
+  },
+  "history": {
+    "title": "Lịch sử trò chơi",
+    "backToHome": "Quay lại trang chủ",
+    "loading": "Đang tải...",
+    "loadError": "Tải lịch sử trò chơi thất bại",
+    "framesLoadError": "Tải khung thất bại",
+    "deleteConfirm": "Xóa trò chơi này?",
+    "deleteError": "Xóa trò chơi thất bại",
+    "statistics": "Thống kê",
+    "totalGames": "Tổng số trò chơi",
+    "averageScore": "Điểm trung bình",
+    "highScore": "Điểm cao nhất",
+    "lowScore": "Điểm thấp nhất",
+    "noGamesYet": "Chưa có trò chơi nào được ghi lại",
+    "startRecording": "Ghi lại trò chơi mới để quản lý điểm số của bạn!",
+    "recordGame": "Ghi lại trò chơi",
+    "scoreDetail": "Chi tiết điểm",
+    "delete": "Xóa",
+    "points": "{{score}} điểm"
+  },
+  "scoreBoard": {
+    "title": "Bảng điểm",
+    "frame": "Khung",
+    "total": "Tổng",
+    "totalScore": "Tổng điểm: {{score}}",
+    "perfectGame": "🎉 Trò chơi hoàn hảo! 🎉",
+    "firstThrow": "Ném lần 1",
+    "secondThrow": "Ném lần 2",
+    "thirdThrow": "Ném lần 3"
+  },
+  "language": {
+    "select": "Chọn ngôn ngữ",
+    "ja": "日本語",
+    "en": "English",
+    "fil": "Filipino",
+    "id": "Bahasa Indonesia",
+    "th": "ไทย",
+    "vi": "Tiếng Việt"
+  },
+  "common": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "back": "Quay lại"
+  }
+}

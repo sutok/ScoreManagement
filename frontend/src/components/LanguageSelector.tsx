@@ -8,7 +8,8 @@ const languageOptions = [
   { code: 'en', flag: '🇬🇧', name: 'English' },
   { code: 'fil', flag: '🇵🇭', name: 'Filipino' },
   { code: 'id', flag: '🇮🇩', name: 'Bahasa Indonesia' },
-  { code: 'th', flag: '🇹🇭', name: 'ไทย' }
+  { code: 'th', flag: '🇹🇭', name: 'ไทย' },
+  { code: 'vi', flag: '🇻🇳', name: 'Tiếng Việt' }
 ];
 
 export const LanguageSelector = () => {
