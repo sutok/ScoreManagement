@@ -40,7 +40,13 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         timeout={300 + frame.frameNumber * 50}
         key={frame.frameNumber}
       >
-        <Box sx={{ flex: '0 0 auto', width: isFrame10 ? 100 : 70 }}>
+        <Box
+          sx={{
+            flex: isFrame10 ? '1 1 100%' : '1 1 calc(33.333% - 12px)',
+            minWidth: isFrame10 ? '100%' : '100px',
+            maxWidth: isFrame10 ? '100%' : 'calc(33.333% - 12px)',
+          }}
+        >
           <Paper
             elevation={1}
             sx={{
@@ -198,17 +204,9 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
       <Box
         sx={{
           display: 'flex',
-          flexWrap: 'nowrap',
-          gap: 0.5,
-          overflowX: 'auto',
-          pb: 1,
-          '&::-webkit-scrollbar': {
-            height: 8,
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,0.2)',
-            borderRadius: 4,
-          },
+          flexWrap: 'wrap',
+          gap: 1,
+          justifyContent: 'flex-start',
         }}
       >
         {frames.map((frame) => renderFrame(frame))}
