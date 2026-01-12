@@ -43,7 +43,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         <Box
           sx={{
             flex: '0 0 auto',
-            width: isFrame10 ? '60px' : '40px',
+            width: isFrame10 ? '80px' : '60px',
           }}
         >
           <Paper
@@ -65,7 +65,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
             align="center"
             display="block"
             fontWeight="bold"
-            sx={{ fontSize: '0.7rem' }}
+            sx={{ fontSize: '0.8rem' }}
           >
             {frame.frameNumber}
           </Typography>
@@ -92,7 +92,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
+                    fontSize: '0.85rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -107,7 +107,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
+                    fontSize: '0.85rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -122,7 +122,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
+                    fontSize: '0.85rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -141,7 +141,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.7rem',
+                    fontSize: '0.85rem',
                     fontWeight: 'bold',
                   }}
                 >
@@ -159,7 +159,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '0.7rem',
+                      fontSize: '0.85rem',
                       fontWeight: 'bold',
                     }}
                   >
@@ -176,7 +176,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
             align="center"
             sx={{
               fontWeight: 'bold',
-              fontSize: '0.9rem',
+              fontSize: '1.1rem',
               color: frame.cumulativeScore > 0 ? 'primary.main' : 'text.secondary',
               animation: frame.cumulativeScore > 0 ? `${pulseAnimation} 0.5s ease-in-out` : 'none',
               transition: 'color 0.3s ease',
