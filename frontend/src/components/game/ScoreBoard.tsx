@@ -1,4 +1,5 @@
 import { Box, Paper, Typography, Grow, Zoom, Fade } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { type Frame } from '../../types/game';
 import { keyframes } from '@mui/system';
 
@@ -7,6 +8,7 @@ interface ScoreBoardProps {
 }
 
 export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
+  const { t } = useTranslation();
   // Celebration animation for perfect game
   const celebrationAnimation = keyframes`
     0% { transform: scale(1); }
@@ -189,7 +191,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
   return (
     <Box>
       <Typography variant="h5" gutterBottom align="center" fontWeight="bold">
-        スコアボード
+        {t('scoreBoard.title')}
       </Typography>
 
       {/* Frames */}
@@ -218,7 +220,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
               animation: totalScore > 0 ? `${pulseAnimation} 1s ease-in-out` : 'none',
             }}
           >
-            合計スコア: {totalScore}
+            {t('scoreBoard.totalScore', { score: totalScore })}
           </Typography>
           {totalScore === 300 && (
             <Fade in={true} timeout={1000}>
@@ -230,7 +232,7 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
                   animation: `${celebrationAnimation} 1.5s ease-in-out infinite`,
                 }}
               >
-                🎉 パーフェクトゲーム！ 🎉
+                {t('scoreBoard.perfectGame')}
               </Typography>
             </Fade>
           )}

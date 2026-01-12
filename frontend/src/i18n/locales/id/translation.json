@@ -56,8 +56,11 @@
     "points": "{{score}} pts"
   },
   "scoreBoard": {
+    "title": "Papan Skor",
     "frame": "Frame",
     "total": "Total",
+    "totalScore": "Total Skor: {{score}}",
+    "perfectGame": "🎉 Permainan Sempurna! 🎉",
     "firstThrow": "Lemparan 1",
     "secondThrow": "Lemparan 2",
     "thirdThrow": "Lemparan 3"

@@ -56,8 +56,11 @@
     "points": "{{score}}点"
   },
   "scoreBoard": {
+    "title": "スコアボード",
     "frame": "フレーム",
     "total": "合計",
+    "totalScore": "合計スコア: {{score}}",
+    "perfectGame": "🎉 パーフェクトゲーム！ 🎉",
     "firstThrow": "1投目",
     "secondThrow": "2投目",
     "thirdThrow": "3投目"
