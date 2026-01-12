@@ -43,14 +43,13 @@ export const ScoreBoard = ({ frames }: ScoreBoardProps) => {
         <Box
           sx={{
             flex: isFrame10 ? '1 1 100%' : '0 0 auto',
-            width: isFrame10 ? '100%' : '120px',
+            width: isFrame10 ? '100%' : '80px',
           }}
         >
           <Paper
             elevation={1}
             sx={{
-              px: '4px',
-              py: '4px',
+              p: 0,
               bgcolor: frame.isStrike
                 ? 'success.light'
                 : frame.isSpare
