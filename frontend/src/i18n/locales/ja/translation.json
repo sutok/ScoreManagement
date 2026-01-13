@@ -15,7 +15,14 @@
     "title": "ボーラード/ボーリング",
     "welcome": "ようこそ、{{name}}さん",
     "newGame": "新規ゲーム",
-    "viewHistory": "履歴を見る"
+    "viewHistory": "履歴を見る",
+    "tournamentSearch": "試合検索",
+    "facilityManagement": "施設管理",
+    "recurringTournaments": "定期開催試合管理",
+    "pendingFacilities": "申請中店舗一覧",
+    "forFacilityManagers": "店舗管理者の方へ",
+    "facilityManagerDescription": "ビリヤード場/ボウリング場を運営されている方は、施設管理者として登録できます",
+    "applyFacility": "店舗登録申請はこちら"
   },
   "newGame": {
     "title": "新規ゲーム",

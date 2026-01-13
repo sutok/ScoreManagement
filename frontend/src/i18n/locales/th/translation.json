@@ -15,7 +15,14 @@
     "title": "บิลเลียด/โบว์ลิ่ง",
     "welcome": "ยินดีต้อนรับ {{name}}",
     "newGame": "เกมใหม่",
-    "viewHistory": "ดูประวัติ"
+    "viewHistory": "ดูประวัติ",
+    "tournamentSearch": "ค้นหาทัวร์นาเมนต์",
+    "facilityManagement": "การจัดการสถานที่",
+    "recurringTournaments": "ทัวร์นาเมนต์ประจำ",
+    "pendingFacilities": "สถานที่ที่รอดำเนินการ",
+    "forFacilityManagers": "สำหรับผู้จัดการสถานที่",
+    "facilityManagerDescription": "หากคุณดำเนินการห้องบิลเลียดหรือโบว์ลิ่ง คุณสามารถลงทะเบียนเป็นผู้จัดการสถานที่ได้",
+    "applyFacility": "สมัครลงทะเบียนสถานที่"
   },
   "newGame": {
     "title": "เกมใหม่",

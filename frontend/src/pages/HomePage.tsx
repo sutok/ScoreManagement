@@ -65,7 +65,7 @@ export const HomePage = () => {
             sx={{ py: 2 }}
             color="warning"
           >
-            試合検索
+            {t('home.tournamentSearch')}
           </Button>
 
           {/* Management buttons - only for admin and facility_manager */}
@@ -78,7 +78,7 @@ export const HomePage = () => {
                 onClick={() => navigate('/facilities')}
                 sx={{ py: 2 }}
               >
-                施設管理
+                {t('home.facilityManagement')}
               </Button>
               <Button
                 variant="outlined"
@@ -87,7 +87,7 @@ export const HomePage = () => {
                 onClick={() => navigate('/recurring-tournaments')}
                 sx={{ py: 2 }}
               >
-                定期開催試合管理
+                {t('home.recurringTournaments')}
               </Button>
               {/* Admin only: Pending facilities */}
               {userRole === 'admin' && (
@@ -99,7 +99,7 @@ export const HomePage = () => {
                   sx={{ py: 2 }}
                   color="warning"
                 >
-                  申請中店舗一覧
+                  {t('home.pendingFacilities')}
                 </Button>
               )}
             </>
@@ -110,12 +110,12 @@ export const HomePage = () => {
         <Paper elevation={1} sx={{ mt: 4, p: 3, bgcolor: 'background.default' }}>
           <Divider sx={{ mb: 2 }}>
             <Typography variant="body2" color="text.secondary">
-              店舗管理者の方へ
+              {t('home.forFacilityManagers')}
             </Typography>
           </Divider>
           <Box sx={{ textAlign: 'center' }}>
             <Typography variant="body2" color="text.secondary" gutterBottom>
-              ビリヤード場/ボウリング場を運営されている方は、施設管理者として登録できます
+              {t('home.facilityManagerDescription')}
             </Typography>
             <Button
               variant="text"
@@ -124,7 +124,7 @@ export const HomePage = () => {
               to="/apply-facility"
               sx={{ mt: 1 }}
             >
-              店舗登録申請はこちら
+              {t('home.applyFacility')}
             </Button>
           </Box>
         </Paper>

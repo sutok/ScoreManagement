@@ -15,7 +15,14 @@
     "title": "Biliar/Bowling",
     "welcome": "Selamat datang, {{name}}",
     "newGame": "Permainan Baru",
-    "viewHistory": "Lihat Riwayat"
+    "viewHistory": "Lihat Riwayat",
+    "tournamentSearch": "Pencarian Turnamen",
+    "facilityManagement": "Manajemen Fasilitas",
+    "recurringTournaments": "Turnamen Berulang",
+    "pendingFacilities": "Fasilitas Menunggu",
+    "forFacilityManagers": "Untuk Manajer Fasilitas",
+    "facilityManagerDescription": "Jika Anda mengoperasikan hall biliar atau bowling alley, Anda dapat mendaftar sebagai manajer fasilitas",
+    "applyFacility": "Daftar untuk Pendaftaran Fasilitas"
   },
   "newGame": {
     "title": "Permainan Baru",

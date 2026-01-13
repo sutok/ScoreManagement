@@ -15,7 +15,14 @@
     "title": "Billiards/Bowling",
     "welcome": "Maligayang pagdating, {{name}}",
     "newGame": "Bagong Laro",
-    "viewHistory": "Tingnan ang Kasaysayan"
+    "viewHistory": "Tingnan ang Kasaysayan",
+    "tournamentSearch": "Paghahanap ng Torneo",
+    "facilityManagement": "Pamamahala ng Pasilidad",
+    "recurringTournaments": "Mga Paulit-ulit na Torneo",
+    "pendingFacilities": "Mga Pasilidad na Naghihintay",
+    "forFacilityManagers": "Para sa mga Facility Manager",
+    "facilityManagerDescription": "Kung ikaw ay nag-ooperate ng billiards hall o bowling alley, maaari kang magrehistro bilang facility manager",
+    "applyFacility": "Mag-apply para sa Rehistrasyon ng Pasilidad"
   },
   "newGame": {
     "title": "Bagong Laro",

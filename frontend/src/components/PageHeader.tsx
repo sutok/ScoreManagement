@@ -22,7 +22,7 @@ export const PageHeader = ({ title, icon, showBackButton = false }: PageHeaderPr
     <Box sx={{ position: 'relative', mb: 3 }}>
       {showBackButton && (
         <Box sx={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }}>
-          <IconButton onClick={handleBack} aria-label="ホームに戻る" sx={{ fontSize: '0.875rem' }}>
+          <IconButton onClick={handleBack} aria-label={t('common.backToHome')} sx={{ fontSize: '0.875rem' }}>
             <ArrowBackIcon sx={{ fontSize: '1.25rem' }} /> {t('common.backToHome')}
           </IconButton>
         </Box>

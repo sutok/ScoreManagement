@@ -15,7 +15,14 @@
     "title": "Billiards/Bowling",
     "welcome": "Welcome, {{name}}",
     "newGame": "New Game",
-    "viewHistory": "View History"
+    "viewHistory": "View History",
+    "tournamentSearch": "Tournament Search",
+    "facilityManagement": "Facility Management",
+    "recurringTournaments": "Recurring Tournaments",
+    "pendingFacilities": "Pending Facilities",
+    "forFacilityManagers": "For Facility Managers",
+    "facilityManagerDescription": "If you operate a billiards hall or bowling alley, you can register as a facility manager",
+    "applyFacility": "Apply for Facility Registration"
   },
   "newGame": {
     "title": "New Game",
