@@ -30,13 +30,13 @@ export const HomePage = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
-        {/* Advertisement - Top */}
-        <AdBanner slot="9320434668" />
-
         {/* Header */}
         <AppHeader />
 
         {/* Title */}
+        {/* Advertisement - Top */}
+        <AdBanner slot="9320434668" format="horizontal" />
+
         <Typography gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
             {/* ホーム画面に表示するメインイメージ */}
             <img
