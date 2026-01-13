@@ -20,6 +20,7 @@ import {
   DialogActions,
 } from '@mui/material';
 import { Check as CheckIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import {
   getPendingFacilities,
@@ -31,6 +32,7 @@ import { PageHeader } from '../components/PageHeader';
 
 export const PendingFacilitiesPage = () => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -56,7 +58,7 @@ export const PendingFacilitiesPage = () => {
       setFacilities(data);
     } catch (err) {
       console.error('Error loading pending facilities:', err);
-      setError('申請中の店舗を読み込めませんでした');
+      setError(t('facility.pending.loadError'));
     } finally {
       setLoading(false);
     }
@@ -69,7 +71,7 @@ export const PendingFacilitiesPage = () => {
   const handleApproveConfirm = async () => {
     const facility = confirmDialog.facility;
     if (!facility || !facility.createdBy) {
-      setError('申請者情報が見つかりません');
+      setError(t('facility.pending.applicantNotFound'));
       return;
     }
 
@@ -85,7 +87,7 @@ export const PendingFacilitiesPage = () => {
       setConfirmDialog({ open: false, facility: null });
     } catch (err) {
       console.error('Error approving facility:', err);
-      setError('承認処理に失敗しました');
+      setError(t('facility.pending.approveError'));
     } finally {
       setApprovingId(null);
     }
@@ -100,7 +102,7 @@ export const PendingFacilitiesPage = () => {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Alert severity="error">
-          この機能は管理者のみアクセスできます
+          {t('facility.pending.adminOnly')}
         </Alert>
       </Container>
     );
@@ -112,7 +114,7 @@ export const PendingFacilitiesPage = () => {
       <AppHeader />
 
       <PageHeader
-        title="申請中店舗一覧"
+        title={t('facility.pending.title')}
         icon="⏳"
         showBackButton
       />
@@ -123,7 +125,7 @@ export const PendingFacilitiesPage = () => {
           onClick={loadPendingFacilities}
           disabled={loading}
         >
-          再読み込み
+          {t('facility.pending.reload')}
         </Button>
       </Box>
 
@@ -149,14 +151,14 @@ export const PendingFacilitiesPage = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>施設名</TableCell>
-                    <TableCell>支店名</TableCell>
-                    <TableCell>都道府県</TableCell>
-                    <TableCell>市区町村</TableCell>
-                    <TableCell>電話番号</TableCell>
-                    <TableCell>台数/レーン数</TableCell>
-                    <TableCell>申請日時</TableCell>
-                    <TableCell align="center">操作</TableCell>
+                    <TableCell>{t('facility.pending.tableFacilityName')}</TableCell>
+                    <TableCell>{t('facility.pending.tableBranchName')}</TableCell>
+                    <TableCell>{t('facility.pending.tablePrefecture')}</TableCell>
+                    <TableCell>{t('facility.pending.tableCity')}</TableCell>
+                    <TableCell>{t('facility.pending.tablePhone')}</TableCell>
+                    <TableCell>{t('facility.pending.tableLanes')}</TableCell>
+                    <TableCell>{t('facility.pending.tableAppliedDate')}</TableCell>
+                    <TableCell align="center">{t('facility.pending.tableActions')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -170,7 +172,7 @@ export const PendingFacilitiesPage = () => {
                             color="text.secondary"
                             sx={{ fontStyle: 'italic' }}
                           >
-                            なし
+                            {t('facility.pending.noBranch')}
                           </Typography>
                         )}
                       </TableCell>
@@ -199,7 +201,7 @@ export const PendingFacilitiesPage = () => {
                           {approvingId === facility.id ? (
                             <CircularProgress size={20} color="inherit" />
                           ) : (
-                            '承認'
+                            t('facility.pending.approve')
                           )}
                         </Button>
                       </TableCell>
@@ -211,10 +213,10 @@ export const PendingFacilitiesPage = () => {
           ) : (
             <Paper sx={{ p: 4, textAlign: 'center' }}>
               <Typography variant="h6" color="text.secondary" gutterBottom>
-                申請中の店舗はありません
+                {t('facility.pending.noFacilities')}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                新しい申請があるとここに表示されます
+                {t('facility.pending.noFacilitiesHint')}
               </Typography>
             </Paper>
           )}
@@ -223,7 +225,7 @@ export const PendingFacilitiesPage = () => {
 
       {/* Confirmation Dialog */}
       <Dialog open={confirmDialog.open} onClose={handleDialogClose}>
-        <DialogTitle>店舗登録を承認しますか？</DialogTitle>
+        <DialogTitle>{t('facility.pending.confirmTitle')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             {confirmDialog.facility && (
@@ -236,11 +238,11 @@ export const PendingFacilitiesPage = () => {
                 {confirmDialog.facility.city}
                 <br />
                 <br />
-                承認すると以下の処理が実行されます：
+                {t('facility.pending.confirmMessage')}
                 <ul>
-                  <li>施設が承認済みとしてマークされます</li>
-                  <li>申請者が施設管理者（facility_manager）になります</li>
-                  <li>申請者がこの施設を管理できるようになります</li>
+                  <li>{t('facility.pending.confirmItem1')}</li>
+                  <li>{t('facility.pending.confirmItem2')}</li>
+                  <li>{t('facility.pending.confirmItem3')}</li>
                 </ul>
               </>
             )}
@@ -248,7 +250,7 @@ export const PendingFacilitiesPage = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} disabled={approvingId !== null}>
-            キャンセル
+            {t('common.cancel')}
           </Button>
           <Button
             onClick={handleApproveConfirm}
@@ -256,7 +258,7 @@ export const PendingFacilitiesPage = () => {
             color="success"
             disabled={approvingId !== null}
           >
-            承認する
+            {t('facility.pending.confirmButton')}
           </Button>
         </DialogActions>
       </Dialog>

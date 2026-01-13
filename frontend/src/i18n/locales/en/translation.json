@@ -207,6 +207,32 @@
       "errorPhone": "Please enter phone number",
       "errorLanes": "Number of lanes must be between 1 and 100",
       "errorSave": "Failed to save facility"
+    },
+    "pending": {
+      "title": "Pending Facilities",
+      "loadError": "Failed to load pending facilities",
+      "applicantNotFound": "Applicant information not found",
+      "approveError": "Failed to approve facility",
+      "adminOnly": "This feature is only accessible to administrators",
+      "reload": "Reload",
+      "approve": "Approve",
+      "tableFacilityName": "Facility Name",
+      "tableBranchName": "Branch Name",
+      "tablePrefecture": "Prefecture",
+      "tableCity": "City",
+      "tablePhone": "Phone Number",
+      "tableLanes": "Number of Tables/Lanes",
+      "tableAppliedDate": "Applied Date",
+      "tableActions": "Actions",
+      "noBranch": "None",
+      "noFacilities": "No pending facilities",
+      "noFacilitiesHint": "New applications will appear here",
+      "confirmTitle": "Approve facility registration?",
+      "confirmMessage": "The following actions will be executed upon approval:",
+      "confirmItem1": "The facility will be marked as approved",
+      "confirmItem2": "The applicant will become a facility manager",
+      "confirmItem3": "The applicant will be able to manage this facility",
+      "confirmButton": "Approve"
     }
   }
 }

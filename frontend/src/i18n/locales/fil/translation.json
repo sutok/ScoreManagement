@@ -207,6 +207,32 @@
       "errorPhone": "Pakiusap ilagay ang numero ng telepono",
       "errorLanes": "Ang bilang ng lane ay dapat na 1 hanggang 100",
       "errorSave": "Nabigo ang pag-save ng pasilidad"
+    },
+    "pending": {
+      "title": "Mga Pasilidad na Naghihintay",
+      "loadError": "Nabigo ang pag-load ng mga pasilidad na naghihintay",
+      "applicantNotFound": "Hindi natagpuan ang impormasyon ng aplikante",
+      "approveError": "Nabigo ang pag-apruba ng pasilidad",
+      "adminOnly": "Ang feature na ito ay para lamang sa mga administrator",
+      "reload": "I-reload",
+      "approve": "Aprubahan",
+      "tableFacilityName": "Pangalan ng Pasilidad",
+      "tableBranchName": "Pangalan ng Sangay",
+      "tablePrefecture": "Prefecture",
+      "tableCity": "Lungsod",
+      "tablePhone": "Numero ng Telepono",
+      "tableLanes": "Bilang ng Mesa/Lane",
+      "tableAppliedDate": "Petsa ng Aplikasyon",
+      "tableActions": "Mga Aksyon",
+      "noBranch": "Wala",
+      "noFacilities": "Walang pasilidad na naghihintay",
+      "noFacilitiesHint": "Ang mga bagong aplikasyon ay lalabas dito",
+      "confirmTitle": "Aprubahan ang rehistrasyon ng pasilidad?",
+      "confirmMessage": "Ang mga sumusunod na aksyon ay isasagawa pagkatapos ng pag-apruba:",
+      "confirmItem1": "Ang pasilidad ay markahan bilang naaprubahan",
+      "confirmItem2": "Ang aplikante ay magiging facility manager",
+      "confirmItem3": "Ang aplikante ay makakapamahala ng pasilidad na ito",
+      "confirmButton": "Aprubahan"
     }
   }
 }
