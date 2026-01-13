@@ -12,6 +12,7 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
 import { AppHeader } from '../components/AppHeader';
+import { AdBanner } from '../components/AdBanner';
 
 export const HomePage = () => {
   const { user } = useAuth();
@@ -111,6 +112,9 @@ export const HomePage = () => {
             </>
           )}
         </Box>
+
+        {/* Advertisement */}
+        <AdBanner slot="1234567890" format="horizontal" />
 
         {/* Facility Application Link */}
         <Paper elevation={1} sx={{ mt: 4, p: 3, bgcolor: 'background.default' }}>
