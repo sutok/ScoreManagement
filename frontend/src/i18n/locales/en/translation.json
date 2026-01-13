@@ -80,6 +80,46 @@
     "delete": "Delete",
     "edit": "Edit",
     "back": "Back",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "loginRequired": "Login required"
+  },
+  "facility": {
+    "apply": {
+      "title": "Facility Registration Application",
+      "success": "Application submitted successfully. Please wait for approval.",
+      "error": "Failed to submit application. Please try again.",
+      "about": "About Application",
+      "info1": "Your information will be reviewed by administrators",
+      "info2": "Once approved, you will be registered as a facility manager",
+      "info3": "Approval may take a few days",
+      "info4": "You can check the application status on the home page after login (after approval)"
+    },
+    "form": {
+      "newTitle": "New Facility Registration",
+      "editTitle": "Edit Facility Information",
+      "name": "Facility Name",
+      "branchName": "Branch Name",
+      "branchPlaceholder": "e.g., Shinjuku Branch, Shibuya Branch",
+      "branchHelper": "Enter 'Main Office' if no branch (Optional)",
+      "prefecture": "Prefecture",
+      "city": "City",
+      "address": "Address",
+      "addressPlaceholder": "e.g., 1-1-1 Ginza, Chuo-ku",
+      "phoneNumber": "Phone Number",
+      "phonePlaceholder": "e.g., 03-1234-5678",
+      "numberOfLanes": "Number of Tables/Lanes",
+      "openTime": "Opening Time",
+      "closeTime": "Closing Time",
+      "submit": "Register",
+      "update": "Update",
+      "submitting": "Saving...",
+      "errorName": "Please enter facility name",
+      "errorPrefecture": "Please select prefecture",
+      "errorCity": "Please enter city",
+      "errorAddress": "Please enter address",
+      "errorPhone": "Please enter phone number",
+      "errorLanes": "Number of lanes must be between 1 and 100",
+      "errorSave": "Failed to save facility"
+    }
   }
 }

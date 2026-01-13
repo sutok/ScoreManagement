@@ -154,7 +154,7 @@ export const PendingFacilitiesPage = () => {
                     <TableCell>都道府県</TableCell>
                     <TableCell>市区町村</TableCell>
                     <TableCell>電話番号</TableCell>
-                    <TableCell>レーン数</TableCell>
+                    <TableCell>台数/レーン数</TableCell>
                     <TableCell>申請日時</TableCell>
                     <TableCell align="center">操作</TableCell>
                   </TableRow>

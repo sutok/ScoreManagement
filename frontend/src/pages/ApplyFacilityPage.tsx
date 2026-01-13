@@ -6,6 +6,7 @@ import {
   Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import { applyFacility } from '../firebase/facilities';
 import { FacilityForm } from '../components/facility/FacilityForm';
@@ -16,6 +17,7 @@ import { PageHeader } from '../components/PageHeader';
 export const ApplyFacilityPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
 
@@ -30,7 +32,7 @@ export const ApplyFacilityPage = () => {
       setSuccess('');
 
       if (!user) {
-        throw new Error('ログインが必要です');
+        throw new Error(t('common.loginRequired'));
       }
 
       // approved, createdBy フィールドを除外して申請
@@ -38,7 +40,7 @@ export const ApplyFacilityPage = () => {
 
       await applyFacility(dataToSubmit, user.uid);
 
-      setSuccess('店舗登録申請を送信しました。承認までお待ちください。');
+      setSuccess(t('facility.apply.success'));
 
       // 3秒後にホームページに戻る
       setTimeout(() => {
@@ -49,7 +51,7 @@ export const ApplyFacilityPage = () => {
       setError(
         err instanceof Error
           ? err.message
-          : '申請の送信に失敗しました。もう一度お試しください。'
+          : t('facility.apply.error')
       );
     }
   };
@@ -61,7 +63,7 @@ export const ApplyFacilityPage = () => {
   if (!user) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Alert severity="warning">ログインが必要です</Alert>
+        <Alert severity="warning">{t('common.loginRequired')}</Alert>
       </Container>
     );
   }
@@ -72,7 +74,7 @@ export const ApplyFacilityPage = () => {
       <AppHeader />
 
       <PageHeader
-        title="店舗登録申請"
+        title={t('facility.apply.title')}
         icon="📝"
         showBackButton
       />
@@ -94,16 +96,14 @@ export const ApplyFacilityPage = () => {
       {/* Information */}
       <Paper sx={{ p: 3, mb: 3, bgcolor: 'info.light' }}>
         <Typography variant="body1" gutterBottom>
-          <strong>申請について</strong>
+          <strong>{t('facility.apply.about')}</strong>
         </Typography>
         <Typography variant="body2" component="div">
           <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
-            <li>入力した情報は管理者が確認します</li>
-            <li>承認されると、施設管理者として登録されます</li>
-            <li>承認までに数日かかる場合があります</li>
-            <li>
-              申請状況はログイン後のホームページで確認できます（承認後）
-            </li>
+            <li>{t('facility.apply.info1')}</li>
+            <li>{t('facility.apply.info2')}</li>
+            <li>{t('facility.apply.info3')}</li>
+            <li>{t('facility.apply.info4')}</li>
           </ul>
         </Typography>
       </Paper>

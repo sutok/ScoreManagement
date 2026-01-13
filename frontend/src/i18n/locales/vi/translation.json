@@ -80,6 +80,46 @@
     "delete": "Xóa",
     "edit": "Chỉnh sửa",
     "back": "Quay lại",
-    "backToHome": "Quay lại trang chủ"
+    "backToHome": "Quay lại trang chủ",
+    "loginRequired": "Yêu cầu đăng nhập"
+  },
+  "facility": {
+    "apply": {
+      "title": "Đơn đăng ký cơ sở",
+      "success": "Đã gửi đơn thành công. Vui lòng đợi phê duyệt.",
+      "error": "Gửi đơn thất bại. Vui lòng thử lại.",
+      "about": "Về đơn đăng ký",
+      "info1": "Thông tin của bạn sẽ được quản trị viên xem xét",
+      "info2": "Sau khi được phê duyệt, bạn sẽ được đăng ký làm quản lý cơ sở",
+      "info3": "Việc phê duyệt có thể mất vài ngày",
+      "info4": "Bạn có thể kiểm tra trạng thái đơn trên trang chủ sau khi đăng nhập (sau khi được phê duyệt)"
+    },
+    "form": {
+      "newTitle": "Đăng ký cơ sở mới",
+      "editTitle": "Chỉnh sửa thông tin cơ sở",
+      "name": "Tên cơ sở",
+      "branchName": "Tên chi nhánh",
+      "branchPlaceholder": "vd: Chi nhánh Shinjuku, Chi nhánh Shibuya",
+      "branchHelper": "Nhập 'Văn phòng chính' nếu không có chi nhánh (Tùy chọn)",
+      "prefecture": "Tỉnh/Thành phố",
+      "city": "Quận/Huyện",
+      "address": "Địa chỉ",
+      "addressPlaceholder": "vd: 1-1-1 Ginza, Chuo-ku",
+      "phoneNumber": "Số điện thoại",
+      "phonePlaceholder": "vd: 03-1234-5678",
+      "numberOfLanes": "Số bàn/Làn",
+      "openTime": "Giờ mở cửa",
+      "closeTime": "Giờ đóng cửa",
+      "submit": "Đăng ký",
+      "update": "Cập nhật",
+      "submitting": "Đang lưu...",
+      "errorName": "Vui lòng nhập tên cơ sở",
+      "errorPrefecture": "Vui lòng chọn tỉnh/thành phố",
+      "errorCity": "Vui lòng nhập quận/huyện",
+      "errorAddress": "Vui lòng nhập địa chỉ",
+      "errorPhone": "Vui lòng nhập số điện thoại",
+      "errorLanes": "Số làn phải từ 1 đến 100",
+      "errorSave": "Lưu cơ sở thất bại"
+    }
   }
 }
