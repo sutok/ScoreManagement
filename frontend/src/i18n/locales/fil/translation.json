@@ -80,6 +80,46 @@
     "delete": "Tanggalin",
     "edit": "I-edit",
     "back": "Bumalik",
-    "backToHome": "Bumalik sa Home"
+    "backToHome": "Bumalik sa Home",
+    "loginRequired": "Kailangan mag-login"
+  },
+  "facility": {
+    "apply": {
+      "title": "Aplikasyon para sa Rehistrasyon ng Pasilidad",
+      "success": "Matagumpay na naisumite ang aplikasyon. Maghintay para sa pag-apruba.",
+      "error": "Nabigo ang pagsumite ng aplikasyon. Subukan muli.",
+      "about": "Tungkol sa Aplikasyon",
+      "info1": "Susuriin ng mga administrator ang iyong impormasyon",
+      "info2": "Kapag naaprubahan, ikaw ay magiging facility manager",
+      "info3": "Ang pag-apruba ay maaaring tumagal ng ilang araw",
+      "info4": "Maaari mong suriin ang status ng aplikasyon sa home page pagkatapos mag-login (pagkatapos ng pag-apruba)"
+    },
+    "form": {
+      "newTitle": "Bagong Rehistrasyon ng Pasilidad",
+      "editTitle": "I-edit ang Impormasyon ng Pasilidad",
+      "name": "Pangalan ng Pasilidad",
+      "branchName": "Pangalan ng Sangay",
+      "branchPlaceholder": "hal., Sangay ng Shinjuku, Sangay ng Shibuya",
+      "branchHelper": "Ilagay ang 'Main Office' kung walang sangay (Opsyonal)",
+      "prefecture": "Prefecture",
+      "city": "Lungsod",
+      "address": "Address",
+      "addressPlaceholder": "hal., 1-1-1 Ginza, Chuo-ku",
+      "phoneNumber": "Numero ng Telepono",
+      "phonePlaceholder": "hal., 03-1234-5678",
+      "numberOfLanes": "Bilang ng Mesa/Lane",
+      "openTime": "Oras ng Pagbubukas",
+      "closeTime": "Oras ng Pagsasara",
+      "submit": "Irehistro",
+      "update": "I-update",
+      "submitting": "Nag-i-save...",
+      "errorName": "Pakiusap ilagay ang pangalan ng pasilidad",
+      "errorPrefecture": "Pakiusap piliin ang prefecture",
+      "errorCity": "Pakiusap ilagay ang lungsod",
+      "errorAddress": "Pakiusap ilagay ang address",
+      "errorPhone": "Pakiusap ilagay ang numero ng telepono",
+      "errorLanes": "Ang bilang ng lane ay dapat na 1 hanggang 100",
+      "errorSave": "Nabigo ang pag-save ng pasilidad"
+    }
   }
 }

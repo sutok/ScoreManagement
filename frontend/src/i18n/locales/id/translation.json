@@ -80,6 +80,46 @@
     "delete": "Hapus",
     "edit": "Edit",
     "back": "Kembali",
-    "backToHome": "Kembali ke Beranda"
+    "backToHome": "Kembali ke Beranda",
+    "loginRequired": "Diperlukan login"
+  },
+  "facility": {
+    "apply": {
+      "title": "Pendaftaran Fasilitas",
+      "success": "Aplikasi berhasil dikirim. Silakan tunggu persetujuan.",
+      "error": "Gagal mengirim aplikasi. Silakan coba lagi.",
+      "about": "Tentang Aplikasi",
+      "info1": "Informasi Anda akan ditinjau oleh administrator",
+      "info2": "Setelah disetujui, Anda akan terdaftar sebagai manajer fasilitas",
+      "info3": "Persetujuan mungkin memerlukan beberapa hari",
+      "info4": "Anda dapat memeriksa status aplikasi di halaman beranda setelah login (setelah disetujui)"
+    },
+    "form": {
+      "newTitle": "Pendaftaran Fasilitas Baru",
+      "editTitle": "Edit Informasi Fasilitas",
+      "name": "Nama Fasilitas",
+      "branchName": "Nama Cabang",
+      "branchPlaceholder": "mis., Cabang Shinjuku, Cabang Shibuya",
+      "branchHelper": "Masukkan 'Kantor Pusat' jika tidak ada cabang (Opsional)",
+      "prefecture": "Prefektur",
+      "city": "Kota",
+      "address": "Alamat",
+      "addressPlaceholder": "mis., 1-1-1 Ginza, Chuo-ku",
+      "phoneNumber": "Nomor Telepon",
+      "phonePlaceholder": "mis., 03-1234-5678",
+      "numberOfLanes": "Jumlah Meja/Lintasan",
+      "openTime": "Waktu Buka",
+      "closeTime": "Waktu Tutup",
+      "submit": "Daftar",
+      "update": "Perbarui",
+      "submitting": "Menyimpan...",
+      "errorName": "Silakan masukkan nama fasilitas",
+      "errorPrefecture": "Silakan pilih prefektur",
+      "errorCity": "Silakan masukkan kota",
+      "errorAddress": "Silakan masukkan alamat",
+      "errorPhone": "Silakan masukkan nomor telepon",
+      "errorLanes": "Jumlah lintasan harus antara 1 dan 100",
+      "errorSave": "Gagal menyimpan fasilitas"
+    }
   }
 }

@@ -12,6 +12,7 @@ import {
   Alert,
   Stack,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { PREFECTURES } from '../../utils/prefectures';
 import { type Facility } from '../../types/facility';
 
@@ -34,6 +35,7 @@ export const FacilityForm = ({
   userRole = 'user',
   existingFacilityNames = [],
 }: FacilityFormProps) => {
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     name: initialData?.name || '',
@@ -60,27 +62,27 @@ export const FacilityForm = ({
 
   const validateForm = (): boolean => {
     if (!formData.name.trim()) {
-      setError('施設名を入力してください');
+      setError(t('facility.form.errorName'));
       return false;
     }
     if (!formData.prefecture) {
-      setError('都道府県を選択してください');
+      setError(t('facility.form.errorPrefecture'));
       return false;
     }
     if (!formData.city.trim()) {
-      setError('市区町村を入力してください');
+      setError(t('facility.form.errorCity'));
       return false;
     }
     if (!formData.address.trim()) {
-      setError('住所を入力してください');
+      setError(t('facility.form.errorAddress'));
       return false;
     }
     if (!formData.phoneNumber.trim()) {
-      setError('電話番号を入力してください');
+      setError(t('facility.form.errorPhone'));
       return false;
     }
     if (formData.numberOfLanes < 1 || formData.numberOfLanes > 100) {
-      setError('レーン数は1〜100の範囲で入力してください');
+      setError(t('facility.form.errorLanes'));
       return false;
     }
     return true;
@@ -113,7 +115,7 @@ export const FacilityForm = ({
       });
     } catch (err) {
       console.error('Error submitting facility:', err);
-      setError('施設の保存に失敗しました');
+      setError(t('facility.form.errorSave'));
       setIsSubmitting(false);
     }
   };
@@ -121,7 +123,7 @@ export const FacilityForm = ({
   return (
     <Paper elevation={2} sx={{ p: 3 }}>
       <Typography variant="h6" gutterBottom>
-        {isEdit ? '施設情報の編集' : '新規施設登録'}
+        {isEdit ? t('facility.form.editTitle') : t('facility.form.newTitle')}
       </Typography>
 
       {error && (
@@ -136,10 +138,10 @@ export const FacilityForm = ({
           {userRole === 'facility_manager' && !isEdit ? (
             // facility_manager: 新規作成時は既存の施設名から選択
             <FormControl fullWidth required>
-              <InputLabel>施設名</InputLabel>
+              <InputLabel>{t('facility.form.name')}</InputLabel>
               <Select
                 value={formData.name}
-                label="施設名"
+                label={t('facility.form.name')}
                 onChange={(e) => handleChange('name', e.target.value)}
                 disabled={isSubmitting}
               >
@@ -155,7 +157,7 @@ export const FacilityForm = ({
             <TextField
               required
               fullWidth
-              label="施設名"
+              label={t('facility.form.name')}
               value={formData.name}
               disabled
               InputProps={{
@@ -167,7 +169,7 @@ export const FacilityForm = ({
             <TextField
               required
               fullWidth
-              label="施設名"
+              label={t('facility.form.name')}
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
               disabled={isSubmitting}
@@ -177,21 +179,21 @@ export const FacilityForm = ({
           {/* 支店名 */}
           <TextField
             fullWidth
-            label="支店名"
+            label={t('facility.form.branchName')}
             value={formData.branchName}
             onChange={(e) => handleChange('branchName', e.target.value)}
             disabled={isSubmitting}
-            placeholder="例: 新宿店、渋谷店"
-            helperText="複数店舗がある場合に入力してください（任意）"
+            placeholder={t('facility.form.branchPlaceholder')}
+            helperText={t('facility.form.branchHelper')}
           />
 
           {/* 都道府県・市区町村 */}
           <Box sx={{ display: 'flex', gap: 2 }}>
             <FormControl fullWidth required>
-              <InputLabel>都道府県</InputLabel>
+              <InputLabel>{t('facility.form.prefecture')}</InputLabel>
               <Select
                 value={formData.prefecture}
-                label="都道府県"
+                label={t('facility.form.prefecture')}
                 onChange={(e) => handleChange('prefecture', e.target.value)}
                 disabled={isSubmitting}
               >
@@ -206,7 +208,7 @@ export const FacilityForm = ({
             <TextField
               required
               fullWidth
-              label="市区町村"
+              label={t('facility.form.city')}
               value={formData.city}
               onChange={(e) => handleChange('city', e.target.value)}
               disabled={isSubmitting}
@@ -217,11 +219,11 @@ export const FacilityForm = ({
           <TextField
             required
             fullWidth
-            label="住所"
+            label={t('facility.form.address')}
             value={formData.address}
             onChange={(e) => handleChange('address', e.target.value)}
             disabled={isSubmitting}
-            placeholder="例: 中央区銀座1-1-1"
+            placeholder={t('facility.form.addressPlaceholder')}
           />
 
           {/* 電話番号・レーン数 */}
@@ -229,18 +231,18 @@ export const FacilityForm = ({
             <TextField
               required
               fullWidth
-              label="電話番号"
+              label={t('facility.form.phoneNumber')}
               value={formData.phoneNumber}
               onChange={(e) => handleChange('phoneNumber', e.target.value)}
               disabled={isSubmitting}
-              placeholder="例: 03-1234-5678"
+              placeholder={t('facility.form.phonePlaceholder')}
             />
 
             <TextField
               required
               fullWidth
               type="number"
-              label="レーン数"
+              label={t('facility.form.numberOfLanes')}
               value={formData.numberOfLanes}
               onChange={(e) => handleChange('numberOfLanes', parseInt(e.target.value) || 0)}
               disabled={isSubmitting}
@@ -254,7 +256,7 @@ export const FacilityForm = ({
               required
               fullWidth
               type="time"
-              label="営業開始時刻"
+              label={t('facility.form.openTime')}
               value={formData.openTime}
               onChange={(e) => handleChange('openTime', e.target.value)}
               disabled={isSubmitting}
@@ -265,7 +267,7 @@ export const FacilityForm = ({
               required
               fullWidth
               type="time"
-              label="営業終了時刻"
+              label={t('facility.form.closeTime')}
               value={formData.closeTime}
               onChange={(e) => handleChange('closeTime', e.target.value)}
               disabled={isSubmitting}
@@ -281,14 +283,14 @@ export const FacilityForm = ({
             onClick={onCancel}
             disabled={isSubmitting}
           >
-            キャンセル
+            {t('common.cancel')}
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? '保存中...' : isEdit ? '更新' : '登録'}
+            {isSubmitting ? t('facility.form.submitting') : isEdit ? t('facility.form.update') : t('facility.form.submit')}
           </Button>
         </Box>
       </Box>

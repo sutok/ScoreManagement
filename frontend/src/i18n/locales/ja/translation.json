@@ -80,6 +80,46 @@
     "delete": "削除",
     "edit": "編集",
     "back": "戻る",
-    "backToHome": "ホームに戻る"
+    "backToHome": "ホームに戻る",
+    "loginRequired": "ログインが必要です"
+  },
+  "facility": {
+    "apply": {
+      "title": "店舗登録申請",
+      "success": "店舗登録申請を送信しました。承認までお待ちください。",
+      "error": "申請の送信に失敗しました。もう一度お試しください。",
+      "about": "申請について",
+      "info1": "入力した情報は管理者が確認します",
+      "info2": "承認されると、施設管理者として登録されます",
+      "info3": "承認までに数日かかる場合があります",
+      "info4": "申請状況はログイン後のホームページで確認できます（承認後）"
+    },
+    "form": {
+      "newTitle": "新規施設登録",
+      "editTitle": "施設情報の編集",
+      "name": "施設名",
+      "branchName": "支店名",
+      "branchPlaceholder": "例: 新宿店、渋谷店",
+      "branchHelper": "無い場合は本店と入力してください（任意）",
+      "prefecture": "都道府県",
+      "city": "市区町村",
+      "address": "住所",
+      "addressPlaceholder": "例: 中央区銀座1-1-1",
+      "phoneNumber": "電話番号",
+      "phonePlaceholder": "例: 03-1234-5678",
+      "numberOfLanes": "台数/レーン数",
+      "openTime": "営業開始時刻",
+      "closeTime": "営業終了時刻",
+      "submit": "登録",
+      "update": "更新",
+      "submitting": "保存中...",
+      "errorName": "施設名を入力してください",
+      "errorPrefecture": "都道府県を選択してください",
+      "errorCity": "市区町村を入力してください",
+      "errorAddress": "住所を入力してください",
+      "errorPhone": "電話番号を入力してください",
+      "errorLanes": "レーン数は1〜100の範囲で入力してください",
+      "errorSave": "施設の保存に失敗しました"
+    }
   }
 }
