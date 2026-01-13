@@ -32,7 +32,10 @@ export interface Facility {
     open: string;  // Format: "HH:mm" (e.g., "10:00")
     close: string; // Format: "HH:mm" (e.g., "22:00")
   };
-  numberOfLanes: number;
+  pocketTables: number;   // ポケット台数 (0-50)
+  caromTables: number;    // キャロム台数 (0-50)
+  snookerTables: number;  // スヌーカー台数 (0-50)
+  numberOfLanes: number;  // 合計台数/レーン数 (自動計算)
   companyId: string;
   createdBy?: string; // 作成者のuserId（申請者）
   approved?: Date; // 承認日時（未設定の場合は申請中）
