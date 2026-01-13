@@ -11,6 +11,10 @@
     "loggingIn": "Đang đăng nhập...",
     "logout": "Đăng xuất"
   },
+  "login": {
+    "forFacilityManagers": "Dành cho Quản lý Phòng Billiards / Sân Bowling",
+    "facilityRegistrationInfo": "Về Đăng ký Cơ sở"
+  },
   "home": {
     "title": "Bi-a/Bowling",
     "welcome": "Chào mừng, {{name}}",
@@ -22,8 +26,7 @@
     "pendingFacilities": "Cơ sở đang chờ",
     "forFacilityManagers": "Dành cho Quản lý cơ sở",
     "facilityManagerDescription": "Nếu bạn vận hành phòng bi-a hoặc sân bowling, bạn có thể đăng ký làm quản lý cơ sở",
-    "applyFacility": "Đăng ký cơ sở",
-    "logoAlt": "Hình ảnh ghi điểm Bowling và Billiards"
+    "applyFacility": "Đăng ký cơ sở"
   },
   "newGame": {
     "title": "Trò chơi mới",
@@ -172,14 +175,6 @@
     }
   },
   "facility": {
-    "list": {
-      "title": "Quản lý cơ sở",
-      "loadError": "Không thể tải danh sách cơ sở",
-      "deleteConfirm": "Xóa cơ sở này?",
-      "deleteError": "Không thể xóa cơ sở",
-      "newButton": "Đăng ký mới",
-      "close": "Đóng"
-    },
     "apply": {
       "title": "Đơn đăng ký cơ sở",
       "success": "Đã gửi đơn thành công. Vui lòng đợi phê duyệt.",
@@ -248,8 +243,34 @@
       "confirmButton": "Phê duyệt"
     }
   },
-  "login": {
-    "forFacilityManagers": "Dành cho Quản lý Phòng Billiards / Sân Bowling",
-    "facilityRegistrationInfo": "Về Đăng ký Cơ sở"
+  "facilityRegistrationInfo": {
+    "title": "Về Đăng ký Cơ sở",
+    "subtitle": "Cách đăng ký làm quản lý cơ sở cho phòng billiards/sân bowling",
+    "flowTitle": "Quy trình Đăng ký",
+    "step1Title": "1. Đăng nhập",
+    "step1Desc": "Đầu tiên, tạo tài khoản và đăng nhập",
+    "step2Title": "2. Đơn Đăng ký Cơ sở",
+    "step2Desc": "Nhấp vào 'Đăng ký Cơ sở' ở cuối trang chủ sau khi đăng nhập",
+    "step3Title": "3. Nhập Thông tin Bắt buộc",
+    "step3Desc": "Nhập tên cơ sở, địa chỉ, giờ hoạt động và thông tin khác",
+    "step4Title": "4. Chờ Phê duyệt",
+    "step4Desc": "Quản trị viên sẽ xem xét đơn của bạn (có thể mất vài ngày)",
+    "step5Title": "5. Hoàn tất Phê duyệt",
+    "step5Desc": "Sau khi được phê duyệt, bạn sẽ được đăng ký làm quản lý cơ sở và có thể quản lý các giải đấu định kỳ",
+    "requirementsTitle": "Thông tin Bắt buộc",
+    "requirement1": "Tên cơ sở",
+    "requirement2": "Tên chi nhánh (nếu có nhiều địa điểm)",
+    "requirement3": "Địa chỉ (tỉnh, thành phố, địa chỉ chi tiết)",
+    "requirement4": "Số điện thoại",
+    "requirement5": "Giờ hoạt động (giờ mở/đóng cửa)",
+    "requirement6": "Số lượng bàn/làn",
+    "benefitsTitle": "Quản lý Cơ sở có thể Làm gì",
+    "benefit1": "Đăng ký và quản lý các giải đấu định kỳ",
+    "benefit2": "Đặt lịch trình giải đấu",
+    "benefit3": "Đặt phí tham gia và cấp độ kỹ năng",
+    "benefit4": "Cập nhật thông tin cơ sở",
+    "loginButton": "Đăng nhập / Tạo Tài khoản",
+    "homeButton": "Về Trang chủ",
+    "footer": "Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi"
   }
 }
