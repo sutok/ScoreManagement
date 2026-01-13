@@ -209,7 +209,8 @@
       "errorAddress": "Please enter address",
       "errorPhone": "Please enter phone number",
       "errorLanes": "Number of lanes must be between 1 and 100",
-      "errorSave": "Failed to save facility"
+      "errorSave": "Failed to save facility",
+      "errorDuplicate": "This facility name and branch name combination already exists"
     },
     "pending": {
       "title": "Pending Facilities",

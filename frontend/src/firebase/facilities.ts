@@ -361,6 +361,58 @@ export const removeFacilityMember = async (memberId: string): Promise<void> => {
 // ===== Facility Application Operations =====
 
 /**
+ * Check if facility name + branchName combination already exists in the same company
+ * @param companyId - Company ID to check within
+ * @param name - Facility name
+ * @param branchName - Branch name (optional)
+ * @param excludeFacilityId - Facility ID to exclude from check (for editing)
+ * @returns true if duplicate exists, false otherwise
+ */
+export const checkFacilityDuplicate = async (
+  companyId: string,
+  name: string,
+  branchName: string | undefined,
+  excludeFacilityId?: string
+): Promise<boolean> => {
+  try {
+    const facilitiesRef = collection(db, 'facilities');
+
+    // Query by companyId and name (compound index required)
+    const q = query(
+      facilitiesRef,
+      where('companyId', '==', companyId),
+      where('name', '==', name)
+    );
+
+    const snapshot = await getDocs(q);
+
+    // Check if any document has matching branchName
+    const duplicates = snapshot.docs.filter((doc) => {
+      const data = doc.data();
+
+      // Exclude self when editing
+      if (excludeFacilityId && doc.id === excludeFacilityId) {
+        return false;
+      }
+
+      // Match branchName (both undefined or same value)
+      const isBranchMatch =
+        (data.branchName === undefined && branchName === undefined) ||
+        (data.branchName === '' && branchName === undefined) ||
+        (data.branchName === undefined && branchName === '') ||
+        (data.branchName === branchName);
+
+      return isBranchMatch;
+    });
+
+    return duplicates.length > 0;
+  } catch (error) {
+    console.error('Error checking facility duplicate:', error);
+    throw error;
+  }
+};
+
+/**
  * Apply for a new facility (creates facility with approved=null)
  */
 export const applyFacility = async (

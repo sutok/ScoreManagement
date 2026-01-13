@@ -209,7 +209,8 @@
       "errorAddress": "住所を入力してください",
       "errorPhone": "電話番号を入力してください",
       "errorLanes": "レーン数は1〜100の範囲で入力してください",
-      "errorSave": "施設の保存に失敗しました"
+      "errorSave": "施設の保存に失敗しました",
+      "errorDuplicate": "この施設名と支店名の組み合わせは既に登録されています"
     },
     "pending": {
       "title": "申請中店舗一覧",
