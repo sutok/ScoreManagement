@@ -79,6 +79,7 @@
     "cancel": "Kanselahin",
     "delete": "Tanggalin",
     "edit": "I-edit",
-    "back": "Bumalik"
+    "back": "Bumalik",
+    "backToHome": "Bumalik sa Home"
   }
 }

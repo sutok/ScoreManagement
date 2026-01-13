@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   Container,
   Box,
-  Typography,
   Button,
   CircularProgress,
   Alert,
@@ -11,8 +10,7 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
-import { Add as AddIcon, ArrowBack, Close as CloseIcon } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
 import {
   getFacilities,
@@ -24,9 +22,10 @@ import { addManagedFacility } from '../firebase/roles';
 import { FacilityList } from '../components/facility/FacilityList';
 import { FacilityForm } from '../components/facility/FacilityForm';
 import { type Facility } from '../types/facility';
+import { AppHeader } from '../components/AppHeader';
+import { PageHeader } from '../components/PageHeader';
 
 export const FacilitiesPage = () => {
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -147,14 +146,16 @@ export const FacilitiesPage = () => {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       {/* Header */}
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <IconButton onClick={() => navigate('/')} aria-label="戻る">
-          <ArrowBack />
-        </IconButton>
-        <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
-          施設管理
-        </Typography>
-        {canManageFacilities && (
+      <AppHeader />
+
+      <PageHeader
+        title="施設管理"
+        icon="🏢"
+        showBackButton
+      />
+
+      {canManageFacilities && (
+        <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -162,8 +163,8 @@ export const FacilitiesPage = () => {
           >
             新規登録
           </Button>
-        )}
-      </Box>
+        </Box>
+      )}
 
       {/* Error Alert */}
       {error && (

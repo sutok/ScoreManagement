@@ -79,6 +79,7 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
-    "back": "Back"
+    "back": "Back",
+    "backToHome": "Back to Home"
   }
 }

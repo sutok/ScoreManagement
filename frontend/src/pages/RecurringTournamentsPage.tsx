@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   Container,
   Box,
-  Typography,
   Button,
   CircularProgress,
   Alert,
@@ -11,8 +10,7 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
-import { Add as AddIcon, ArrowBack, Close as CloseIcon } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
 import {
   getRecurringTournaments,
@@ -24,9 +22,10 @@ import { getFacilities } from '../firebase/facilities';
 import { RecurringTournamentList } from '../components/tournament/RecurringTournamentList';
 import { RecurringTournamentForm } from '../components/tournament/RecurringTournamentForm';
 import { type RecurringTournament, type Facility } from '../types/facility';
+import { AppHeader } from '../components/AppHeader';
+import { PageHeader } from '../components/PageHeader';
 
 export const RecurringTournamentsPage = () => {
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const [tournaments, setTournaments] = useState<any[]>([]);
@@ -158,14 +157,16 @@ export const RecurringTournamentsPage = () => {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       {/* Header */}
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <IconButton onClick={() => navigate('/')} aria-label="戻る">
-          <ArrowBack />
-        </IconButton>
-        <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
-          定期開催試合管理
-        </Typography>
-        {canManageTournaments && (
+      <AppHeader />
+
+      <PageHeader
+        title="定期開催試合管理"
+        icon="📅"
+        showBackButton
+      />
+
+      {canManageTournaments && (
+        <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -173,8 +174,8 @@ export const RecurringTournamentsPage = () => {
           >
             新規登録
           </Button>
-        )}
-      </Box>
+        </Box>
+      )}
 
       {/* Error Alert */}
       {error && (

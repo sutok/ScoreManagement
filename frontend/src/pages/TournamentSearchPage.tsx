@@ -5,10 +5,7 @@ import {
   Typography,
   CircularProgress,
   Alert,
-  IconButton,
 } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import {
   searchRecurringTournaments,
@@ -18,6 +15,8 @@ import { getFacilities } from '../firebase/facilities';
 import { TournamentSearchFilters as SearchFilters } from '../components/tournament/TournamentSearchFilters';
 import { TournamentSearchResultCard } from '../components/tournament/TournamentSearchResultCard';
 import { type RecurringTournament, type Facility } from '../types/facility';
+import { AppHeader } from '../components/AppHeader';
+import { PageHeader } from '../components/PageHeader';
 
 interface EnrichedTournament extends RecurringTournament {
   facilityName?: string;
@@ -25,7 +24,6 @@ interface EnrichedTournament extends RecurringTournament {
 }
 
 export const TournamentSearchPage = () => {
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const [tournaments, setTournaments] = useState<EnrichedTournament[]>([]);
@@ -129,14 +127,13 @@ export const TournamentSearchPage = () => {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       {/* Header */}
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <IconButton onClick={() => navigate('/')} aria-label="戻る">
-          <ArrowBack />
-        </IconButton>
-        <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
-          試合検索
-        </Typography>
-      </Box>
+      <AppHeader />
+
+      <PageHeader
+        title="試合検索"
+        icon="🔍"
+        showBackButton
+      />
 
       {/* Error Alert */}
       {error && (

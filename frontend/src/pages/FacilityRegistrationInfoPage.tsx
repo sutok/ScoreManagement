@@ -29,7 +29,7 @@ export const FacilityRegistrationInfoPage = () => {
           店舗登録について
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          ボウリング場の施設管理者として登録する方法
+          ビリヤード場/ボウリング場の施設管理者として登録する方法
         </Typography>
       </Box>
 

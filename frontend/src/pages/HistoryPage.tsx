@@ -16,7 +16,6 @@ import {
   IconButton,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +27,8 @@ import { format } from 'date-fns';
 import { ja, enUS } from 'date-fns/locale';
 import { trackGameDelete, trackPageView, trackEvent } from '../utils/analytics';
 import { trackFirestoreError } from '../utils/errorTracking';
+import { AppHeader } from '../components/AppHeader';
+import { PageHeader } from '../components/PageHeader';
 
 export const HistoryPage = () => {
   const navigate = useNavigate();
@@ -172,17 +173,13 @@ export const HistoryPage = () => {
   return (
     <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
-        <Button
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/')}
-          sx={{ mb: 3 }}
-        >
-          {t('history.backToHome')}
-        </Button>
+        <AppHeader />
 
-        <Typography variant="h4" component="h1" gutterBottom align="center">
-          📊 {t('history.title')}
-        </Typography>
+        <PageHeader
+          title={t('history.title')}
+          icon="📊"
+          showBackButton
+        />
 
         {error && (
           <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError(null)}>
