@@ -24,9 +24,12 @@ import { FacilityForm } from '../components/facility/FacilityForm';
 import { type Facility } from '../types/facility';
 import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
+import { AdBanner } from '../components/AdBanner';
+import { useTranslation } from 'react-i18next';
 
 export const FacilitiesPage = () => {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +73,7 @@ export const FacilitiesPage = () => {
       setFacilities(filteredData);
     } catch (err) {
       console.error('Error loading facilities:', err);
-      setError('施設の読み込みに失敗しました');
+      setError(t('facility.list.loadError'));
     } finally {
       setLoading(false);
     }
@@ -117,7 +120,7 @@ export const FacilitiesPage = () => {
   };
 
   const handleDelete = async (facilityId: string) => {
-    if (!window.confirm('この施設を削除しますか？')) {
+    if (!window.confirm(t('facility.list.deleteConfirm'))) {
       return;
     }
 
@@ -126,7 +129,7 @@ export const FacilitiesPage = () => {
       await loadFacilities();
     } catch (err) {
       console.error('Error deleting facility:', err);
-      setError('施設の削除に失敗しました');
+      setError(t('facility.list.deleteError'));
     }
   };
 
@@ -138,7 +141,7 @@ export const FacilitiesPage = () => {
   if (!user) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Alert severity="warning">ログインが必要です</Alert>
+        <Alert severity="warning">{t('common.loginRequired')}</Alert>
       </Container>
     );
   }
@@ -148,8 +151,11 @@ export const FacilitiesPage = () => {
       {/* Header */}
       <AppHeader />
 
+      {/* Advertisement - Top */}
+      <AdBanner slot="9320434668" format="horizontal" />
+
       <PageHeader
-        title="施設管理"
+        title={t('facility.list.title')}
         icon="🏢"
         showBackButton
       />
@@ -161,7 +167,7 @@ export const FacilitiesPage = () => {
             startIcon={<AddIcon />}
             onClick={() => setShowForm(true)}
           >
-            新規登録
+            {t('facility.list.newButton')}
           </Button>
         </Box>
       )}
@@ -199,8 +205,8 @@ export const FacilitiesPage = () => {
       >
         <DialogTitle>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            {editingFacility ? '施設情報の編集' : '新規施設登録'}
-            <IconButton onClick={handleCloseForm} aria-label="閉じる">
+            {editingFacility ? t('facility.form.editTitle') : t('facility.form.newTitle')}
+            <IconButton onClick={handleCloseForm} aria-label={t('facility.list.close')}>
               <CloseIcon />
             </IconButton>
           </Box>

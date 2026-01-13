@@ -171,6 +171,14 @@
     }
   },
   "facility": {
+    "list": {
+      "title": "Pamamahala ng Pasilidad",
+      "loadError": "Nabigo ang pag-load ng mga pasilidad",
+      "deleteConfirm": "Tanggalin ang pasilidad na ito?",
+      "deleteError": "Nabigo ang pagtanggal ng pasilidad",
+      "newButton": "Bagong Rehistrasyon",
+      "close": "Isara"
+    },
     "apply": {
       "title": "Aplikasyon para sa Rehistrasyon ng Pasilidad",
       "success": "Matagumpay na naisumite ang aplikasyon. Maghintay para sa pag-apruba.",

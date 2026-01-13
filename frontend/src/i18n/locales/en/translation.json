@@ -171,6 +171,14 @@
     }
   },
   "facility": {
+    "list": {
+      "title": "Facility Management",
+      "loadError": "Failed to load facilities",
+      "deleteConfirm": "Delete this facility?",
+      "deleteError": "Failed to delete facility",
+      "newButton": "New Registration",
+      "close": "Close"
+    },
     "apply": {
       "title": "Facility Registration Application",
       "success": "Application submitted successfully. Please wait for approval.",

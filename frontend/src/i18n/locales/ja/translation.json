@@ -171,6 +171,14 @@
     }
   },
   "facility": {
+    "list": {
+      "title": "施設管理",
+      "loadError": "施設の読み込みに失敗しました",
+      "deleteConfirm": "この施設を削除しますか？",
+      "deleteError": "施設の削除に失敗しました",
+      "newButton": "新規登録",
+      "close": "閉じる"
+    },
     "apply": {
       "title": "店舗登録申請",
       "success": "店舗登録申請を送信しました。承認までお待ちください。",

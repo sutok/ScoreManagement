@@ -171,6 +171,14 @@
     }
   },
   "facility": {
+    "list": {
+      "title": "Quản lý cơ sở",
+      "loadError": "Không thể tải danh sách cơ sở",
+      "deleteConfirm": "Xóa cơ sở này?",
+      "deleteError": "Không thể xóa cơ sở",
+      "newButton": "Đăng ký mới",
+      "close": "Đóng"
+    },
     "apply": {
       "title": "Đơn đăng ký cơ sở",
       "success": "Đã gửi đơn thành công. Vui lòng đợi phê duyệt.",
