@@ -90,6 +90,39 @@
     "backToHome": "Bumalik sa Home",
     "loginRequired": "Kailangan mag-login"
   },
+  "tournament": {
+    "search": {
+      "title": "Paghahanap ng Torneo",
+      "loadError": "Nabigo ang pag-load ng data",
+      "searchError": "Nabigo ang paghahanap",
+      "resultsFound": "{{count}} torneo ang natagpuan",
+      "activeTournaments": "{{count}} aktibong torneo",
+      "noResults": "Walang natagpuang torneo",
+      "noResultsHint": "Subukang baguhin ang iyong mga criteria sa paghahanap"
+    },
+    "filters": {
+      "title": "Paghahanap ng Torneo",
+      "prefecture": "Prefecture",
+      "city": "Lungsod",
+      "cityPlaceholder": "hal., Shibuya",
+      "entryFee": "Bayad sa Pagpasok",
+      "minFee": "Pinakamababang Bayad",
+      "maxFee": "Pinakamataas na Bayad",
+      "currency": "¥",
+      "level": "Antas",
+      "all": "Lahat",
+      "search": "Maghanap",
+      "clear": "I-clear",
+      "levelBeginner": "Baguhan",
+      "levelIntermediate": "Intermediate",
+      "levelAdvanced": "Advanced",
+      "filterPrefecture": "Prefecture: {{value}}",
+      "filterCity": "Lungsod: {{value}}",
+      "filterMinFee": "Min Bayad: ¥{{value}}",
+      "filterMaxFee": "Max Bayad: ¥{{value}}",
+      "filterLevel": "Antas: {{value}}"
+    }
+  },
   "facility": {
     "apply": {
       "title": "Aplikasyon para sa Rehistrasyon ng Pasilidad",

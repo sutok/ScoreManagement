@@ -90,6 +90,39 @@
     "backToHome": "กลับสู่หน้าหลัก",
     "loginRequired": "จำเป็นต้องเข้าสู่ระบบ"
   },
+  "tournament": {
+    "search": {
+      "title": "ค้นหาทัวร์นาเมนต์",
+      "loadError": "โหลดข้อมูลล้มเหลว",
+      "searchError": "การค้นหาล้มเหลว",
+      "resultsFound": "พบ {{count}} ทัวร์นาเมนต์",
+      "activeTournaments": "{{count}} ทัวร์นาเมนต์ที่กำลังดำเนินการ",
+      "noResults": "ไม่พบทัวร์นาเมนต์",
+      "noResultsHint": "ลองเปลี่ยนเกณฑ์การค้นหาของคุณ"
+    },
+    "filters": {
+      "title": "ค้นหาทัวร์นาเมนต์",
+      "prefecture": "จังหวัด",
+      "city": "เมือง",
+      "cityPlaceholder": "เช่น ชิบูยะ",
+      "entryFee": "ค่าสมัคร",
+      "minFee": "ค่าธรรมเนียมขั้นต่ำ",
+      "maxFee": "ค่าธรรมเนียมสูงสุด",
+      "currency": "¥",
+      "level": "ระดับ",
+      "all": "ทั้งหมด",
+      "search": "ค้นหา",
+      "clear": "ล้าง",
+      "levelBeginner": "ผู้เริ่มต้น",
+      "levelIntermediate": "ระดับกลาง",
+      "levelAdvanced": "ระดับสูง",
+      "filterPrefecture": "จังหวัด: {{value}}",
+      "filterCity": "เมือง: {{value}}",
+      "filterMinFee": "ค่าธรรมเนียมขั้นต่ำ: ¥{{value}}",
+      "filterMaxFee": "ค่าธรรมเนียมสูงสุด: ¥{{value}}",
+      "filterLevel": "ระดับ: {{value}}"
+    }
+  },
   "facility": {
     "apply": {
       "title": "ใบสมัครลงทะเบียนสถานที่",

@@ -6,6 +6,7 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import {
   searchRecurringTournaments,
@@ -25,6 +26,7 @@ interface EnrichedTournament extends RecurringTournament {
 
 export const TournamentSearchPage = () => {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const [tournaments, setTournaments] = useState<EnrichedTournament[]>([]);
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -53,7 +55,7 @@ export const TournamentSearchPage = () => {
       await performSearch(initialFilters, facilitiesData);
     } catch (err) {
       console.error('Error loading initial data:', err);
-      setError('データの読み込みに失敗しました');
+      setError(t('tournament.search.loadError'));
     } finally {
       setLoading(false);
     }
@@ -98,7 +100,7 @@ export const TournamentSearchPage = () => {
       setHasSearched(true);
     } catch (err) {
       console.error('Error searching tournaments:', err);
-      setError('検索に失敗しました');
+      setError(t('tournament.search.searchError'));
     } finally {
       setSearching(false);
     }
@@ -119,7 +121,7 @@ export const TournamentSearchPage = () => {
   if (!user) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Alert severity="warning">ログインが必要です</Alert>
+        <Alert severity="warning">{t('common.loginRequired')}</Alert>
       </Container>
     );
   }
@@ -130,7 +132,7 @@ export const TournamentSearchPage = () => {
       <AppHeader />
 
       <PageHeader
-        title="試合検索"
+        title={t('tournament.search.title')}
         icon="🔍"
         showBackButton
       />
@@ -160,7 +162,9 @@ export const TournamentSearchPage = () => {
           {/* Result count */}
           <Box sx={{ mb: 2 }}>
             <Typography variant="body1" color="text.secondary">
-              {hasSearched ? `${tournaments.length}件の試合が見つかりました` : `${tournaments.length}件の開催中の試合`}
+              {hasSearched
+                ? t('tournament.search.resultsFound', { count: tournaments.length })
+                : t('tournament.search.activeTournaments', { count: tournaments.length })}
             </Typography>
           </Box>
 
@@ -189,10 +193,10 @@ export const TournamentSearchPage = () => {
           ) : (
             <Box sx={{ textAlign: 'center', py: 8 }}>
               <Typography variant="h6" color="text.secondary" gutterBottom>
-                試合が見つかりませんでした
+                {t('tournament.search.noResults')}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                検索条件を変更してもう一度お試しください
+                {t('tournament.search.noResultsHint')}
               </Typography>
             </Box>
           )}

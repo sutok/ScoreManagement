@@ -90,6 +90,39 @@
     "backToHome": "ホームに戻る",
     "loginRequired": "ログインが必要です"
   },
+  "tournament": {
+    "search": {
+      "title": "試合検索",
+      "loadError": "データの読み込みに失敗しました",
+      "searchError": "検索に失敗しました",
+      "resultsFound": "{{count}}件の試合が見つかりました",
+      "activeTournaments": "{{count}}件の開催中の試合",
+      "noResults": "試合が見つかりませんでした",
+      "noResultsHint": "検索条件を変更してもう一度お試しください"
+    },
+    "filters": {
+      "title": "試合検索",
+      "prefecture": "都道府県",
+      "city": "市区町村",
+      "cityPlaceholder": "例: 渋谷区",
+      "entryFee": "参加費",
+      "minFee": "最低料金",
+      "maxFee": "最高料金",
+      "currency": "円",
+      "level": "レベル",
+      "all": "すべて",
+      "search": "検索",
+      "clear": "クリア",
+      "levelBeginner": "初心者",
+      "levelIntermediate": "中級者",
+      "levelAdvanced": "上級者",
+      "filterPrefecture": "都道府県: {{value}}",
+      "filterCity": "市区町村: {{value}}",
+      "filterMinFee": "最低料金: {{value}}円",
+      "filterMaxFee": "最高料金: {{value}}円",
+      "filterLevel": "レベル: {{value}}"
+    }
+  },
   "facility": {
     "apply": {
       "title": "店舗登録申請",
