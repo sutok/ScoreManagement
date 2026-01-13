@@ -5,6 +5,7 @@ import { GameForm } from '../components/game/GameForm';
 import { trackPageView, trackGameStart } from '../utils/analytics';
 import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
+import { AdBanner } from '../components/AdBanner';
 
 export const NewGamePage = () => {
   const { t } = useTranslation();
@@ -18,6 +19,9 @@ export const NewGamePage = () => {
     <Container maxWidth="xl">
       <Box sx={{ my: 4 }}>
         <AppHeader />
+
+        {/* Advertisement - Top */}
+        <AdBanner slot="9320434668" format="horizontal" />
 
         <PageHeader
           title={t('newGame.recordNewGame')}
