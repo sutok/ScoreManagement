@@ -97,13 +97,21 @@ export const calculateTotalScore = (frames: Frame[]): Frame[] => {
         if (!nextFrame || nextFrame.firstThrow === null) {
           canCalculate = false;
         } else if (nextFrame.firstThrow === 10) {
-          // Next frame is also strike, need frame after that
-          const nextNextFrame = frames[i + 2];
-          if (!nextNextFrame || nextNextFrame.firstThrow === null) {
-            canCalculate = false;
+          // Next frame is also strike
+          if (i + 1 === 9) {
+            // Next frame is frame 10 (strike), need second throw
+            if (nextFrame.secondThrow === null) {
+              canCalculate = false;
+            }
+          } else {
+            // Not frame 10, need frame after that
+            const nextNextFrame = frames[i + 2];
+            if (!nextNextFrame || nextNextFrame.firstThrow === null) {
+              canCalculate = false;
+            }
           }
-        } else if (nextFrame.secondThrow === null && i + 1 !== 9) {
-          // Next frame is not strike and second throw is missing (and not frame 10)
+        } else if (nextFrame.secondThrow === null) {
+          // Next frame is not strike and second throw is missing
           canCalculate = false;
         }
 
