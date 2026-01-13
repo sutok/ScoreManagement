@@ -11,6 +11,10 @@
     "loggingIn": "Naglo-login...",
     "logout": "Mag-logout"
   },
+  "login": {
+    "forFacilityManagers": "Para sa mga Manager ng Billiards Hall / Bowling Alley",
+    "facilityRegistrationInfo": "Tungkol sa Pagpaparehistro ng Pasilidad"
+  },
   "home": {
     "title": "Billiards/Bowling",
     "welcome": "Maligayang pagdating, {{name}}",
@@ -22,8 +26,7 @@
     "pendingFacilities": "Mga Pasilidad na Naghihintay",
     "forFacilityManagers": "Para sa mga Facility Manager",
     "facilityManagerDescription": "Kung ikaw ay nag-ooperate ng billiards hall o bowling alley, maaari kang magrehistro bilang facility manager",
-    "applyFacility": "Mag-apply para sa Rehistrasyon ng Pasilidad",
-    "logoAlt": "Larawan ng Pagtatala ng Iskor sa Bowling at Billiards"
+    "applyFacility": "Mag-apply para sa Rehistrasyon ng Pasilidad"
   },
   "newGame": {
     "title": "Bagong Laro",
@@ -172,14 +175,6 @@
     }
   },
   "facility": {
-    "list": {
-      "title": "Pamamahala ng Pasilidad",
-      "loadError": "Nabigo ang pag-load ng mga pasilidad",
-      "deleteConfirm": "Tanggalin ang pasilidad na ito?",
-      "deleteError": "Nabigo ang pagtanggal ng pasilidad",
-      "newButton": "Bagong Rehistrasyon",
-      "close": "Isara"
-    },
     "apply": {
       "title": "Aplikasyon para sa Rehistrasyon ng Pasilidad",
       "success": "Matagumpay na naisumite ang aplikasyon. Maghintay para sa pag-apruba.",
@@ -248,8 +243,34 @@
       "confirmButton": "Aprubahan"
     }
   },
-  "login": {
-    "forFacilityManagers": "Para sa mga Manager ng Billiards Hall / Bowling Alley",
-    "facilityRegistrationInfo": "Tungkol sa Pagpaparehistro ng Pasilidad"
+  "facilityRegistrationInfo": {
+    "title": "Tungkol sa Pagpaparehistro ng Pasilidad",
+    "subtitle": "Paano mag-register bilang manager ng pasilidad para sa billiards halls/bowling alleys",
+    "flowTitle": "Proseso ng Pagpaparehistro",
+    "step1Title": "1. Mag-login",
+    "step1Desc": "Una, lumikha ng account at mag-login",
+    "step2Title": "2. Aplikasyon para sa Pagpaparehistro ng Pasilidad",
+    "step2Desc": "I-click ang 'Mag-apply para sa Pagpaparehistro ng Pasilidad' sa ibaba ng homepage pagkatapos mag-login",
+    "step3Title": "3. Ilagay ang Kinakailangang Impormasyon",
+    "step3Desc": "Ilagay ang pangalan ng pasilidad, address, oras ng negosyo, at iba pang impormasyon",
+    "step4Title": "4. Naghihintay ng Pag-apruba",
+    "step4Desc": "Susuriin ng mga administrator ang iyong submission (maaaring tumagal ng ilang araw)",
+    "step5Title": "5. Nakumpleto ang Pag-apruba",
+    "step5Desc": "Kapag naaprubahan, magiging manager ka ng pasilidad at makakapag-manage ng mga recurring tournaments",
+    "requirementsTitle": "Kinakailangang Impormasyon",
+    "requirement1": "Pangalan ng pasilidad",
+    "requirement2": "Pangalan ng sangay (kung maramihang lokasyon)",
+    "requirement3": "Address (prefecture, lungsod, detalyadong address)",
+    "requirement4": "Numero ng telepono",
+    "requirement5": "Oras ng negosyo (oras ng pagbubukas/pagsasara)",
+    "requirement6": "Bilang ng mga mesa/lanes",
+    "benefitsTitle": "Ano ang Magagawa ng mga Facility Manager",
+    "benefit1": "Magrehistro at mag-manage ng mga recurring tournaments",
+    "benefit2": "Magtakda ng mga tournament schedule",
+    "benefit3": "Magtakda ng entry fees at skill levels",
+    "benefit4": "I-update ang impormasyon ng pasilidad",
+    "loginButton": "Mag-login / Lumikha ng Account",
+    "homeButton": "Pumunta sa Home",
+    "footer": "Kung mayroon kang mga katanungan, mangyaring makipag-ugnayan sa amin"
   }
 }

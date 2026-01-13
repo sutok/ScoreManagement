@@ -251,5 +251,35 @@
       "confirmItem3": "The applicant will be able to manage this facility",
       "confirmButton": "Approve"
     }
+  },
+  "facilityRegistrationInfo": {
+    "title": "About Facility Registration",
+    "subtitle": "How to register as a facility manager for billiards halls/bowling alleys",
+    "flowTitle": "Registration Process",
+    "step1Title": "1. Login",
+    "step1Desc": "First, create an account and log in",
+    "step2Title": "2. Facility Registration Application",
+    "step2Desc": "Click 'Apply for Facility Registration' at the bottom of the homepage after logging in",
+    "step3Title": "3. Enter Required Information",
+    "step3Desc": "Enter facility name, address, business hours, and other information to apply",
+    "step4Title": "4. Awaiting Approval",
+    "step4Desc": "Administrators will review your submission (may take several days)",
+    "step5Title": "5. Approval Completed",
+    "step5Desc": "Once approved, you will be registered as a facility manager and can manage recurring tournaments",
+    "requirementsTitle": "Required Information",
+    "requirement1": "Facility name",
+    "requirement2": "Branch name (if multiple locations)",
+    "requirement3": "Address (prefecture, city, detailed address)",
+    "requirement4": "Phone number",
+    "requirement5": "Business hours (opening/closing time)",
+    "requirement6": "Number of tables/lanes",
+    "benefitsTitle": "What Facility Managers Can Do",
+    "benefit1": "Register and manage recurring tournaments",
+    "benefit2": "Set tournament schedules",
+    "benefit3": "Set entry fees and skill levels",
+    "benefit4": "Update facility information",
+    "loginButton": "Login / Create Account",
+    "homeButton": "Go to Home",
+    "footer": "If you have any questions, please contact us"
   }
 }

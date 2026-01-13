@@ -16,9 +16,11 @@ import {
   Store as StoreIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const FacilityRegistrationInfoPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -26,10 +28,10 @@ export const FacilityRegistrationInfoPage = () => {
       <Box sx={{ mb: 4, textAlign: 'center' }}>
         <StoreIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
         <Typography variant="h3" component="h1" gutterBottom>
-          店舗登録について
+          {t('facilityRegistrationInfo.title')}
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          ビリヤード場/ボウリング場の施設管理者として登録する方法
+          {t('facilityRegistrationInfo.subtitle')}
         </Typography>
       </Box>
 
@@ -37,7 +39,7 @@ export const FacilityRegistrationInfoPage = () => {
       <Paper sx={{ p: 4, mb: 3 }}>
         <Typography variant="h5" gutterBottom>
           <InfoIcon sx={{ verticalAlign: 'middle', mr: 1 }} />
-          登録の流れ
+          {t('facilityRegistrationInfo.flowTitle')}
         </Typography>
         <Divider sx={{ my: 2 }} />
 
@@ -47,8 +49,8 @@ export const FacilityRegistrationInfoPage = () => {
               <CheckIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              primary="1. ログイン"
-              secondary="まずはアカウントを作成してログインしてください"
+              primary={t('facilityRegistrationInfo.step1Title')}
+              secondary={t('facilityRegistrationInfo.step1Desc')}
             />
           </ListItem>
           <ListItem>
@@ -56,8 +58,8 @@ export const FacilityRegistrationInfoPage = () => {
               <CheckIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              primary="2. 店舗登録申請"
-              secondary="ログイン後のホームページ下部にある「店舗登録申請はこちら」をクリック"
+              primary={t('facilityRegistrationInfo.step2Title')}
+              secondary={t('facilityRegistrationInfo.step2Desc')}
             />
           </ListItem>
           <ListItem>
@@ -65,8 +67,8 @@ export const FacilityRegistrationInfoPage = () => {
               <CheckIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              primary="3. 必要事項の入力"
-              secondary="施設名、住所、営業時間などの情報を入力して申請"
+              primary={t('facilityRegistrationInfo.step3Title')}
+              secondary={t('facilityRegistrationInfo.step3Desc')}
             />
           </ListItem>
           <ListItem>
@@ -74,8 +76,8 @@ export const FacilityRegistrationInfoPage = () => {
               <CheckIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              primary="4. 承認待ち"
-              secondary="管理者が内容を確認します（数日かかる場合があります）"
+              primary={t('facilityRegistrationInfo.step4Title')}
+              secondary={t('facilityRegistrationInfo.step4Desc')}
             />
           </ListItem>
           <ListItem>
@@ -83,8 +85,8 @@ export const FacilityRegistrationInfoPage = () => {
               <CheckIcon color="primary" />
             </ListItemIcon>
             <ListItemText
-              primary="5. 承認完了"
-              secondary="承認されると施設管理者として登録され、定期開催試合の管理などができるようになります"
+              primary={t('facilityRegistrationInfo.step5Title')}
+              secondary={t('facilityRegistrationInfo.step5Desc')}
             />
           </ListItem>
         </List>
@@ -93,16 +95,16 @@ export const FacilityRegistrationInfoPage = () => {
       {/* Requirements */}
       <Paper sx={{ p: 4, mb: 3, bgcolor: 'info.light' }}>
         <Typography variant="h6" gutterBottom>
-          必要な情報
+          {t('facilityRegistrationInfo.requirementsTitle')}
         </Typography>
         <Typography variant="body1" component="div">
           <ul style={{ marginTop: 8 }}>
-            <li>施設名</li>
-            <li>支店名（複数店舗がある場合）</li>
-            <li>住所（都道府県、市区町村、詳細住所）</li>
-            <li>電話番号</li>
-            <li>営業時間（開店・閉店時刻）</li>
-            <li>台数/レーン数</li>
+            <li>{t('facilityRegistrationInfo.requirement1')}</li>
+            <li>{t('facilityRegistrationInfo.requirement2')}</li>
+            <li>{t('facilityRegistrationInfo.requirement3')}</li>
+            <li>{t('facilityRegistrationInfo.requirement4')}</li>
+            <li>{t('facilityRegistrationInfo.requirement5')}</li>
+            <li>{t('facilityRegistrationInfo.requirement6')}</li>
           </ul>
         </Typography>
       </Paper>
@@ -110,14 +112,14 @@ export const FacilityRegistrationInfoPage = () => {
       {/* Benefits */}
       <Paper sx={{ p: 4, mb: 3 }}>
         <Typography variant="h6" gutterBottom>
-          施設管理者ができること
+          {t('facilityRegistrationInfo.benefitsTitle')}
         </Typography>
         <Typography variant="body1" component="div">
           <ul style={{ marginTop: 8 }}>
-            <li>定期開催試合の登録・管理</li>
-            <li>試合スケジュールの設定</li>
-            <li>参加費・レベル設定</li>
-            <li>施設情報の更新</li>
+            <li>{t('facilityRegistrationInfo.benefit1')}</li>
+            <li>{t('facilityRegistrationInfo.benefit2')}</li>
+            <li>{t('facilityRegistrationInfo.benefit3')}</li>
+            <li>{t('facilityRegistrationInfo.benefit4')}</li>
           </ul>
         </Typography>
       </Paper>
@@ -136,17 +138,17 @@ export const FacilityRegistrationInfoPage = () => {
           size="large"
           onClick={() => navigate('/login')}
         >
-          ログイン / アカウント作成
+          {t('facilityRegistrationInfo.loginButton')}
         </Button>
         <Button variant="outlined" size="large" onClick={() => navigate('/')}>
-          トップページへ
+          {t('facilityRegistrationInfo.homeButton')}
         </Button>
       </Box>
 
       {/* Footer Note */}
       <Box sx={{ mt: 4, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          ご不明な点がございましたら、お問い合わせください
+          {t('facilityRegistrationInfo.footer')}
         </Typography>
       </Box>
     </Container>

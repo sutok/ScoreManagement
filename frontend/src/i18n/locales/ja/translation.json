@@ -251,5 +251,35 @@
       "confirmItem3": "申請者がこの施設を管理できるようになります",
       "confirmButton": "承認する"
     }
+  },
+  "facilityRegistrationInfo": {
+    "title": "店舗登録について",
+    "subtitle": "ビリヤード場/ボウリング場の施設管理者として登録する方法",
+    "flowTitle": "登録の流れ",
+    "step1Title": "1. ログイン",
+    "step1Desc": "まずはアカウントを作成してログインしてください",
+    "step2Title": "2. 店舗登録申請",
+    "step2Desc": "ログイン後のホームページ下部にある「店舗登録申請はこちら」をクリック",
+    "step3Title": "3. 必要事項の入力",
+    "step3Desc": "施設名、住所、営業時間などの情報を入力して申請",
+    "step4Title": "4. 承認待ち",
+    "step4Desc": "管理者が内容を確認します（数日かかる場合があります）",
+    "step5Title": "5. 承認完了",
+    "step5Desc": "承認されると施設管理者として登録され、定期開催試合の管理などができるようになります",
+    "requirementsTitle": "必要な情報",
+    "requirement1": "施設名",
+    "requirement2": "支店名（複数店舗がある場合）",
+    "requirement3": "住所（都道府県、市区町村、詳細住所）",
+    "requirement4": "電話番号",
+    "requirement5": "営業時間（開店・閉店時刻）",
+    "requirement6": "台数/レーン数",
+    "benefitsTitle": "施設管理者ができること",
+    "benefit1": "定期開催試合の登録・管理",
+    "benefit2": "試合スケジュールの設定",
+    "benefit3": "参加費・レベル設定",
+    "benefit4": "施設情報の更新",
+    "loginButton": "ログイン / アカウント作成",
+    "homeButton": "トップページへ",
+    "footer": "ご不明な点がございましたら、お問い合わせください"
   }
 }

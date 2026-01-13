@@ -11,6 +11,10 @@
     "loggingIn": "Masuk...",
     "logout": "Keluar"
   },
+  "login": {
+    "forFacilityManagers": "Untuk Pengelola Tempat Biliar / Bowling",
+    "facilityRegistrationInfo": "Tentang Pendaftaran Fasilitas"
+  },
   "home": {
     "title": "Biliar/Bowling",
     "welcome": "Selamat datang, {{name}}",
@@ -22,8 +26,7 @@
     "pendingFacilities": "Fasilitas Menunggu",
     "forFacilityManagers": "Untuk Manajer Fasilitas",
     "facilityManagerDescription": "Jika Anda mengoperasikan hall biliar atau bowling alley, Anda dapat mendaftar sebagai manajer fasilitas",
-    "applyFacility": "Daftar untuk Pendaftaran Fasilitas",
-    "logoAlt": "Gambar Pencatatan Skor Bowling dan Biliar"
+    "applyFacility": "Daftar untuk Pendaftaran Fasilitas"
   },
   "newGame": {
     "title": "Permainan Baru",
@@ -172,14 +175,6 @@
     }
   },
   "facility": {
-    "list": {
-      "title": "Manajemen Fasilitas",
-      "loadError": "Gagal memuat fasilitas",
-      "deleteConfirm": "Hapus fasilitas ini?",
-      "deleteError": "Gagal menghapus fasilitas",
-      "newButton": "Pendaftaran Baru",
-      "close": "Tutup"
-    },
     "apply": {
       "title": "Pendaftaran Fasilitas",
       "success": "Aplikasi berhasil dikirim. Silakan tunggu persetujuan.",
@@ -248,8 +243,34 @@
       "confirmButton": "Setujui"
     }
   },
-  "login": {
-    "forFacilityManagers": "Untuk Pengelola Tempat Biliar / Bowling",
-    "facilityRegistrationInfo": "Tentang Pendaftaran Fasilitas"
+  "facilityRegistrationInfo": {
+    "title": "Tentang Pendaftaran Fasilitas",
+    "subtitle": "Cara mendaftar sebagai manajer fasilitas untuk tempat biliar/bowling",
+    "flowTitle": "Proses Pendaftaran",
+    "step1Title": "1. Login",
+    "step1Desc": "Pertama, buat akun dan login",
+    "step2Title": "2. Aplikasi Pendaftaran Fasilitas",
+    "step2Desc": "Klik 'Daftar untuk Pendaftaran Fasilitas' di bagian bawah halaman utama setelah login",
+    "step3Title": "3. Masukkan Informasi yang Diperlukan",
+    "step3Desc": "Masukkan nama fasilitas, alamat, jam operasional, dan informasi lainnya",
+    "step4Title": "4. Menunggu Persetujuan",
+    "step4Desc": "Administrator akan meninjau pengajuan Anda (mungkin memakan waktu beberapa hari)",
+    "step5Title": "5. Persetujuan Selesai",
+    "step5Desc": "Setelah disetujui, Anda akan terdaftar sebagai manajer fasilitas dan dapat mengelola turnamen berulang",
+    "requirementsTitle": "Informasi yang Diperlukan",
+    "requirement1": "Nama fasilitas",
+    "requirement2": "Nama cabang (jika ada banyak lokasi)",
+    "requirement3": "Alamat (prefektur, kota, alamat lengkap)",
+    "requirement4": "Nomor telepon",
+    "requirement5": "Jam operasional (waktu buka/tutup)",
+    "requirement6": "Jumlah meja/jalur",
+    "benefitsTitle": "Apa yang Dapat Dilakukan Manajer Fasilitas",
+    "benefit1": "Mendaftar dan mengelola turnamen berulang",
+    "benefit2": "Mengatur jadwal turnamen",
+    "benefit3": "Mengatur biaya masuk dan tingkat keterampilan",
+    "benefit4": "Memperbarui informasi fasilitas",
+    "loginButton": "Login / Buat Akun",
+    "homeButton": "Ke Halaman Utama",
+    "footer": "Jika Anda memiliki pertanyaan, silakan hubungi kami"
   }
 }
