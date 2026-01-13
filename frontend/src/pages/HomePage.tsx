@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { Container, Typography, Box, Button, Paper, Avatar, Divider } from '@mui/material';
+import { Container, Typography, Box, Button, Paper, Divider } from '@mui/material';
 import { useAuth } from '../hooks/useAuth';
-import LogoutIcon from '@mui/icons-material/Logout';
 import SportsIcon from '@mui/icons-material/Sports';
 import HistoryIcon from '@mui/icons-material/History';
 import StoreIcon from '@mui/icons-material/Store';
@@ -12,10 +11,10 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
-import { LanguageSelector } from '../components/LanguageSelector';
+import { AppHeader } from '../components/AppHeader';
 
 export const HomePage = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -27,52 +26,15 @@ export const HomePage = () => {
     trackPageView('/');
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
-
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
         {/* Header */}
-        <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Avatar
-                src={user?.photoURL || undefined}
-                alt={user?.displayName || 'User'}
-                sx={{ width: 56, height: 56 }}
-              />
-              <Box>
-                <Typography variant="h5" component="h1">
-                  {t('home.welcome', { name: user?.displayName || 'User' })}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {user?.email}
-                </Typography>
-              </Box>
-            </Box>
-            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-              <LanguageSelector />
-              <Button
-                variant="outlined"
-                startIcon={<LogoutIcon />}
-                onClick={handleLogout}
-              >
-                {t('auth.logout')}
-              </Button>
-            </Box>
-          </Box>
-        </Paper>
+        <AppHeader />
 
         {/* Title */}
-        <Typography variant="h3" component="h2" gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
-          🎳 {t('home.title')}
+        <Typography gutterBottom sx={{ textAlign: 'center', mb: 4 }}>
+          {t('home.title')}
         </Typography>
 
         {/* Action Buttons */}
@@ -101,6 +63,7 @@ export const HomePage = () => {
             startIcon={<SearchIcon />}
             onClick={() => navigate('/tournament-search')}
             sx={{ py: 2 }}
+            color="warning"
           >
             試合検索
           </Button>
@@ -152,7 +115,7 @@ export const HomePage = () => {
           </Divider>
           <Box sx={{ textAlign: 'center' }}>
             <Typography variant="body2" color="text.secondary" gutterBottom>
-              ボウリング場を運営されている方は、施設管理者として登録できます
+              ビリヤード場/ボウリング場を運営されている方は、施設管理者として登録できます
             </Typography>
             <Button
               variant="text"
