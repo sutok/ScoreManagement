@@ -247,5 +247,9 @@
       "confirmItem3": "Ang aplikante ay makakapamahala ng pasilidad na ito",
       "confirmButton": "Aprubahan"
     }
+  },
+  "login": {
+    "forFacilityManagers": "Para sa mga Manager ng Billiards Hall / Bowling Alley",
+    "facilityRegistrationInfo": "Tungkol sa Pagpaparehistro ng Pasilidad"
   }
 }

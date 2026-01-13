@@ -11,6 +11,10 @@
     "loggingIn": "Logging in...",
     "logout": "Logout"
   },
+  "login": {
+    "forFacilityManagers": "For Billiards Hall / Bowling Alley Managers",
+    "facilityRegistrationInfo": "About Facility Registration"
+  },
   "home": {
     "title": "Billiards/Bowling",
     "logoAlt": "Bowling and Billiards Score Recording Image",

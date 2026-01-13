@@ -247,5 +247,9 @@
       "confirmItem3": "ผู้สมัครจะสามารถจัดการสถานที่นี้ได้",
       "confirmButton": "อนุมัติ"
     }
+  },
+  "login": {
+    "forFacilityManagers": "สำหรับผู้จัดการสนามบิลเลียด / โบว์ลิ่ง",
+    "facilityRegistrationInfo": "เกี่ยวกับการลงทะเบียนสถานที่"
   }
 }

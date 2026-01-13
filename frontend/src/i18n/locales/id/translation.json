@@ -247,5 +247,9 @@
       "confirmItem3": "Pelamar akan dapat mengelola fasilitas ini",
       "confirmButton": "Setujui"
     }
+  },
+  "login": {
+    "forFacilityManagers": "Untuk Pengelola Tempat Biliar / Bowling",
+    "facilityRegistrationInfo": "Tentang Pendaftaran Fasilitas"
   }
 }

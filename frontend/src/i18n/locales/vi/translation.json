@@ -247,5 +247,9 @@
       "confirmItem3": "Người nộp đơn sẽ có thể quản lý cơ sở này",
       "confirmButton": "Phê duyệt"
     }
+  },
+  "login": {
+    "forFacilityManagers": "Dành cho Quản lý Phòng Billiards / Sân Bowling",
+    "facilityRegistrationInfo": "Về Đăng ký Cơ sở"
   }
 }
