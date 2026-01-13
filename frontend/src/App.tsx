@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Box, CircularProgress, Container } from '@mui/material';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { Footer } from './components/Footer';
 
 // Lazy load route components for code splitting
 const LoginPage = lazy(() => import('./pages/LoginPage').then(m => ({ default: m.LoginPage })));
@@ -28,84 +29,95 @@ const LoadingFallback = () => (
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/new-game"
-            element={
-              <ProtectedRoute>
-                <NewGamePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/history"
-            element={
-              <ProtectedRoute>
-                <HistoryPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/facilities"
-            element={
-              <ProtectedRoute>
-                <FacilitiesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/recurring-tournaments"
-            element={
-              <ProtectedRoute>
-                <RecurringTournamentsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/tournament-search"
-            element={
-              <ProtectedRoute>
-                <TournamentSearchPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/debug-tournaments"
-            element={
-              <ProtectedRoute>
-                <DebugTournamentsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apply-facility"
-            element={
-              <ProtectedRoute>
-                <ApplyFacilityPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/pending-facilities"
-            element={
-              <ProtectedRoute>
-                <PendingFacilitiesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/facility-registration-info" element={<FacilityRegistrationInfoPage />} />
-        </Routes>
-      </Suspense>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+        }}
+      >
+        <Box sx={{ flex: 1 }}>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <HomePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/new-game"
+                element={
+                  <ProtectedRoute>
+                    <NewGamePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/history"
+                element={
+                  <ProtectedRoute>
+                    <HistoryPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/facilities"
+                element={
+                  <ProtectedRoute>
+                    <FacilitiesPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/recurring-tournaments"
+                element={
+                  <ProtectedRoute>
+                    <RecurringTournamentsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/tournament-search"
+                element={
+                  <ProtectedRoute>
+                    <TournamentSearchPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/debug-tournaments"
+                element={
+                  <ProtectedRoute>
+                    <DebugTournamentsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/apply-facility"
+                element={
+                  <ProtectedRoute>
+                    <ApplyFacilityPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pending-facilities"
+                element={
+                  <ProtectedRoute>
+                    <PendingFacilitiesPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/facility-registration-info" element={<FacilityRegistrationInfoPage />} />
+            </Routes>
+          </Suspense>
+        </Box>
+        <Footer />
+      </Box>
     </BrowserRouter>
   );
 }
