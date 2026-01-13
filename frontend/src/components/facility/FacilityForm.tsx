@@ -56,13 +56,23 @@ export const FacilityForm = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 台数の合計を自動計算
+  // 既存データ（3つのフィールドがすべて未定義）の場合は既存のnumberOfLanesを維持
   useEffect(() => {
-    const total = formData.pocketTables + formData.caromTables + formData.snookerTables;
-    setFormData((prev) => ({
-      ...prev,
-      numberOfLanes: total,
-    }));
-  }, [formData.pocketTables, formData.caromTables, formData.snookerTables]);
+    // 3つのフィールドがすべて0（未定義）かつ既存データがある場合はスキップ
+    const hasTableTypeData =
+      initialData?.pocketTables !== undefined ||
+      initialData?.caromTables !== undefined ||
+      initialData?.snookerTables !== undefined;
+
+    // 新規作成時または台種別データが存在する場合のみ自動計算
+    if (!initialData || hasTableTypeData) {
+      const total = formData.pocketTables + formData.caromTables + formData.snookerTables;
+      setFormData((prev) => ({
+        ...prev,
+        numberOfLanes: total,
+      }));
+    }
+  }, [formData.pocketTables, formData.caromTables, formData.snookerTables, initialData]);
 
   const handleChange = (field: string, value: string | number) => {
     setFormData((prev) => ({
@@ -306,10 +316,10 @@ export const FacilityForm = ({
             type="number"
             label={t('facility.form.numberOfLanes')}
             value={formData.numberOfLanes}
-            disabled
             InputProps={{
               readOnly: true,
             }}
+            inputProps={{ min: 0, max: 200 }}
           />
 
           {/* 営業時間 */}
