@@ -22,7 +22,8 @@
     "pendingFacilities": "Fasilitas Menunggu",
     "forFacilityManagers": "Untuk Manajer Fasilitas",
     "facilityManagerDescription": "Jika Anda mengoperasikan hall biliar atau bowling alley, Anda dapat mendaftar sebagai manajer fasilitas",
-    "applyFacility": "Daftar untuk Pendaftaran Fasilitas"
+    "applyFacility": "Daftar untuk Pendaftaran Fasilitas",
+    "logoAlt": "Gambar Pencatatan Skor Bowling dan Biliar"
   },
   "newGame": {
     "title": "Permainan Baru",

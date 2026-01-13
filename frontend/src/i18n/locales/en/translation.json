@@ -13,6 +13,7 @@
   },
   "home": {
     "title": "Billiards/Bowling",
+    "logoAlt": "Bowling and Billiards Score Recording Image",
     "welcome": "Welcome, {{name}}",
     "newGame": "New Game",
     "viewHistory": "View History",

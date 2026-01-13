@@ -22,7 +22,8 @@
     "pendingFacilities": "Cơ sở đang chờ",
     "forFacilityManagers": "Dành cho Quản lý cơ sở",
     "facilityManagerDescription": "Nếu bạn vận hành phòng bi-a hoặc sân bowling, bạn có thể đăng ký làm quản lý cơ sở",
-    "applyFacility": "Đăng ký cơ sở"
+    "applyFacility": "Đăng ký cơ sở",
+    "logoAlt": "Hình ảnh ghi điểm Bowling và Billiards"
   },
   "newGame": {
     "title": "Trò chơi mới",
