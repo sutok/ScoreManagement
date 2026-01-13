@@ -22,7 +22,8 @@
     "pendingFacilities": "Mga Pasilidad na Naghihintay",
     "forFacilityManagers": "Para sa mga Facility Manager",
     "facilityManagerDescription": "Kung ikaw ay nag-ooperate ng billiards hall o bowling alley, maaari kang magrehistro bilang facility manager",
-    "applyFacility": "Mag-apply para sa Rehistrasyon ng Pasilidad"
+    "applyFacility": "Mag-apply para sa Rehistrasyon ng Pasilidad",
+    "logoAlt": "Larawan ng Pagtatala ng Iskor sa Bowling at Billiards"
   },
   "newGame": {
     "title": "Bagong Laro",

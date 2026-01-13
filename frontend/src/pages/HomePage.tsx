@@ -41,7 +41,7 @@ export const HomePage = () => {
             {/* ホーム画面に表示するメインイメージ */}
             <img
               src="/10balls.png"
-              alt="ボウリング・ビリヤード スコア記録イメージ"
+              alt={t('home.logoAlt')}
               style={{ maxWidth: '7%', height: '7％', borderRadius: 12, boxShadow: '0 2px 16px rgba(0,0,0,0.10)' }}
             />
           {t('home.title')}
