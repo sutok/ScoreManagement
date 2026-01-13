@@ -18,6 +18,7 @@ import { TournamentSearchResultCard } from '../components/tournament/TournamentS
 import { type RecurringTournament, type Facility } from '../types/facility';
 import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
+import { AdBanner } from '../components/AdBanner';
 
 interface EnrichedTournament extends RecurringTournament {
   facilityName?: string;
@@ -128,6 +129,9 @@ export const TournamentSearchPage = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
+      {/* Advertisement - Top */}
+      <AdBanner slot="9320434668" />
+
       {/* Header */}
       <AppHeader />
 
@@ -148,6 +152,9 @@ export const TournamentSearchPage = () => {
       {!loading && (
         <SearchFilters onSearch={handleSearch} onClear={handleClear} />
       )}
+
+      {/* Advertisement */}
+      <AdBanner slot="3456789012" format="horizontal" />
 
       {/* Loading State */}
       {(loading || searching) && (

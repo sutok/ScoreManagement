@@ -29,6 +29,7 @@ import { trackGameDelete, trackPageView, trackEvent } from '../utils/analytics';
 import { trackFirestoreError } from '../utils/errorTracking';
 import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
+import { AdBanner } from '../components/AdBanner';
 
 export const HistoryPage = () => {
   const navigate = useNavigate();
@@ -173,6 +174,9 @@ export const HistoryPage = () => {
   return (
     <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
+        {/* Advertisement - Top */}
+        <AdBanner slot="9320434668" />
+
         <AppHeader />
 
         <PageHeader
@@ -228,6 +232,11 @@ export const HistoryPage = () => {
               </Box>
             </Box>
           </Paper>
+        )}
+
+        {/* Advertisement - after statistics */}
+        {stats.totalGames > 0 && (
+          <AdBanner slot="1234567891" format="horizontal" />
         )}
 
         {/* Games List */}
