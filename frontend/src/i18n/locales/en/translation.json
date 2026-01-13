@@ -90,6 +90,39 @@
     "backToHome": "Back to Home",
     "loginRequired": "Login required"
   },
+  "tournament": {
+    "search": {
+      "title": "Tournament Search",
+      "loadError": "Failed to load data",
+      "searchError": "Search failed",
+      "resultsFound": "{{count}} tournament(s) found",
+      "activeTournaments": "{{count}} active tournament(s)",
+      "noResults": "No tournaments found",
+      "noResultsHint": "Try changing your search criteria"
+    },
+    "filters": {
+      "title": "Tournament Search",
+      "prefecture": "Prefecture",
+      "city": "City",
+      "cityPlaceholder": "e.g., Shibuya",
+      "entryFee": "Entry Fee",
+      "minFee": "Min Fee",
+      "maxFee": "Max Fee",
+      "currency": "¥",
+      "level": "Level",
+      "all": "All",
+      "search": "Search",
+      "clear": "Clear",
+      "levelBeginner": "Beginner",
+      "levelIntermediate": "Intermediate",
+      "levelAdvanced": "Advanced",
+      "filterPrefecture": "Prefecture: {{value}}",
+      "filterCity": "City: {{value}}",
+      "filterMinFee": "Min Fee: ¥{{value}}",
+      "filterMaxFee": "Max Fee: ¥{{value}}",
+      "filterLevel": "Level: {{value}}"
+    }
+  },
   "facility": {
     "apply": {
       "title": "Facility Registration Application",

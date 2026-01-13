@@ -90,6 +90,39 @@
     "backToHome": "Quay lại trang chủ",
     "loginRequired": "Yêu cầu đăng nhập"
   },
+  "tournament": {
+    "search": {
+      "title": "Tìm kiếm giải đấu",
+      "loadError": "Tải dữ liệu thất bại",
+      "searchError": "Tìm kiếm thất bại",
+      "resultsFound": "Tìm thấy {{count}} giải đấu",
+      "activeTournaments": "{{count}} giải đấu đang diễn ra",
+      "noResults": "Không tìm thấy giải đấu",
+      "noResultsHint": "Thử thay đổi tiêu chí tìm kiếm của bạn"
+    },
+    "filters": {
+      "title": "Tìm kiếm giải đấu",
+      "prefecture": "Tỉnh/Thành phố",
+      "city": "Quận/Huyện",
+      "cityPlaceholder": "vd: Shibuya",
+      "entryFee": "Phí tham gia",
+      "minFee": "Phí tối thiểu",
+      "maxFee": "Phí tối đa",
+      "currency": "¥",
+      "level": "Trình độ",
+      "all": "Tất cả",
+      "search": "Tìm kiếm",
+      "clear": "Xóa",
+      "levelBeginner": "Người mới",
+      "levelIntermediate": "Trung cấp",
+      "levelAdvanced": "Nâng cao",
+      "filterPrefecture": "Tỉnh/TP: {{value}}",
+      "filterCity": "Quận/Huyện: {{value}}",
+      "filterMinFee": "Phí tối thiểu: ¥{{value}}",
+      "filterMaxFee": "Phí tối đa: ¥{{value}}",
+      "filterLevel": "Trình độ: {{value}}"
+    }
+  },
   "facility": {
     "apply": {
       "title": "Đơn đăng ký cơ sở",

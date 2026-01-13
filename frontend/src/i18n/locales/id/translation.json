@@ -90,6 +90,39 @@
     "backToHome": "Kembali ke Beranda",
     "loginRequired": "Diperlukan login"
   },
+  "tournament": {
+    "search": {
+      "title": "Pencarian Turnamen",
+      "loadError": "Gagal memuat data",
+      "searchError": "Pencarian gagal",
+      "resultsFound": "{{count}} turnamen ditemukan",
+      "activeTournaments": "{{count}} turnamen aktif",
+      "noResults": "Tidak ada turnamen ditemukan",
+      "noResultsHint": "Coba ubah kriteria pencarian Anda"
+    },
+    "filters": {
+      "title": "Pencarian Turnamen",
+      "prefecture": "Prefektur",
+      "city": "Kota",
+      "cityPlaceholder": "mis., Shibuya",
+      "entryFee": "Biaya Pendaftaran",
+      "minFee": "Biaya Minimum",
+      "maxFee": "Biaya Maksimum",
+      "currency": "¥",
+      "level": "Tingkat",
+      "all": "Semua",
+      "search": "Cari",
+      "clear": "Hapus",
+      "levelBeginner": "Pemula",
+      "levelIntermediate": "Menengah",
+      "levelAdvanced": "Lanjutan",
+      "filterPrefecture": "Prefektur: {{value}}",
+      "filterCity": "Kota: {{value}}",
+      "filterMinFee": "Biaya Min: ¥{{value}}",
+      "filterMaxFee": "Biaya Max: ¥{{value}}",
+      "filterLevel": "Tingkat: {{value}}"
+    }
+  },
   "facility": {
     "apply": {
       "title": "Pendaftaran Fasilitas",
