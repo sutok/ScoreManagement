@@ -171,6 +171,14 @@
     }
   },
   "facility": {
+    "list": {
+      "title": "Manajemen Fasilitas",
+      "loadError": "Gagal memuat fasilitas",
+      "deleteConfirm": "Hapus fasilitas ini?",
+      "deleteError": "Gagal menghapus fasilitas",
+      "newButton": "Pendaftaran Baru",
+      "close": "Tutup"
+    },
     "apply": {
       "title": "Pendaftaran Fasilitas",
       "success": "Aplikasi berhasil dikirim. Silakan tunggu persetujuan.",
