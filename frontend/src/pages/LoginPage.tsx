@@ -50,7 +50,7 @@ export const LoginPage = () => {
           {/* Facility Registration Link */}
           <Box sx={{ mt: 3, pt: 3, borderTop: 1, borderColor: 'divider', textAlign: 'center' }}>
             <Typography variant="body2" color="text.secondary" gutterBottom>
-              ビリヤード場/ボウリング場の施設管理者の方へ
+              {t('login.forFacilityManagers')}
             </Typography>
             <Link
               component={RouterLink}
@@ -58,7 +58,7 @@ export const LoginPage = () => {
               variant="body2"
               sx={{ fontWeight: 'medium' }}
             >
-              店舗の登録について
+              {t('login.facilityRegistrationInfo')}
             </Link>
           </Box>
         </Paper>

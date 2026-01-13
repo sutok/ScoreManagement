@@ -11,6 +11,10 @@
     "loggingIn": "ログイン中...",
     "logout": "ログアウト"
   },
+  "login": {
+    "forFacilityManagers": "ビリヤード場/ボウリング場の施設管理者の方へ",
+    "facilityRegistrationInfo": "店舗の登録について"
+  },
   "home": {
     "title": "ボーラード/ボーリング",
     "welcome": "ようこそ、{{name}}さん",
