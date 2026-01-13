@@ -207,6 +207,32 @@
       "errorPhone": "Silakan masukkan nomor telepon",
       "errorLanes": "Jumlah lintasan harus antara 1 dan 100",
       "errorSave": "Gagal menyimpan fasilitas"
+    },
+    "pending": {
+      "title": "Fasilitas Menunggu",
+      "loadError": "Gagal memuat fasilitas menunggu",
+      "applicantNotFound": "Informasi pelamar tidak ditemukan",
+      "approveError": "Gagal menyetujui fasilitas",
+      "adminOnly": "Fitur ini hanya dapat diakses oleh administrator",
+      "reload": "Muat Ulang",
+      "approve": "Setujui",
+      "tableFacilityName": "Nama Fasilitas",
+      "tableBranchName": "Nama Cabang",
+      "tablePrefecture": "Prefektur",
+      "tableCity": "Kota",
+      "tablePhone": "Nomor Telepon",
+      "tableLanes": "Jumlah Meja/Lintasan",
+      "tableAppliedDate": "Tanggal Aplikasi",
+      "tableActions": "Tindakan",
+      "noBranch": "Tidak ada",
+      "noFacilities": "Tidak ada fasilitas menunggu",
+      "noFacilitiesHint": "Aplikasi baru akan muncul di sini",
+      "confirmTitle": "Setujui pendaftaran fasilitas?",
+      "confirmMessage": "Tindakan berikut akan dilakukan setelah persetujuan:",
+      "confirmItem1": "Fasilitas akan ditandai sebagai disetujui",
+      "confirmItem2": "Pelamar akan menjadi manajer fasilitas",
+      "confirmItem3": "Pelamar akan dapat mengelola fasilitas ini",
+      "confirmButton": "Setujui"
     }
   }
 }

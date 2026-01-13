@@ -207,6 +207,32 @@
       "errorPhone": "電話番号を入力してください",
       "errorLanes": "レーン数は1〜100の範囲で入力してください",
       "errorSave": "施設の保存に失敗しました"
+    },
+    "pending": {
+      "title": "申請中店舗一覧",
+      "loadError": "申請中の店舗を読み込めませんでした",
+      "applicantNotFound": "申請者情報が見つかりません",
+      "approveError": "承認処理に失敗しました",
+      "adminOnly": "この機能は管理者のみアクセスできます",
+      "reload": "再読み込み",
+      "approve": "承認",
+      "tableFacilityName": "施設名",
+      "tableBranchName": "支店名",
+      "tablePrefecture": "都道府県",
+      "tableCity": "市区町村",
+      "tablePhone": "電話番号",
+      "tableLanes": "台数/レーン数",
+      "tableAppliedDate": "申請日時",
+      "tableActions": "操作",
+      "noBranch": "なし",
+      "noFacilities": "申請中の店舗はありません",
+      "noFacilitiesHint": "新しい申請があるとここに表示されます",
+      "confirmTitle": "店舗登録を承認しますか？",
+      "confirmMessage": "承認すると以下の処理が実行されます：",
+      "confirmItem1": "施設が承認済みとしてマークされます",
+      "confirmItem2": "申請者が施設管理者（facility_manager）になります",
+      "confirmItem3": "申請者がこの施設を管理できるようになります",
+      "confirmButton": "承認する"
     }
   }
 }

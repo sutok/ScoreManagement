@@ -207,6 +207,32 @@
       "errorPhone": "Vui lòng nhập số điện thoại",
       "errorLanes": "Số làn phải từ 1 đến 100",
       "errorSave": "Lưu cơ sở thất bại"
+    },
+    "pending": {
+      "title": "Cơ sở đang chờ",
+      "loadError": "Tải cơ sở đang chờ thất bại",
+      "applicantNotFound": "Không tìm thấy thông tin người nộp đơn",
+      "approveError": "Phê duyệt cơ sở thất bại",
+      "adminOnly": "Tính năng này chỉ dành cho quản trị viên",
+      "reload": "Tải lại",
+      "approve": "Phê duyệt",
+      "tableFacilityName": "Tên cơ sở",
+      "tableBranchName": "Tên chi nhánh",
+      "tablePrefecture": "Tỉnh/Thành phố",
+      "tableCity": "Quận/Huyện",
+      "tablePhone": "Số điện thoại",
+      "tableLanes": "Số bàn/Làn",
+      "tableAppliedDate": "Ngày nộp đơn",
+      "tableActions": "Thao tác",
+      "noBranch": "Không có",
+      "noFacilities": "Không có cơ sở đang chờ",
+      "noFacilitiesHint": "Đơn đăng ký mới sẽ xuất hiện ở đây",
+      "confirmTitle": "Phê duyệt đăng ký cơ sở?",
+      "confirmMessage": "Các hành động sau sẽ được thực hiện sau khi phê duyệt:",
+      "confirmItem1": "Cơ sở sẽ được đánh dấu là đã phê duyệt",
+      "confirmItem2": "Người nộp đơn sẽ trở thành quản lý cơ sở",
+      "confirmItem3": "Người nộp đơn sẽ có thể quản lý cơ sở này",
+      "confirmButton": "Phê duyệt"
     }
   }
 }
