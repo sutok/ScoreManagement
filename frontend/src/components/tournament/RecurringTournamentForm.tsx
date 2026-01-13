@@ -18,6 +18,7 @@ import {
   FormGroup,
   FormLabel,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { type RecurringTournament, type Facility } from '../../types/facility';
 import {
   DAYS_OF_WEEK,
@@ -44,6 +45,8 @@ export const RecurringTournamentForm = ({
   initialData,
   isEdit = false,
 }: RecurringTournamentFormProps) => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     facilityId: initialData?.facilityId || '',
     title: initialData?.title || '',
@@ -93,19 +96,19 @@ export const RecurringTournamentForm = ({
 
   const validateForm = (): boolean => {
     if (!formData.facilityId) {
-      setError('施設を選択してください');
+      setError(t('tournament.recurring.errorSelectFacility'));
       return false;
     }
     if (!formData.title.trim()) {
-      setError('タイトルを入力してください');
+      setError(t('tournament.recurring.errorTitle'));
       return false;
     }
     if (formData.levels.length === 0) {
-      setError('レベルを少なくとも1つ選択してください');
+      setError(t('tournament.recurring.errorLevel'));
       return false;
     }
     if (formData.entryFee < 0 || formData.entryFee > 100000) {
-      setError('参加費は0〜100,000の範囲で入力してください');
+      setError(t('tournament.recurring.errorEntryFee'));
       return false;
     }
 
@@ -118,7 +121,7 @@ export const RecurringTournamentForm = ({
 
     const patternValidation = validateRecurringPattern(pattern);
     if (!patternValidation.valid) {
-      setError(patternValidation.error || 'パターンが正しくありません');
+      setError(patternValidation.error || t('tournament.recurring.errorPattern'));
       return false;
     }
 
@@ -153,7 +156,7 @@ export const RecurringTournamentForm = ({
       });
     } catch (err) {
       console.error('Error submitting recurring tournament:', err);
-      setError('定期開催試合の保存に失敗しました');
+      setError(t('tournament.recurring.saveError'));
       setIsSubmitting(false);
     }
   };
@@ -168,7 +171,7 @@ export const RecurringTournamentForm = ({
   return (
     <Paper elevation={2} sx={{ p: 3 }}>
       <Typography variant="h6" gutterBottom>
-        {isEdit ? '定期開催試合の編集' : '定期開催試合の登録'}
+        {isEdit ? t('tournament.recurring.editTitle') : t('tournament.recurring.createTitle')}
       </Typography>
 
       {error && (
@@ -194,23 +197,23 @@ export const RecurringTournamentForm = ({
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="開催施設"
+                label={t('tournament.recurring.facilityLabel')}
                 required
-                placeholder="施設名で検索..."
+                placeholder={t('tournament.recurring.facilityPlaceholder')}
               />
             )}
-            noOptionsText="該当する施設が見つかりません"
+            noOptionsText={t('tournament.recurring.facilityNoOptions')}
           />
 
           {/* タイトル */}
           <TextField
             required
             fullWidth
-            label="タイトル"
+            label={t('tournament.recurring.titleLabel')}
             value={formData.title}
             onChange={(e) => handleChange('title', e.target.value)}
             disabled={isSubmitting}
-            placeholder="例: 月例リーグ戦"
+            placeholder={t('tournament.recurring.titlePlaceholder')}
           />
 
           {/* 説明 */}
@@ -218,39 +221,39 @@ export const RecurringTournamentForm = ({
             fullWidth
             multiline
             rows={3}
-            label="説明"
+            label={t('tournament.recurring.descriptionLabel')}
             value={formData.description}
             onChange={(e) => handleChange('description', e.target.value)}
             disabled={isSubmitting}
-            placeholder="試合の詳細や参加条件など"
+            placeholder={t('tournament.recurring.descriptionPlaceholder')}
           />
 
           {/* 開催パターン */}
           <Typography variant="subtitle2" sx={{ mt: 2, mb: 1 }}>
-            開催パターン
+            {t('tournament.recurring.patternTitle')}
           </Typography>
 
           {/* 頻度 */}
           <FormControl fullWidth required>
-            <InputLabel>頻度</InputLabel>
+            <InputLabel>{t('tournament.recurring.frequencyLabel')}</InputLabel>
             <Select
               value={formData.frequency}
-              label="頻度"
+              label={t('tournament.recurring.frequencyLabel')}
               onChange={(e) => handleChange('frequency', e.target.value)}
               disabled={isSubmitting}
             >
-              <MenuItem value="monthly">毎月</MenuItem>
-              <MenuItem value="weekly">毎週</MenuItem>
+              <MenuItem value="monthly">{t('tournament.recurring.frequencyMonthly')}</MenuItem>
+              <MenuItem value="weekly">{t('tournament.recurring.frequencyWeekly')}</MenuItem>
             </Select>
           </FormControl>
 
           {/* 週（月例の場合のみ） */}
           {formData.frequency === 'monthly' && (
             <FormControl fullWidth required>
-              <InputLabel>週</InputLabel>
+              <InputLabel>{t('tournament.recurring.weekLabel')}</InputLabel>
               <Select
                 value={formData.weekOfMonth}
-                label="週"
+                label={t('tournament.recurring.weekLabel')}
                 onChange={(e) => handleChange('weekOfMonth', e.target.value)}
                 disabled={isSubmitting}
               >
@@ -266,10 +269,10 @@ export const RecurringTournamentForm = ({
           {/* 曜日・時刻 */}
           <Box sx={{ display: 'flex', gap: 2 }}>
             <FormControl fullWidth required>
-              <InputLabel>曜日</InputLabel>
+              <InputLabel>{t('tournament.recurring.dayOfWeekLabel')}</InputLabel>
               <Select
                 value={formData.dayOfWeek}
-                label="曜日"
+                label={t('tournament.recurring.dayOfWeekLabel')}
                 onChange={(e) => handleChange('dayOfWeek', e.target.value)}
                 disabled={isSubmitting}
               >
@@ -285,7 +288,7 @@ export const RecurringTournamentForm = ({
               required
               fullWidth
               type="time"
-              label="開始時刻"
+              label={t('tournament.recurring.timeLabel')}
               value={formData.time}
               onChange={(e) => handleChange('time', e.target.value)}
               disabled={isSubmitting}
@@ -296,11 +299,11 @@ export const RecurringTournamentForm = ({
           {/* パターン表示 */}
           <Alert severity="info">
             <Typography variant="body2">
-              開催パターン: {patternString}
+              {t('tournament.recurring.patternInfo')}: {patternString}
             </Typography>
             {nextOccurrence && (
               <Typography variant="body2" sx={{ mt: 0.5 }}>
-                次回開催予定: {nextOccurrence.toLocaleString('ja-JP', {
+                {t('tournament.recurring.nextOccurrence')}: {nextOccurrence.toLocaleString('ja-JP', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -317,7 +320,7 @@ export const RecurringTournamentForm = ({
             required
             fullWidth
             type="number"
-            label="参加費（円）"
+            label={t('tournament.recurring.entryFeeLabel')}
             value={formData.entryFee}
             onChange={(e) => handleChange('entryFee', parseInt(e.target.value) || 0)}
             disabled={isSubmitting}
@@ -326,7 +329,7 @@ export const RecurringTournamentForm = ({
 
           {/* レベル */}
           <FormControl component="fieldset" required error={formData.levels.length === 0}>
-            <FormLabel component="legend">レベル（複数選択可）</FormLabel>
+            <FormLabel component="legend">{t('tournament.recurring.levelLabel')}</FormLabel>
             <FormGroup row>
               <FormControlLabel
                 control={
@@ -341,7 +344,7 @@ export const RecurringTournamentForm = ({
                     disabled={isSubmitting}
                   />
                 }
-                label="初心者"
+                label={t('tournament.recurring.levelBeginner')}
               />
               <FormControlLabel
                 control={
@@ -356,7 +359,7 @@ export const RecurringTournamentForm = ({
                     disabled={isSubmitting}
                   />
                 }
-                label="中級者"
+                label={t('tournament.recurring.levelIntermediate')}
               />
               <FormControlLabel
                 control={
@@ -371,7 +374,7 @@ export const RecurringTournamentForm = ({
                     disabled={isSubmitting}
                   />
                 }
-                label="上級者"
+                label={t('tournament.recurring.levelAdvanced')}
               />
             </FormGroup>
           </FormControl>
@@ -385,7 +388,7 @@ export const RecurringTournamentForm = ({
                 disabled={isSubmitting}
               />
             }
-            label="有効にする"
+            label={t('tournament.recurring.activeSwitch')}
           />
         </Stack>
 
@@ -396,14 +399,14 @@ export const RecurringTournamentForm = ({
             onClick={onCancel}
             disabled={isSubmitting}
           >
-            キャンセル
+            {t('tournament.recurring.cancel')}
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? '保存中...' : isEdit ? '更新' : '登録'}
+            {isSubmitting ? t('tournament.recurring.saving') : isEdit ? t('tournament.recurring.update') : t('tournament.recurring.create')}
           </Button>
         </Box>
       </Box>

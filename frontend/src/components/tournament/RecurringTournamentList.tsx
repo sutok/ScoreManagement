@@ -8,6 +8,7 @@ import {
   Paper,
 } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import { type RecurringTournament } from '../../types/facility';
 import { formatRecurringPattern } from '../../utils/recurringPattern';
 
@@ -23,23 +24,27 @@ interface RecurringTournamentListProps {
   canEdit?: boolean;
 }
 
-const LEVEL_LABELS: Record<string, string> = {
-  beginner: '初心者',
-  intermediate: '中級者',
-  advanced: '上級者',
-};
-
 export const RecurringTournamentList = ({
   tournaments,
   onEdit,
   onDelete,
   canEdit = false,
 }: RecurringTournamentListProps) => {
+  const { t } = useTranslation();
+
+  const getLevelLabel = (level: string): string => {
+    const levelLabels: Record<string, string> = {
+      beginner: t('tournament.recurring.levelBeginner'),
+      intermediate: t('tournament.recurring.levelIntermediate'),
+      advanced: t('tournament.recurring.levelAdvanced'),
+    };
+    return levelLabels[level] || level;
+  };
   if (tournaments.length === 0) {
     return (
       <Paper sx={{ p: 4, textAlign: 'center' }}>
         <Typography variant="body1" color="text.secondary">
-          まだ定期開催試合が登録されていません
+          {t('tournament.recurring.noTournaments')}
         </Typography>
       </Paper>
     );
@@ -73,7 +78,7 @@ export const RecurringTournamentList = ({
                     <IconButton
                       size="small"
                       onClick={() => onEdit(tournament)}
-                      aria-label="編集"
+                      aria-label={t('tournament.recurring.editLabel')}
                     >
                       <EditIcon fontSize="small" />
                     </IconButton>
@@ -82,7 +87,7 @@ export const RecurringTournamentList = ({
                     <IconButton
                       size="small"
                       onClick={() => onDelete(tournament.id)}
-                      aria-label="削除"
+                      aria-label={t('tournament.recurring.deleteLabel')}
                       color="error"
                     >
                       <DeleteIcon fontSize="small" />
@@ -96,7 +101,7 @@ export const RecurringTournamentList = ({
               {(Array.isArray(tournament.level) ? tournament.level : [tournament.level]).map((level, index) => (
                 <Chip
                   key={index}
-                  label={LEVEL_LABELS[level] || level}
+                  label={getLevelLabel(level)}
                   size="small"
                   color="primary"
                   variant="outlined"
@@ -108,7 +113,7 @@ export const RecurringTournamentList = ({
                 variant="outlined"
               />
               <Chip
-                label={tournament.isActive ? '有効' : '無効'}
+                label={tournament.isActive ? t('tournament.recurring.active') : t('tournament.recurring.inactive')}
                 size="small"
                 color={tournament.isActive ? 'success' : 'default'}
               />

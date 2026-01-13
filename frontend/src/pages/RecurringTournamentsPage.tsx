@@ -11,6 +11,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { Add as AddIcon, Close as CloseIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import {
   getRecurringTournaments,
@@ -27,6 +28,7 @@ import { PageHeader } from '../components/PageHeader';
 
 export const RecurringTournamentsPage = () => {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const [tournaments, setTournaments] = useState<any[]>([]);
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -87,7 +89,7 @@ export const RecurringTournamentsPage = () => {
       setFacilities(filteredFacilities);
     } catch (err) {
       console.error('Error loading data:', err);
-      setError('データの読み込みに失敗しました');
+      setError(t('tournament.recurring.loadError'));
     } finally {
       setLoading(false);
     }
@@ -128,7 +130,7 @@ export const RecurringTournamentsPage = () => {
   };
 
   const handleDelete = async (tournamentId: string) => {
-    if (!window.confirm('この定期開催試合を削除しますか？')) {
+    if (!window.confirm(t('tournament.recurring.deleteConfirm'))) {
       return;
     }
 
@@ -137,7 +139,7 @@ export const RecurringTournamentsPage = () => {
       await loadData();
     } catch (err) {
       console.error('Error deleting recurring tournament:', err);
-      setError('定期開催試合の削除に失敗しました');
+      setError(t('tournament.recurring.deleteError'));
     }
   };
 
@@ -149,7 +151,7 @@ export const RecurringTournamentsPage = () => {
   if (!user) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Alert severity="warning">ログインが必要です</Alert>
+        <Alert severity="warning">{t('common.loginRequired')}</Alert>
       </Container>
     );
   }
@@ -160,7 +162,7 @@ export const RecurringTournamentsPage = () => {
       <AppHeader />
 
       <PageHeader
-        title="定期開催試合管理"
+        title={t('tournament.recurring.title')}
         icon="📅"
         showBackButton
       />
@@ -172,7 +174,7 @@ export const RecurringTournamentsPage = () => {
             startIcon={<AddIcon />}
             onClick={() => setShowForm(true)}
           >
-            新規登録
+            {t('tournament.recurring.newButton')}
           </Button>
         </Box>
       )}
@@ -210,8 +212,8 @@ export const RecurringTournamentsPage = () => {
       >
         <DialogTitle>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            {editingTournament ? '定期開催試合の編集' : '定期開催試合の登録'}
-            <IconButton onClick={handleCloseForm} aria-label="閉じる">
+            {editingTournament ? t('tournament.recurring.editTitle') : t('tournament.recurring.createTitle')}
+            <IconButton onClick={handleCloseForm} aria-label={t('tournament.recurring.close')}>
               <CloseIcon />
             </IconButton>
           </Box>
