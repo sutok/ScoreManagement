@@ -164,13 +164,7 @@ export const GameForm = () => {
       </Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 3 }}>
         {frames.map((frame, index) => (
-          <Box
-            key={frame.frameNumber}
-            sx={{
-              flex: { xs: '1 1 160px', sm: '1 1 200px' },
-              minWidth: { xs: '160px', sm: '200px' },
-            }}
-          >
+          <Box key={frame.frameNumber} sx={{ flex: '1 1 200px', minWidth: '200px' }}>
             <FrameInput
               frame={frame}
               onChange={(updatedFrame) => handleFrameChange(index, updatedFrame)}
