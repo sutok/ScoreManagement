@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   TextField,
@@ -46,11 +46,23 @@ export const FacilityForm = ({
     phoneNumber: initialData?.phoneNumber || '',
     openTime: initialData?.businessHours.open || '10:00',
     closeTime: initialData?.businessHours.close || '22:00',
-    numberOfLanes: initialData?.numberOfLanes || 12,
+    pocketTables: initialData?.pocketTables || 0,
+    caromTables: initialData?.caromTables || 0,
+    snookerTables: initialData?.snookerTables || 0,
+    numberOfLanes: initialData?.numberOfLanes || 0,
   });
 
   const [error, setError] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // 台数の合計を自動計算
+  useEffect(() => {
+    const total = formData.pocketTables + formData.caromTables + formData.snookerTables;
+    setFormData((prev) => ({
+      ...prev,
+      numberOfLanes: total,
+    }));
+  }, [formData.pocketTables, formData.caromTables, formData.snookerTables]);
 
   const handleChange = (field: string, value: string | number) => {
     setFormData((prev) => ({
@@ -81,7 +93,19 @@ export const FacilityForm = ({
       setError(t('facility.form.errorPhone'));
       return false;
     }
-    if (formData.numberOfLanes < 1 || formData.numberOfLanes > 100) {
+    if (formData.pocketTables < 0 || formData.pocketTables > 50) {
+      setError(t('facility.form.errorLanes'));
+      return false;
+    }
+    if (formData.caromTables < 0 || formData.caromTables > 50) {
+      setError(t('facility.form.errorLanes'));
+      return false;
+    }
+    if (formData.snookerTables < 0 || formData.snookerTables > 50) {
+      setError(t('facility.form.errorLanes'));
+      return false;
+    }
+    if (formData.numberOfLanes < 1 || formData.numberOfLanes > 150) {
       setError(t('facility.form.errorLanes'));
       return false;
     }
@@ -110,6 +134,9 @@ export const FacilityForm = ({
           open: formData.openTime,
           close: formData.closeTime,
         },
+        pocketTables: formData.pocketTables,
+        caromTables: formData.caromTables,
+        snookerTables: formData.snookerTables,
         numberOfLanes: formData.numberOfLanes,
         companyId,
       });
@@ -226,29 +253,64 @@ export const FacilityForm = ({
             placeholder={t('facility.form.addressPlaceholder')}
           />
 
-          {/* 電話番号・レーン数 */}
+          {/* 電話番号 */}
+          <TextField
+            required
+            fullWidth
+            label={t('facility.form.phoneNumber')}
+            value={formData.phoneNumber}
+            onChange={(e) => handleChange('phoneNumber', e.target.value)}
+            disabled={isSubmitting}
+            placeholder={t('facility.form.phonePlaceholder')}
+          />
+
+          {/* テーブル台数 */}
           <Box sx={{ display: 'flex', gap: 2 }}>
             <TextField
               required
               fullWidth
-              label={t('facility.form.phoneNumber')}
-              value={formData.phoneNumber}
-              onChange={(e) => handleChange('phoneNumber', e.target.value)}
+              type="number"
+              label={t('facility.form.pocketTables')}
+              value={formData.pocketTables}
+              onChange={(e) => handleChange('pocketTables', parseInt(e.target.value) || 0)}
               disabled={isSubmitting}
-              placeholder={t('facility.form.phonePlaceholder')}
+              inputProps={{ min: 0, max: 50 }}
             />
 
             <TextField
               required
               fullWidth
               type="number"
-              label={t('facility.form.numberOfLanes')}
-              value={formData.numberOfLanes}
-              onChange={(e) => handleChange('numberOfLanes', parseInt(e.target.value) || 0)}
+              label={t('facility.form.caromTables')}
+              value={formData.caromTables}
+              onChange={(e) => handleChange('caromTables', parseInt(e.target.value) || 0)}
               disabled={isSubmitting}
-              inputProps={{ min: 1, max: 100 }}
+              inputProps={{ min: 0, max: 50 }}
+            />
+
+            <TextField
+              required
+              fullWidth
+              type="number"
+              label={t('facility.form.snookerTables')}
+              value={formData.snookerTables}
+              onChange={(e) => handleChange('snookerTables', parseInt(e.target.value) || 0)}
+              disabled={isSubmitting}
+              inputProps={{ min: 0, max: 50 }}
             />
           </Box>
+
+          {/* 合計台数（読み取り専用） */}
+          <TextField
+            fullWidth
+            type="number"
+            label={t('facility.form.numberOfLanes')}
+            value={formData.numberOfLanes}
+            disabled
+            InputProps={{
+              readOnly: true,
+            }}
+          />
 
           {/* 営業時間 */}
           <Box sx={{ display: 'flex', gap: 2 }}>
