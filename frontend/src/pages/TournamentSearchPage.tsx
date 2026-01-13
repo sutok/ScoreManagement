@@ -129,6 +129,9 @@ export const TournamentSearchPage = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
+      {/* Advertisement - Top */}
+      <AdBanner slot="9320434668" />
+
       {/* Header */}
       <AppHeader />
 

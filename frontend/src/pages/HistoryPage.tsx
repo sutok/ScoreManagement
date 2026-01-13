@@ -174,6 +174,9 @@ export const HistoryPage = () => {
   return (
     <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
+        {/* Advertisement - Top */}
+        <AdBanner slot="9320434668" />
+
         <AppHeader />
 
         <PageHeader

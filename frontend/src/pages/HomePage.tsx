@@ -30,6 +30,9 @@ export const HomePage = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
+        {/* Advertisement - Top */}
+        <AdBanner slot="9320434668" />
+
         {/* Header */}
         <AppHeader />
 
