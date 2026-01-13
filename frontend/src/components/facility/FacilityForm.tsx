@@ -15,6 +15,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { PREFECTURES } from '../../utils/prefectures';
 import { type Facility } from '../../types/facility';
+import { checkFacilityDuplicate } from '../../firebase/facilities';
 
 interface FacilityFormProps {
   onSubmit: (facilityData: Omit<Facility, 'id' | 'createdAt' | 'updatedAt'>) => Promise<void>;
@@ -82,7 +83,7 @@ export const FacilityForm = ({
     setError('');
   };
 
-  const validateForm = (): boolean => {
+  const validateForm = async (): Promise<boolean> => {
     if (!formData.name.trim()) {
       setError(t('facility.form.errorName'));
       return false;
@@ -119,13 +120,33 @@ export const FacilityForm = ({
       setError(t('facility.form.errorLanes'));
       return false;
     }
+
+    // Check for duplicate facility name + branchName combination
+    try {
+      const isDuplicate = await checkFacilityDuplicate(
+        companyId,
+        formData.name,
+        formData.branchName || undefined,
+        initialData?.id // Exclude self when editing
+      );
+
+      if (isDuplicate) {
+        setError(t('facility.form.errorDuplicate'));
+        return false;
+      }
+    } catch (error) {
+      console.error('Error checking facility duplicate:', error);
+      // Continue with submission even if duplicate check fails
+      // to avoid blocking legitimate submissions due to network issues
+    }
+
     return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    if (!(await validateForm())) {
       return;
     }
 

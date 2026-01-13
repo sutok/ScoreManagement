@@ -209,7 +209,8 @@
       "errorAddress": "Silakan masukkan alamat",
       "errorPhone": "Silakan masukkan nomor telepon",
       "errorLanes": "Jumlah lintasan harus antara 1 dan 100",
-      "errorSave": "Gagal menyimpan fasilitas"
+      "errorSave": "Gagal menyimpan fasilitas",
+      "errorDuplicate": "Kombinasi nama fasilitas dan nama cabang ini sudah ada"
     },
     "pending": {
       "title": "Fasilitas Menunggu",

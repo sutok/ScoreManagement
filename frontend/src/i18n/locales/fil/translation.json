@@ -209,7 +209,8 @@
       "errorAddress": "Pakiusap ilagay ang address",
       "errorPhone": "Pakiusap ilagay ang numero ng telepono",
       "errorLanes": "Ang bilang ng lane ay dapat na 1 hanggang 100",
-      "errorSave": "Nabigo ang pag-save ng pasilidad"
+      "errorSave": "Nabigo ang pag-save ng pasilidad",
+      "errorDuplicate": "Ang kombinasyon ng pangalan ng pasilidad at pangalan ng sangay ay umiiral na"
     },
     "pending": {
       "title": "Mga Pasilidad na Naghihintay",

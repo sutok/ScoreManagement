@@ -209,7 +209,8 @@
       "errorAddress": "Vui lòng nhập địa chỉ",
       "errorPhone": "Vui lòng nhập số điện thoại",
       "errorLanes": "Số làn phải từ 1 đến 100",
-      "errorSave": "Lưu cơ sở thất bại"
+      "errorSave": "Lưu cơ sở thất bại",
+      "errorDuplicate": "Tổ hợp tên cơ sở và tên chi nhánh này đã tồn tại"
     },
     "pending": {
       "title": "Cơ sở đang chờ",
