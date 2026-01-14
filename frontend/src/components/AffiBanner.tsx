@@ -178,13 +178,33 @@ export const AffiBanner = ({
       ) && typeof window.msmaflink === 'function';
 
       if (msmScriptAlreadyLoaded) {
-        // 既にロード済みの場合は非同期で実行を遅延
-        // これにより、スクリプトのパースと初期化完了を確実に待つ
-        console.log('[AffiBanner] External script already loaded, executing inline scripts with delay');
-        setTimeout(() => {
-          console.log('[AffiBanner] Executing inline scripts after delay');
-          executeInlineScripts();
-        }, 100);
+        // 既にロード済みの場合は、もしもアフィリエイトの準備完了を待つ
+        console.log('[AffiBanner] External script already loaded, waiting for msmaflink to be ready');
+
+        // ポーリングでmsmaflink関数の準備を確認
+        let attempts = 0;
+        const maxAttempts = 20; // 最大2秒待つ（100ms x 20回）
+
+        const checkAndExecute = () => {
+          attempts++;
+
+          // window.msmaflink が呼び出し可能かチェック
+          if (typeof window.msmaflink === 'function') {
+            console.log(`[AffiBanner] msmaflink is ready (attempt ${attempts}), executing inline scripts`);
+            executeInlineScripts();
+          } else if (attempts < maxAttempts) {
+            // まだ準備できていないので再試行
+            console.log(`[AffiBanner] msmaflink not ready yet (attempt ${attempts}/${maxAttempts}), retrying...`);
+            setTimeout(checkAndExecute, 100);
+          } else {
+            // 最大試行回数に達した場合は強制実行
+            console.warn('[AffiBanner] msmaflink not ready after max attempts, executing anyway');
+            executeInlineScripts();
+          }
+        };
+
+        // 初回チェックを開始
+        setTimeout(checkAndExecute, 100);
       } else {
         // 外部スクリプトをロード
         console.log('[AffiBanner] Loading external scripts:', externalScripts.length);
