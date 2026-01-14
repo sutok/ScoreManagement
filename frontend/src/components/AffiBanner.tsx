@@ -3,6 +3,14 @@ import { Box } from '@mui/material';
 import type { AffiliateLink } from '../types/affiliate';
 import affiliateLinksData from '../config/affiliateLinks.json';
 
+// グローバル変数の型定義（もしもアフィリエイト用）
+declare global {
+  interface Window {
+    msmaflink?: unknown;
+    MoshimoAffiliateObject?: string;
+  }
+}
+
 interface AffiBannerProps {
   mode: 'random' | 'rotation';    // ランダム or ローテーション
   interval?: number;              // ローテーション間隔（ミリ秒、デフォルト5000）
@@ -73,39 +81,61 @@ export const AffiBanner = ({
     const container = containerRef.current;
     const htmlContent = currentLink.content || '';
 
-    // コンテナをクリア
+    // 前のコンテンツをクリア
     container.innerHTML = '';
 
-    // 一時的なdiv要素を作成してHTMLをパース
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = htmlContent;
+    // 少し遅延させてから新しいコンテンツを挿入（前のスクリプトのクリーンアップを待つ）
+    const timeoutId = setTimeout(() => {
+      // 一時的なdiv要素を作成してHTMLをパース
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
 
-    // scriptタグを抽出
-    const scripts = Array.from(tempDiv.querySelectorAll('script'));
+      // scriptタグを抽出
+      const scripts = Array.from(tempDiv.querySelectorAll('script'));
 
-    // scriptタグ以外のコンテンツを先に追加
-    scripts.forEach((script) => script.remove());
-    container.appendChild(tempDiv);
+      // scriptタグ以外のコンテンツを先に追加
+      scripts.forEach((script) => script.remove());
+      container.appendChild(tempDiv);
 
-    // scriptタグを動的に作成して実行
-    scripts.forEach((oldScript) => {
-      const newScript = document.createElement('script');
+      // scriptタグを動的に作成して実行
+      scripts.forEach((oldScript) => {
+        const newScript = document.createElement('script');
 
-      // 属性をコピー
-      Array.from(oldScript.attributes).forEach((attr) => {
-        newScript.setAttribute(attr.name, attr.value);
+        // 属性をコピー
+        Array.from(oldScript.attributes).forEach((attr) => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+
+        // スクリプトの内容をコピー
+        newScript.textContent = oldScript.textContent;
+
+        // DOMに追加（これにより実行される）
+        container.appendChild(newScript);
       });
+    }, 100);
 
-      // スクリプトの内容をコピー
-      newScript.textContent = oldScript.textContent;
-
-      // DOMに追加（これにより実行される）
-      container.appendChild(newScript);
-    });
-
-    // クリーンアップ：コンポーネントがアンマウントされたときにコンテナをクリア
+    // クリーンアップ：コンポーネントがアンマウントまたは次のアフィリエイトに切り替わるときに実行
     return () => {
+      clearTimeout(timeoutId);
+
+      // コンテナをクリア
       container.innerHTML = '';
+
+      // もしもアフィリエイトの外部スクリプトを削除
+      const msmScript = document.getElementById('msmaflink');
+      if (msmScript) {
+        msmScript.remove();
+      }
+
+      // グローバル変数をクリーンアップ
+      if (typeof window.msmaflink !== 'undefined') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        delete (window as any).msmaflink;
+      }
+      if (typeof window.MoshimoAffiliateObject !== 'undefined') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        delete (window as any).MoshimoAffiliateObject;
+      }
     };
   }, [currentLink]);
 
