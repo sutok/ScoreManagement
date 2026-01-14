@@ -57,10 +57,21 @@ export const AffiBanner = ({
   // HTMLタグ型のスクリプトを実行
   useEffect(() => {
     if (!currentLink || currentLink.type !== 'html' || !containerRef.current) {
+      console.log('[AffiBanner] Skipping script execution:', {
+        currentLink: !!currentLink,
+        type: currentLink?.type,
+        containerExists: !!containerRef.current,
+      });
       return;
     }
 
     const container = containerRef.current;
+    console.log('[AffiBanner] Container check:', {
+      container: !!container,
+      clientWidth: container.clientWidth,
+      clientHeight: container.clientHeight,
+      offsetParent: !!container.offsetParent,
+    });
 
     // base64デコード処理（UTF-8対応）
     let htmlContent = currentLink.content || '';
@@ -74,6 +85,25 @@ export const AffiBanner = ({
         console.error('[AffiBanner] Failed to decode base64:', error);
         return;
       }
+    }
+
+    // ウィジェットIDを一意の値に置き換え（SPA遷移での重複登録を防止）
+    const originalEidMatch = htmlContent.match(/"eid"\s*:\s*"([^"]+)"/);
+    if (originalEidMatch) {
+      const originalEid = originalEidMatch[1];
+      // 一意のIDを生成（タイムスタンプ + ランダム文字列）
+      const uniqueEid = `${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 8)}`;
+      console.log(`[AffiBanner] Replacing widget ID: ${originalEid} → ${uniqueEid}`);
+
+      // すべての出現箇所を置き換え
+      htmlContent = htmlContent.replace(
+        new RegExp(`"eid"\\s*:\\s*"${originalEid}"`, 'g'),
+        `"eid":"${uniqueEid}"`
+      );
+      htmlContent = htmlContent.replace(
+        new RegExp(`id="msmaflink-${originalEid}"`, 'g'),
+        `id="msmaflink-${uniqueEid}"`
+      );
     }
 
     // コンテナをクリア
@@ -116,6 +146,24 @@ export const AffiBanner = ({
         newScript.textContent = oldScript.textContent;
         console.log('[AffiBanner] Executing inline script:', oldScript.textContent?.substring(0, 100));
         container.appendChild(newScript);
+
+        // スクリプト実行後、少し待ってからDOM状態を確認
+        setTimeout(() => {
+          const scriptContent = oldScript.textContent || '';
+          const eidMatch = scriptContent.match(/"eid"\s*:\s*"([^"]+)"/);
+          if (eidMatch) {
+            const eid = eidMatch[1];
+            const widgetElement = document.getElementById(`msmaflink-${eid}`);
+            console.log(`[AffiBanner] Widget ${eid} DOM check:`, {
+              exists: !!widgetElement,
+              innerHTML: widgetElement?.innerHTML.substring(0, 200),
+              textContent: widgetElement?.textContent,
+              childElementCount: widgetElement?.childElementCount,
+              clientWidth: widgetElement?.clientWidth,
+              clientHeight: widgetElement?.clientHeight,
+            });
+          }
+        }, 1000);
       });
     };
 
