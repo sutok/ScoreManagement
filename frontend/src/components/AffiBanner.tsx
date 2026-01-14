@@ -34,6 +34,20 @@ export const AffiBanner = ({
 
   // 初期表示：ランダムに1つ選択
   useEffect(() => {
+    // もしもアフィリエイトの残骸をクリーンアップ（SPA遷移対策）
+    const msmScript = document.getElementById('msmaflink');
+    if (msmScript) {
+      msmScript.remove();
+    }
+    if (typeof window.msmaflink !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (window as any).msmaflink;
+    }
+    if (typeof window.MoshimoAffiliateObject !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (window as any).MoshimoAffiliateObject;
+    }
+
     if (filteredLinks.length === 0) {
       setCurrentLink(null);
       return;
