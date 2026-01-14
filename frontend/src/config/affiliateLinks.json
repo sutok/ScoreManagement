@@ -1,0 +1,30 @@
+[
+  {
+    "id": "sample-html-1",
+    "name": "サンプルHTMLアフィリエイト1",
+    "type": "html",
+    "content": "<a href='https://example.com/affiliate1' target='_blank' rel='noopener noreferrer'><img src='https://via.placeholder.com/728x90/0066cc/ffffff?text=Sample+Affiliate+1' alt='Sample Affiliate 1' style='border: none;' /></a>"
+  },
+  {
+    "id": "sample-html-2",
+    "name": "サンプルHTMLアフィリエイト2",
+    "type": "html",
+    "content": "<a href='https://example.com/affiliate2' target='_blank' rel='noopener noreferrer' style='display: inline-block; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;'>Sample Affiliate 2</a>"
+  },
+  {
+    "id": "sample-image-1",
+    "name": "サンプル画像アフィリエイト1",
+    "type": "image",
+    "imageUrl": "https://via.placeholder.com/468x60/ff6600/ffffff?text=Sample+Banner+1",
+    "linkUrl": "https://example.com/affiliate3",
+    "alt": "Sample Banner 1"
+  },
+  {
+    "id": "sample-image-2",
+    "name": "サンプル画像アフィリエイト2",
+    "type": "image",
+    "imageUrl": "https://via.placeholder.com/300x250/9933cc/ffffff?text=Sample+Banner+2",
+    "linkUrl": "https://example.com/affiliate4",
+    "alt": "Sample Banner 2"
+  }
+]
