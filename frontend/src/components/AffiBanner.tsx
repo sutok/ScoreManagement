@@ -12,16 +12,12 @@ declare global {
 }
 
 interface AffiBannerProps {
-  mode: 'random' | 'rotation';    // ランダム or ローテーション
-  interval?: number;              // ローテーション間隔（ミリ秒、デフォルト5000）
   affiliateIds?: string[];        // 表示するアフィリエイトID（指定なしは全て）
   width?: string;                 // 表示幅
   height?: string;                // 表示高さ
 }
 
 export const AffiBanner = ({
-  mode = 'rotation',
-  interval = 5000,
   affiliateIds,
   width = '100%',
   height = 'auto',
@@ -35,42 +31,18 @@ export const AffiBanner = ({
     : affiliateLinks;
 
   const [currentLink, setCurrentLink] = useState<AffiliateLink | null>(null);
-  const [, setLinkIndex] = useState(0);
 
-  // 初期表示
+  // 初期表示：ランダムに1つ選択
   useEffect(() => {
     if (filteredLinks.length === 0) {
       setCurrentLink(null);
       return;
     }
 
-    if (mode === 'random') {
-      // ランダムモード：ランダムに選択
-      const randomIndex = Math.floor(Math.random() * filteredLinks.length);
-      setCurrentLink(filteredLinks[randomIndex]);
-    } else {
-      // ローテーションモード：最初のアフィリエイトを表示
-      setCurrentLink(filteredLinks[0]);
-      setLinkIndex(0);
-    }
-  }, [mode, affiliateIds]);
-
-  // ローテーションモード：定期的に切り替え
-  useEffect(() => {
-    if (mode !== 'rotation' || filteredLinks.length <= 1) {
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setLinkIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % filteredLinks.length;
-        setCurrentLink(filteredLinks[nextIndex]);
-        return nextIndex;
-      });
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [mode, interval, filteredLinks.length]);
+    // ランダムに選択
+    const randomIndex = Math.floor(Math.random() * filteredLinks.length);
+    setCurrentLink(filteredLinks[randomIndex]);
+  }, [affiliateIds]); // affiliateIdsが変更されたときのみ再実行
 
   // HTMLタグ型のスクリプトを実行
   useEffect(() => {
@@ -81,61 +53,39 @@ export const AffiBanner = ({
     const container = containerRef.current;
     const htmlContent = currentLink.content || '';
 
-    // 前のコンテンツをクリア
+    // コンテナをクリア
     container.innerHTML = '';
 
-    // 少し遅延させてから新しいコンテンツを挿入（前のスクリプトのクリーンアップを待つ）
-    const timeoutId = setTimeout(() => {
-      // 一時的なdiv要素を作成してHTMLをパース
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = htmlContent;
+    // 一時的なdiv要素を作成してHTMLをパース
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
 
-      // scriptタグを抽出
-      const scripts = Array.from(tempDiv.querySelectorAll('script'));
+    // scriptタグを抽出
+    const scripts = Array.from(tempDiv.querySelectorAll('script'));
 
-      // scriptタグ以外のコンテンツを先に追加
-      scripts.forEach((script) => script.remove());
-      container.appendChild(tempDiv);
+    // scriptタグ以外のコンテンツを先に追加
+    scripts.forEach((script) => script.remove());
+    container.appendChild(tempDiv);
 
-      // scriptタグを動的に作成して実行
-      scripts.forEach((oldScript) => {
-        const newScript = document.createElement('script');
+    // scriptタグを動的に作成して実行
+    scripts.forEach((oldScript) => {
+      const newScript = document.createElement('script');
 
-        // 属性をコピー
-        Array.from(oldScript.attributes).forEach((attr) => {
-          newScript.setAttribute(attr.name, attr.value);
-        });
-
-        // スクリプトの内容をコピー
-        newScript.textContent = oldScript.textContent;
-
-        // DOMに追加（これにより実行される）
-        container.appendChild(newScript);
+      // 属性をコピー
+      Array.from(oldScript.attributes).forEach((attr) => {
+        newScript.setAttribute(attr.name, attr.value);
       });
-    }, 100);
 
-    // クリーンアップ：コンポーネントがアンマウントまたは次のアフィリエイトに切り替わるときに実行
+      // スクリプトの内容をコピー
+      newScript.textContent = oldScript.textContent;
+
+      // DOMに追加（これにより実行される）
+      container.appendChild(newScript);
+    });
+
+    // クリーンアップ：コンポーネントがアンマウントされたときにコンテナをクリア
     return () => {
-      clearTimeout(timeoutId);
-
-      // コンテナをクリア
       container.innerHTML = '';
-
-      // もしもアフィリエイトの外部スクリプトを削除
-      const msmScript = document.getElementById('msmaflink');
-      if (msmScript) {
-        msmScript.remove();
-      }
-
-      // グローバル変数をクリーンアップ
-      if (typeof window.msmaflink !== 'undefined') {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        delete (window as any).msmaflink;
-      }
-      if (typeof window.MoshimoAffiliateObject !== 'undefined') {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        delete (window as any).MoshimoAffiliateObject;
-      }
     };
   }, [currentLink]);
 
