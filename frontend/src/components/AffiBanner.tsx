@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 import type { AffiliateLink } from '../types/affiliate';
 import affiliateLinksData from '../config/affiliateLinks.json';
@@ -19,6 +19,7 @@ export const AffiBanner = ({
   height = 'auto',
 }: AffiBannerProps) => {
   const affiliateLinks = affiliateLinksData as AffiliateLink[];
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // affiliateIdsが指定されている場合はフィルタリング
   const filteredLinks = affiliateIds
@@ -63,6 +64,51 @@ export const AffiBanner = ({
     return () => clearInterval(timer);
   }, [mode, interval, filteredLinks.length]);
 
+  // HTMLタグ型のスクリプトを実行
+  useEffect(() => {
+    if (!currentLink || currentLink.type !== 'html' || !containerRef.current) {
+      return;
+    }
+
+    const container = containerRef.current;
+    const htmlContent = currentLink.content || '';
+
+    // コンテナをクリア
+    container.innerHTML = '';
+
+    // 一時的なdiv要素を作成してHTMLをパース
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+
+    // scriptタグを抽出
+    const scripts = Array.from(tempDiv.querySelectorAll('script'));
+
+    // scriptタグ以外のコンテンツを先に追加
+    scripts.forEach((script) => script.remove());
+    container.appendChild(tempDiv);
+
+    // scriptタグを動的に作成して実行
+    scripts.forEach((oldScript) => {
+      const newScript = document.createElement('script');
+
+      // 属性をコピー
+      Array.from(oldScript.attributes).forEach((attr) => {
+        newScript.setAttribute(attr.name, attr.value);
+      });
+
+      // スクリプトの内容をコピー
+      newScript.textContent = oldScript.textContent;
+
+      // DOMに追加（これにより実行される）
+      container.appendChild(newScript);
+    });
+
+    // クリーンアップ：コンポーネントがアンマウントされたときにコンテナをクリア
+    return () => {
+      container.innerHTML = '';
+    };
+  }, [currentLink]);
+
   // アフィリエイトリンクがない場合は何も表示しない
   if (!currentLink) {
     return null;
@@ -80,9 +126,9 @@ export const AffiBanner = ({
       }}
     >
       {currentLink.type === 'html' ? (
-        // HTMLタグをそのまま表示
+        // HTMLタグをスクリプト実行付きで表示
         <div
-          dangerouslySetInnerHTML={{ __html: currentLink.content || '' }}
+          ref={containerRef}
           style={{ width: '100%', textAlign: 'center' }}
         />
       ) : (
