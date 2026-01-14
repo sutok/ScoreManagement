@@ -34,18 +34,11 @@ export const AffiBanner = ({
 
   // 初期表示：ランダムに1つ選択
   useEffect(() => {
-    // もしもアフィリエイトの残骸をクリーンアップ（SPA遷移対策）
+    // もしもアフィリエイトのDOM要素のみをクリーンアップ（SPA遷移対策）
+    // グローバル変数は保持することで、外部スクリプトのロード状態を検出可能にする
     const msmScript = document.getElementById('msmaflink');
     if (msmScript) {
       msmScript.remove();
-    }
-    if (typeof window.msmaflink !== 'undefined') {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      delete (window as any).msmaflink;
-    }
-    if (typeof window.MoshimoAffiliateObject !== 'undefined') {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      delete (window as any).MoshimoAffiliateObject;
     }
 
     if (filteredLinks.length === 0) {
@@ -113,33 +106,44 @@ export const AffiBanner = ({
       // 外部スクリプトがない場合は即座に実行
       executeInlineScripts();
     } else {
-      // 外部スクリプトをロード
-      externalScripts.forEach((oldScript) => {
-        const newScript = document.createElement('script');
-        Array.from(oldScript.attributes).forEach((attr) => {
-          newScript.setAttribute(attr.name, attr.value);
+      // グローバル変数が既に存在する場合（SPA遷移でスクリプトが既にロード済み）
+      // もしもアフィリエイトの場合、window.msmaflink が関数として存在するかチェック
+      const msmScriptAlreadyLoaded = externalScripts.some((script) =>
+        script.src.includes('msmstatic.com')
+      ) && typeof window.msmaflink === 'function';
+
+      if (msmScriptAlreadyLoaded) {
+        // 既にロード済みの場合は即座にインラインスクリプトを実行
+        executeInlineScripts();
+      } else {
+        // 外部スクリプトをロード
+        externalScripts.forEach((oldScript) => {
+          const newScript = document.createElement('script');
+          Array.from(oldScript.attributes).forEach((attr) => {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+
+          // ロード完了を監視
+          newScript.onload = () => {
+            loadedCount++;
+            if (loadedCount === totalExternal) {
+              // 全ての外部スクリプトがロード完了したらインラインスクリプトを実行
+              executeInlineScripts();
+            }
+          };
+
+          // エラーハンドリング
+          newScript.onerror = () => {
+            console.error('Failed to load script:', oldScript.src);
+            loadedCount++;
+            if (loadedCount === totalExternal) {
+              executeInlineScripts();
+            }
+          };
+
+          container.appendChild(newScript);
         });
-
-        // ロード完了を監視
-        newScript.onload = () => {
-          loadedCount++;
-          if (loadedCount === totalExternal) {
-            // 全ての外部スクリプトがロード完了したらインラインスクリプトを実行
-            executeInlineScripts();
-          }
-        };
-
-        // エラーハンドリング
-        newScript.onerror = () => {
-          console.error('Failed to load script:', oldScript.src);
-          loadedCount++;
-          if (loadedCount === totalExternal) {
-            executeInlineScripts();
-          }
-        };
-
-        container.appendChild(newScript);
-      });
+      }
     }
 
     // クリーンアップ：コンポーネントがアンマウントされたときにコンテナをクリア
