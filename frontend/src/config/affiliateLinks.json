@@ -28,5 +28,17 @@
     "name": "サンプルHTMLアフィリエイト5",
     "type": "html",
     "content": "<!-- START MoshimoAffiliateEasyLink --><script type=\"text/javascript\">(function(b,c,f,g,a,d,e){b.MoshimoAffiliateObject=a;b[a]=b[a]||function(){arguments.currentScript=c.currentScript||c.scripts[c.scripts.length-2];(b[a].q=b[a].q||[]).push(arguments)};c.getElementById(a)||(d=c.createElement(f),d.src=g,d.id=a,e=c.getElementsByTagName(\"body\")[0],e.appendChild(d))})(window,document,\"script\",\"//dn.msmstatic.com/site/cardlink/bundle.js?20220329\",\"msmaflink\");msmaflink({\"n\":\"Rhino ライノ キュー G-W ボコテ調 グラスファイバーシャフト装備\",\"b\":\"\",\"t\":\"\",\"d\":\"https:\\/\\/thumbnail.image.rakuten.co.jp\",\"c_p\":\"\\/@0_mall\\/cue-shop\\/cabinet\\/default7\",\"p\":[\"\\/967795k.jpg\",\"\\/967795k-1.jpg\",\"\\/967795k-2.jpg\"],\"u\":{\"u\":\"https:\\/\\/item.rakuten.co.jp\\/cue-shop\\/967795k\\/\",\"t\":\"rakuten\",\"r_v\":\"\"},\"v\":\"2.1\",\"b_l\":[{\"id\":2,\"u_tx\":\"楽天市場で見る\",\"u_bc\":\"#f76956\",\"u_url\":\"https:\\/\\/item.rakuten.co.jp\\/cue-shop\\/967795k\\/\",\"a_id\":5338262,\"p_id\":54,\"pl_id\":27059,\"pc_id\":54,\"s_n\":\"rakuten\",\"u_so\":1}],\"eid\":\"L5OaW\",\"s\":\"s\"});</script><div id=\"msmaflink-L5OaW\">リンク</div><!-- MoshimoAffiliateEasyLink END -->"
+  },
+  {
+    "id": "sample-html-6",
+    "name": "サンプルHTMLアフィリエイト6",
+    "type": "html",
+    "content": "<a href=\"//af.moshimo.com/af/c/click?a_id=5339596&p_id=5621&pc_id=15469&pl_id=72733\" rel=\"nofollow\" referrerpolicy=\"no-referrer-when-downgrade\" attributionsrc><img src=\"//image.moshimo.com/af-img/5289/000000072733.png\" width=\"250\" height=\"250\" style=\"border:none;\"></a><img src=\"//i.moshimo.com/af/i/impression?a_id=5339596&p_id=5621&pc_id=15469&pl_id=72733\" width=\"1\" height=\"1\" style=\"border:none;\" loading=\"lazy\">"
+  },
+  {
+    "id": "sample-html-7",
+    "name": "サンプルHTMLアフィリエイト7",
+    "type": "html",
+    "content": "<a href=\"//af.moshimo.com/af/c/click?a_id=5339596&p_id=5621&pc_id=15469&pl_id=72708\" rel=\"nofollow\" referrerpolicy=\"no-referrer-when-downgrade\" attributionsrc><img src=\"//image.moshimo.com/af-img/5289/000000072708.png\" width=\"468\" height=\"60\" style=\"border:none;\"></a><img src=\"//i.moshimo.com/af/i/impression?a_id=5339596&p_id=5621&pc_id=15469&pl_id=72708\" width=\"1\" height=\"1\" style=\"border:none;\" loading=\"lazy\">"
   }
 ]
