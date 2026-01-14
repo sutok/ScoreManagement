@@ -59,12 +59,14 @@ export const AffiBanner = ({
 
     const container = containerRef.current;
 
-    // base64デコード処理
+    // base64デコード処理（UTF-8対応）
     let htmlContent = currentLink.content || '';
     if (currentLink.encoding === 'base64') {
       try {
-        // base64デコード
-        htmlContent = atob(htmlContent);
+        // base64デコード → UTF-8デコード
+        const binaryString = atob(htmlContent);
+        const bytes = Uint8Array.from(binaryString, (char) => char.charCodeAt(0));
+        htmlContent = new TextDecoder('utf-8').decode(bytes);
       } catch (error) {
         console.error('[AffiBanner] Failed to decode base64:', error);
         return;
