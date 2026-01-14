@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
 import { AppHeader } from '../components/AppHeader';
 import { AdBanner } from '../components/AdBanner';
+import { AffiBanner } from '../components/AffiBanner';
 
 export const HomePage = () => {
   const { user } = useAuth();
@@ -118,6 +119,11 @@ export const HomePage = () => {
 
         {/* Advertisement */}
         <AdBanner slot="1234567890" format="horizontal" />
+
+        {/* Affiliate Banner - Rotation Mode */}
+        <Box sx={{ mt: 3 }}>
+          <AffiBanner mode="rotation" interval={5000} />
+        </Box>
 
         {/* Facility Application Link */}
         <Paper elevation={1} sx={{ mt: 4, p: 3, bgcolor: 'background.default' }}>
