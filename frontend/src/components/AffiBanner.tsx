@@ -81,21 +81,66 @@ export const AffiBanner = ({
     scripts.forEach((script) => script.remove());
     container.appendChild(tempDiv);
 
-    // scriptタグを動的に作成して実行
-    scripts.forEach((oldScript) => {
-      const newScript = document.createElement('script');
+    // scriptタグを分類（外部スクリプトとインラインスクリプト）
+    const externalScripts: HTMLScriptElement[] = [];
+    const inlineScripts: HTMLScriptElement[] = [];
 
-      // 属性をコピー
-      Array.from(oldScript.attributes).forEach((attr) => {
-        newScript.setAttribute(attr.name, attr.value);
-      });
-
-      // スクリプトの内容をコピー
-      newScript.textContent = oldScript.textContent;
-
-      // DOMに追加（これにより実行される）
-      container.appendChild(newScript);
+    scripts.forEach((script) => {
+      if (script.src) {
+        externalScripts.push(script);
+      } else {
+        inlineScripts.push(script);
+      }
     });
+
+    // 外部スクリプトを先にロード
+    let loadedCount = 0;
+    const totalExternal = externalScripts.length;
+
+    const executeInlineScripts = () => {
+      // 外部スクリプトのロード完了後、インラインスクリプトを実行
+      inlineScripts.forEach((oldScript) => {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach((attr) => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        newScript.textContent = oldScript.textContent;
+        container.appendChild(newScript);
+      });
+    };
+
+    if (totalExternal === 0) {
+      // 外部スクリプトがない場合は即座に実行
+      executeInlineScripts();
+    } else {
+      // 外部スクリプトをロード
+      externalScripts.forEach((oldScript) => {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach((attr) => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+
+        // ロード完了を監視
+        newScript.onload = () => {
+          loadedCount++;
+          if (loadedCount === totalExternal) {
+            // 全ての外部スクリプトがロード完了したらインラインスクリプトを実行
+            executeInlineScripts();
+          }
+        };
+
+        // エラーハンドリング
+        newScript.onerror = () => {
+          console.error('Failed to load script:', oldScript.src);
+          loadedCount++;
+          if (loadedCount === totalExternal) {
+            executeInlineScripts();
+          }
+        };
+
+        container.appendChild(newScript);
+      });
+    }
 
     // クリーンアップ：コンポーネントがアンマウントされたときにコンテナをクリア
     return () => {
