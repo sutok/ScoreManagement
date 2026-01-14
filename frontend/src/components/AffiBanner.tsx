@@ -58,7 +58,18 @@ export const AffiBanner = ({
     }
 
     const container = containerRef.current;
-    const htmlContent = currentLink.content || '';
+
+    // base64デコード処理
+    let htmlContent = currentLink.content || '';
+    if (currentLink.encoding === 'base64') {
+      try {
+        // base64デコード
+        htmlContent = atob(htmlContent);
+      } catch (error) {
+        console.error('[AffiBanner] Failed to decode base64:', error);
+        return;
+      }
+    }
 
     // コンテナをクリア
     container.innerHTML = '';
