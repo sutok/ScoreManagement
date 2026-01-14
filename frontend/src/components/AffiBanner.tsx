@@ -109,27 +109,12 @@ export const AffiBanner = ({
     const executeInlineScripts = () => {
       // 外部スクリプトのロード完了後、インラインスクリプトを実行
       inlineScripts.forEach((oldScript) => {
-        // ウィジェットIDを抽出（もしもアフィリエイト専用）
-        const scriptContent = oldScript.textContent || '';
-        const eidMatch = scriptContent.match(/"eid"\s*:\s*"([^"]+)"/);
-
-        if (eidMatch) {
-          const eid = eidMatch[1];
-          const widgetElement = document.getElementById(`msmaflink-${eid}`);
-
-          // ウィジェットが既に登録済みか確認（「リンク」以外のテキストがあれば登録済み）
-          if (widgetElement && widgetElement.textContent?.trim() !== 'リンク') {
-            console.log(`[AffiBanner] Widget ${eid} already registered, skipping.`);
-            return;  // 既に登録済みなのでスキップ
-          }
-        }
-
-        // スクリプトを実行
         const newScript = document.createElement('script');
         Array.from(oldScript.attributes).forEach((attr) => {
           newScript.setAttribute(attr.name, attr.value);
         });
         newScript.textContent = oldScript.textContent;
+        console.log('[AffiBanner] Executing inline script:', oldScript.textContent?.substring(0, 100));
         container.appendChild(newScript);
       });
     };
@@ -147,11 +132,14 @@ export const AffiBanner = ({
       if (msmScriptAlreadyLoaded) {
         // 既にロード済みの場合は非同期で実行を遅延
         // これにより、スクリプトのパースと初期化完了を確実に待つ
+        console.log('[AffiBanner] External script already loaded, executing inline scripts with delay');
         setTimeout(() => {
+          console.log('[AffiBanner] Executing inline scripts after delay');
           executeInlineScripts();
-        }, 0);
+        }, 100);
       } else {
         // 外部スクリプトをロード
+        console.log('[AffiBanner] Loading external scripts:', externalScripts.length);
         externalScripts.forEach((oldScript) => {
           const newScript = document.createElement('script');
           Array.from(oldScript.attributes).forEach((attr) => {
@@ -161,8 +149,10 @@ export const AffiBanner = ({
           // ロード完了を監視
           newScript.onload = () => {
             loadedCount++;
+            console.log(`[AffiBanner] External script loaded (${loadedCount}/${totalExternal})`);
             if (loadedCount === totalExternal) {
               // 全ての外部スクリプトがロード完了したらインラインスクリプトを実行
+              console.log('[AffiBanner] All external scripts loaded, executing inline scripts');
               executeInlineScripts();
             }
           };
