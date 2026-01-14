@@ -33,8 +33,6 @@ export const LoginPage = () => {
             <LanguageSelector />
           </Box>
 
-          <AffiBanner />
-
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography variant="h3" component="h1" gutterBottom sx={{ lineHeight: 1.4 }}>
               🎳
@@ -42,6 +40,9 @@ export const LoginPage = () => {
             <Typography variant="h4" component="h2" gutterBottom>
               {t('app.title')}
             </Typography>
+
+            <AffiBanner />
+
             <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
               {t('app.description')}
             </Typography>

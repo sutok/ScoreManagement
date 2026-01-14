@@ -46,10 +46,13 @@ export const AffiBanner = ({
       return;
     }
 
-    // ランダムに選択
-    const randomIndex = Math.floor(Math.random() * filteredLinks.length);
+    // 乱数の最小値を0、最大値を件数-1に設定してランダムに選択
+    const min = 0;
+    const max = filteredLinks.length - 1;
+    const randomIndex = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log('[AffiBanner] randomIndex:', randomIndex, filteredLinks);
     setCurrentLink(filteredLinks[randomIndex]);
-  }, [affiliateIds]); // affiliateIdsが変更されたときのみ再実行
+  }, [filteredLinks]); // filteredLinksが変更されたとき再実行
 
   // HTMLタグ型のスクリプトを実行
   useEffect(() => {
@@ -106,6 +109,22 @@ export const AffiBanner = ({
     const executeInlineScripts = () => {
       // 外部スクリプトのロード完了後、インラインスクリプトを実行
       inlineScripts.forEach((oldScript) => {
+        // ウィジェットIDを抽出（もしもアフィリエイト専用）
+        const scriptContent = oldScript.textContent || '';
+        const eidMatch = scriptContent.match(/"eid"\s*:\s*"([^"]+)"/);
+
+        if (eidMatch) {
+          const eid = eidMatch[1];
+          const widgetElement = document.getElementById(`msmaflink-${eid}`);
+
+          // ウィジェットが既に登録済みか確認（「リンク」以外のテキストがあれば登録済み）
+          if (widgetElement && widgetElement.textContent?.trim() !== 'リンク') {
+            console.log(`[AffiBanner] Widget ${eid} already registered, skipping.`);
+            return;  // 既に登録済みなのでスキップ
+          }
+        }
+
+        // スクリプトを実行
         const newScript = document.createElement('script');
         Array.from(oldScript.attributes).forEach((attr) => {
           newScript.setAttribute(attr.name, attr.value);
@@ -126,8 +145,11 @@ export const AffiBanner = ({
       ) && typeof window.msmaflink === 'function';
 
       if (msmScriptAlreadyLoaded) {
-        // 既にロード済みの場合は即座にインラインスクリプトを実行
-        executeInlineScripts();
+        // 既にロード済みの場合は非同期で実行を遅延
+        // これにより、スクリプトのパースと初期化完了を確実に待つ
+        setTimeout(() => {
+          executeInlineScripts();
+        }, 0);
       } else {
         // 外部スクリプトをロード
         externalScripts.forEach((oldScript) => {
@@ -160,8 +182,11 @@ export const AffiBanner = ({
     }
 
     // クリーンアップ：コンポーネントがアンマウントされたときにコンテナをクリア
+    const containerElement = container;
     return () => {
-      container.innerHTML = '';
+      if (containerElement) {
+        containerElement.innerHTML = '';
+      }
     };
   }, [currentLink]);
 
