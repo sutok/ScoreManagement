@@ -120,9 +120,9 @@ export const HomePage = () => {
         {/* Advertisement */}
         <AdBanner slot="1234567890" format="horizontal" />
 
-        {/* Affiliate Banner - Rotation Mode */}
+        {/* Affiliate Banner - Random Display */}
         <Box sx={{ mt: 3 }}>
-          <AffiBanner mode="rotation" interval={5000} />
+          <AffiBanner />
         </Box>
 
         {/* Facility Application Link */}

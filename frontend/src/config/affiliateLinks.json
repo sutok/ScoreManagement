@@ -3,28 +3,12 @@
     "id": "sample-html-1",
     "name": "サンプルHTMLアフィリエイト1",
     "type": "html",
-    "content": "<a href='https://example.com/affiliate1' target='_blank' rel='noopener noreferrer'><img src='https://via.placeholder.com/728x90/0066cc/ffffff?text=Sample+Affiliate+1' alt='Sample Affiliate 1' style='border: none;' /></a>"
+    "content": "<!-- START MoshimoAffiliateEasyLink --><script type=\"text/javascript\">(function(b,c,f,g,a,d,e){b.MoshimoAffiliateObject=a;b[a]=b[a]||function(){arguments.currentScript=c.currentScript||c.scripts[c.scripts.length-2];(b[a].q=b[a].q||[]).push(arguments)};c.getElementById(a)||(d=c.createElement(f),d.src=g,d.id=a,e=c.getElementsByTagName(\"body\")[0],e.appendChild(d))})(window,document,\"script\",\"//dn.msmstatic.com/site/cardlink/bundle.js?20220329\",\"msmaflink\");msmaflink({\"n\":\"【公式販売】CONC リンクル インジェクション 2.5mL ｜ コンク マイクロニードル 美容液 目元 口元 シワ リンクル美容液 エイジングケア ハリ 弾力 部分美容液 レチノール 痛いコスメ 美容医療コスメ 針美容液\",\"b\":\"\",\"t\":\"\",\"d\":\"https:\\/\\/thumbnail.image.rakuten.co.jp\",\"c_p\":\"\\/@0_mall\\/midorimushishop\\/cabinet\",\"p\":[\"\\/thumb\\/normal\\/ml17490100_250725.jpg\",\"\\/flick\\/2024\\/ml17490100_0222_01.jpg\",\"\\/flick\\/2025\\/ml17490100_0324_02.jpg\"],\"u\":{\"u\":\"https:\\/\\/item.rakuten.co.jp\\/midorimushishop\\/ml17490100\\/\",\"t\":\"rakuten\",\"r_v\":\"\"},\"v\":\"2.1\",\"b_l\":[{\"id\":2,\"u_tx\":\"楽天市場で見る\",\"u_bc\":\"#f76956\",\"u_url\":\"https:\\/\\/item.rakuten.co.jp\\/midorimushishop\\/ml17490100\\/\",\"a_id\":5338262,\"p_id\":54,\"pl_id\":27059,\"pc_id\":54,\"s_n\":\"rakuten\",\"u_so\":1}],\"eid\":\"4Sxa8\",\"s\":\"s\"});</script><div id=\"msmaflink-4Sxa8\">リンク</div><!-- MoshimoAffiliateEasyLink END -->"
   },
   {
     "id": "sample-html-2",
     "name": "サンプルHTMLアフィリエイト2",
     "type": "html",
-    "content": "<a href='https://example.com/affiliate2' target='_blank' rel='noopener noreferrer' style='display: inline-block; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;'>Sample Affiliate 2</a>"
-  },
-  {
-    "id": "sample-image-1",
-    "name": "サンプル画像アフィリエイト1",
-    "type": "image",
-    "imageUrl": "https://via.placeholder.com/468x60/ff6600/ffffff?text=Sample+Banner+1",
-    "linkUrl": "https://example.com/affiliate3",
-    "alt": "Sample Banner 1"
-  },
-  {
-    "id": "sample-image-2",
-    "name": "サンプル画像アフィリエイト2",
-    "type": "image",
-    "imageUrl": "https://via.placeholder.com/300x250/9933cc/ffffff?text=Sample+Banner+2",
-    "linkUrl": "https://example.com/affiliate4",
-    "alt": "Sample Banner 2"
+    "content": "<!-- START MoshimoAffiliateEasyLink --><script type=\"text/javascript\">(function(b,c,f,g,a,d,e){b.MoshimoAffiliateObject=a;b[a]=b[a]||function(){arguments.currentScript=c.currentScript||c.scripts[c.scripts.length-2];(b[a].q=b[a].q||[]).push(arguments)};c.getElementById(a)||(d=c.createElement(f),d.src=g,d.id=a,e=c.getElementsByTagName(\"body\")[0],e.appendChild(d))})(window,document,\"script\",\"//dn.msmstatic.com/site/cardlink/bundle.js?20220329\",\"msmaflink\");msmaflink({\"n\":\"【16日9:59まで！30%OFF限定クーポン配布中】 マイクロニードル 4袋【4回分】 【エターナルマイクロパッチ】 ニードルパッチ ヒアルロン酸 パッチ 目元 針 パック 刺す シート状美容液 ヒアルロン酸 マイクロパッチ 目元ケア 眉間ニードルパッチ\",\"b\":\"\",\"t\":\"\",\"d\":\"https:\\/\\/thumbnail.image.rakuten.co.jp\",\"c_p\":\"\\/@0_mall\\/menzsap\\/cabinet\",\"p\":[\"\\/06923370\\/07312098\\/patch_c30.jpg\",\"\\/06944395\\/12592523\\/sub_needle30.jpg\",\"\\/08153086\\/hosho_1200_1227.jpg\"],\"u\":{\"u\":\"https:\\/\\/item.rakuten.co.jp\\/menzsap\\/needlepatch-set02\\/\",\"t\":\"rakuten\",\"r_v\":\"\"},\"v\":\"2.1\",\"b_l\":[{\"id\":2,\"u_tx\":\"楽天市場で見る\",\"u_bc\":\"#f76956\",\"u_url\":\"https:\\/\\/item.rakuten.co.jp\\/menzsap\\/needlepatch-set02\\/\",\"a_id\":5338262,\"p_id\":54,\"pl_id\":27059,\"pc_id\":54,\"s_n\":\"rakuten\",\"u_so\":1}],\"eid\":\"V3tPf\",\"s\":\"s\"});</script><div id=\"msmaflink-V3tPf\">リンク</div><!-- MoshimoAffiliateEasyLink END -->"
   }
 ]

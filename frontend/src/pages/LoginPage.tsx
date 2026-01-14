@@ -7,6 +7,7 @@ import { LanguageSelector } from '../components/LanguageSelector';
 import { useAuth } from '../hooks/useAuth';
 import { Navigate, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { AffiBanner } from '../components/AffiBanner';
 
 export const LoginPage = () => {
   const { user, loading } = useAuth();
@@ -31,6 +32,9 @@ export const LoginPage = () => {
           <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
             <LanguageSelector />
           </Box>
+
+          <AffiBanner />
+
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography variant="h3" component="h1" gutterBottom sx={{ lineHeight: 1.4 }}>
               🎳
