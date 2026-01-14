@@ -16,7 +16,7 @@ export const Footer = () => {
     >
       <Container maxWidth="lg">
         <Typography variant="body2" color="text.secondary" align="center">
-          © 2026 Bowlards. All rights reserved.
+          © 2026 shinyudo.com. All rights reserved.
         </Typography>
       </Container>
     </Box>
