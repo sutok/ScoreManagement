@@ -8,7 +8,7 @@ import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import SearchIcon from '@mui/icons-material/Search';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { trackPageView } from '../utils/analytics';
 import { AppHeader } from '../components/AppHeader';
@@ -18,6 +18,7 @@ import { AffiBanner } from '../components/AffiBanner';
 export const HomePage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
 
   // Check if user can manage facilities/tournaments
@@ -117,13 +118,8 @@ export const HomePage = () => {
           )}
         </Box>
 
-        {/* Advertisement */}
-        <AdBanner slot="1234567890" format="horizontal" />
-
         {/* Affiliate Banner - Random Display */}
-        <Box sx={{ mt: 3 }}>
-          <AffiBanner />
-        </Box>
+        <AffiBanner key={location.key} />
 
         {/* Facility Application Link */}
         <Paper elevation={1} sx={{ mt: 4, p: 3, bgcolor: 'background.default' }}>

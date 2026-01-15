@@ -29,6 +29,7 @@ import { ScoreBoard } from './ScoreBoard';
 import { useNavigate } from 'react-router-dom';
 import { trackGameComplete, trackGameSave } from '../../utils/analytics';
 import { trackValidationError, trackFirestoreError } from '../../utils/errorTracking';
+import { AffiBanner } from '../AffiBanner';
 
 export const GameForm = () => {
   const { user } = useAuth();
@@ -157,6 +158,9 @@ export const GameForm = () => {
       <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
         <ScoreBoard frames={frames} />
       </Paper>
+
+      {/* AffiBanner */}
+      <AffiBanner />
 
       {/* Frame Inputs */}
       <Typography variant="h5" gutterBottom>

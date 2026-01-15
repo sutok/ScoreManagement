@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Container,
   Box,
@@ -26,9 +27,11 @@ import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
 import { AdBanner } from '../components/AdBanner';
 import { useTranslation } from 'react-i18next';
+import { AffiBanner } from '../components/AffiBanner';
 
 export const FacilitiesPage = () => {
   const { user } = useAuth();
+  const location = useLocation();
   const { t } = useTranslation();
 
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -159,6 +162,8 @@ export const FacilitiesPage = () => {
         icon="🏢"
         showBackButton
       />
+
+      <AffiBanner key={location.key} />
 
       {canManageFacilities && (
         <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>

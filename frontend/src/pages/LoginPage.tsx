@@ -5,12 +5,13 @@ import { MicrosoftLoginButton } from '../components/auth/MicrosoftLoginButton';
 // import { PhoneLoginButton } from '../components/auth/PhoneLoginButton';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { useAuth } from '../hooks/useAuth';
-import { Navigate, Link as RouterLink } from 'react-router-dom';
+import { Navigate, useLocation, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AffiBanner } from '../components/AffiBanner';
 
 export const LoginPage = () => {
   const { user, loading } = useAuth();
+  const location = useLocation();
   const { t } = useTranslation();
 
   if (loading) {
@@ -41,7 +42,7 @@ export const LoginPage = () => {
               {t('app.title')}
             </Typography>
 
-            <AffiBanner />
+            <AffiBanner key={location.key} />
 
             <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
               {t('app.description')}

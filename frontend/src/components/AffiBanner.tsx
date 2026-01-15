@@ -22,9 +22,13 @@ export const AffiBanner = ({
     : affiliateLinks;
 
   const [currentLink, setCurrentLink] = useState<AffiliateLink | null>(null);
+  const [mountKey, setMountKey] = useState(0);
 
-  // 初期表示：ランダムに1つ選択
+  // コンポーネントマウント時のクリーンアップ
+  // 空の依存配列により、マウント時に必ず実行される
   useEffect(() => {
+    console.log('[AffiBanner] Component mounted, cleaning up old scripts');
+
     // もしもアフィリエイトのグローバル変数と外部スクリプトをクリーンアップ
     // SPA遷移で古い要素が残っていると新しいウィジェットの読み込みがスキップされる
     const msmScript = document.getElementById('msmaflink');
@@ -39,6 +43,12 @@ export const AffiBanner = ({
       delete (window as any).msmaflink;
     }
 
+    // マウントキーをインクリメントして、ランダム選択を強制実行
+    setMountKey(prev => prev + 1);
+  }, []); // 空の依存配列：マウント時のみ実行
+
+  // ランダムに1つ選択
+  useEffect(() => {
     if (filteredLinks.length === 0) {
       setCurrentLink(null);
       return;
@@ -48,7 +58,7 @@ export const AffiBanner = ({
     const randomIndex = Math.floor(Math.random() * filteredLinks.length);
     console.log('[AffiBanner] Selected index:', randomIndex);
     setCurrentLink(filteredLinks[randomIndex]);
-  }, [filteredLinks]);
+  }, [filteredLinks, mountKey]); // mountKeyが変わると再実行
 
   // HTMLタグ型のスクリプトを実行
   useEffect(() => {
