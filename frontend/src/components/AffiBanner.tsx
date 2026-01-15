@@ -82,28 +82,86 @@ export const AffiBanner = ({
     // スクリプトタグを実行可能な状態にする
     // innerHTML ではスクリプトが自動実行されないため、手動で再作成が必要
     const scripts = Array.from(container.querySelectorAll('script'));
-    scripts.forEach((oldScript) => {
-      const newScript = document.createElement('script');
 
-      // 属性をコピー
-      Array.from(oldScript.attributes).forEach((attr) => {
-        newScript.setAttribute(attr.name, attr.value);
-      });
+    // 外部スクリプトとインラインスクリプトを分離
+    const externalScripts: HTMLScriptElement[] = [];
+    const inlineScripts: HTMLScriptElement[] = [];
 
-      // スクリプトの内容をコピー
-      if (oldScript.src) {
-        // 外部スクリプト
-        newScript.src = oldScript.src;
+    scripts.forEach((script) => {
+      if (script.src) {
+        externalScripts.push(script);
       } else {
-        // インラインスクリプト
-        newScript.textContent = oldScript.textContent;
+        inlineScripts.push(script);
       }
-
-      // 古いスクリプトを新しいスクリプトに置き換え
-      oldScript.parentNode?.replaceChild(newScript, oldScript);
     });
 
-    console.log('[AffiBanner] HTML inserted and scripts activated');
+    console.log('[AffiBanner] Scripts found:', {
+      external: externalScripts.length,
+      inline: inlineScripts.length,
+    });
+
+    // 外部スクリプトを先にロード
+    if (externalScripts.length > 0) {
+      let loadedCount = 0;
+      const totalExternal = externalScripts.length;
+
+      externalScripts.forEach((oldScript) => {
+        const newScript = document.createElement('script');
+
+        // 属性をコピー
+        Array.from(oldScript.attributes).forEach((attr) => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+
+        // ロード完了を監視
+        newScript.onload = () => {
+          loadedCount++;
+          console.log(`[AffiBanner] External script loaded (${loadedCount}/${totalExternal}):`, newScript.src);
+
+          if (loadedCount === totalExternal) {
+            // 全ての外部スクリプトがロード完了したらインラインスクリプトを実行
+            console.log('[AffiBanner] All external scripts loaded, executing inline scripts');
+            executeInlineScripts();
+          }
+        };
+
+        newScript.onerror = () => {
+          console.error('[AffiBanner] Failed to load external script:', newScript.src);
+          loadedCount++;
+          if (loadedCount === totalExternal) {
+            executeInlineScripts();
+          }
+        };
+
+        // 古いスクリプトを新しいスクリプトに置き換え
+        oldScript.parentNode?.replaceChild(newScript, oldScript);
+      });
+    } else {
+      // 外部スクリプトがない場合は即座にインラインスクリプトを実行
+      console.log('[AffiBanner] No external scripts, executing inline scripts immediately');
+      executeInlineScripts();
+    }
+
+    // インラインスクリプトを実行する関数
+    function executeInlineScripts() {
+      inlineScripts.forEach((oldScript) => {
+        const newScript = document.createElement('script');
+
+        // 属性をコピー
+        Array.from(oldScript.attributes).forEach((attr) => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+
+        // インラインスクリプトの内容をコピー
+        newScript.textContent = oldScript.textContent;
+        console.log('[AffiBanner] Executing inline script:', oldScript.textContent?.substring(0, 100));
+
+        // 古いスクリプトを新しいスクリプトに置き換え
+        oldScript.parentNode?.replaceChild(newScript, oldScript);
+      });
+
+      console.log('[AffiBanner] All scripts activated');
+    }
 
     // クリーンアップ
     return () => {
