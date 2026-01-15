@@ -25,6 +25,20 @@ export const AffiBanner = ({
 
   // 初期表示：ランダムに1つ選択
   useEffect(() => {
+    // もしもアフィリエイトのグローバル変数と外部スクリプトをクリーンアップ
+    // SPA遷移で古い要素が残っていると新しいウィジェットの読み込みがスキップされる
+    const msmScript = document.getElementById('msmaflink');
+    if (msmScript) {
+      console.log('[AffiBanner] Removing old msmaflink script');
+      msmScript.remove();
+    }
+
+    // グローバル変数もリセット
+    if (typeof (window as any).msmaflink !== 'undefined') {
+      console.log('[AffiBanner] Resetting msmaflink global');
+      delete (window as any).msmaflink;
+    }
+
     if (filteredLinks.length === 0) {
       setCurrentLink(null);
       return;
