@@ -25,6 +25,7 @@ import { RecurringTournamentForm } from '../components/tournament/RecurringTourn
 import { type RecurringTournament, type Facility } from '../types/facility';
 import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
+import { AffiBanner } from '../components/AffiBanner';
 
 export const RecurringTournamentsPage = () => {
   const { user } = useAuth();
@@ -166,6 +167,8 @@ export const RecurringTournamentsPage = () => {
         icon="📅"
         showBackButton
       />
+
+      <AffiBanner />
 
       {canManageTournaments && (
         <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
