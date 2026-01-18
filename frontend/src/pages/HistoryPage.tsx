@@ -261,13 +261,14 @@ export const HistoryPage = () => {
           </Paper>
         ) : (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-            {games.map((game, index) => (
-              <Grow
-                in={true}
-                timeout={300 + index * 100}
-                key={game.id}
-              >
-                <Box sx={{ flex: '1 1 300px', minWidth: '300px', maxWidth: '100%' }}>
+            {games.flatMap((game, index) => {
+              const elements = [
+                <Grow
+                  in={true}
+                  timeout={300 + index * 100}
+                  key={game.id}
+                >
+                  <Box sx={{ flex: '1 1 300px', minWidth: '300px', maxWidth: '100%' }}>
                   <Card
                     elevation={2}
                     sx={{
@@ -379,7 +380,19 @@ export const HistoryPage = () => {
                   </Card>
                 </Box>
               </Grow>
-            ))}
+              ];
+
+              // 3つごとにAffiBannerを挿入（最後のゲームの後は挿入しない）
+              if ((index + 1) % 3 === 0 && index < games.length - 1) {
+                elements.push(
+                  <Box key={`affi-${index}`} sx={{ flex: '1 1 100%', width: '100%', my: 2 }}>
+                    <AffiBanner />
+                  </Box>
+                );
+              }
+
+              return elements;
+            })}
           </Box>
         )}
       </Box>
