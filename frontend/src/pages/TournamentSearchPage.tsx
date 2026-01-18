@@ -19,6 +19,7 @@ import { type RecurringTournament, type Facility } from '../types/facility';
 import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
 import { AdBanner } from '../components/AdBanner';
+import { AffiBanner } from '../components/AffiBanner';
 
 interface EnrichedTournament extends RecurringTournament {
   facilityName?: string;
@@ -153,6 +154,11 @@ export const TournamentSearchPage = () => {
         <SearchFilters onSearch={handleSearch} onClear={handleClear} />
       )}
 
+      {/* Affiliate Banner - After Search Form */}
+      <Box sx={{ my: 3 }}>
+        <AffiBanner />
+      </Box>
+
       {/* Advertisement */}
       <AdBanner slot="3456789012" format="horizontal" />
 
@@ -177,25 +183,45 @@ export const TournamentSearchPage = () => {
 
           {/* Results grid */}
           {tournaments.length > 0 ? (
-            <Box
-              sx={{
-                display: 'grid',
-                gridTemplateColumns: {
-                  xs: '1fr',
-                  sm: 'repeat(2, 1fr)',
-                  md: 'repeat(3, 1fr)',
-                },
-                gap: 2,
-              }}
-            >
-              {tournaments.map((tournament) => (
-                <TournamentSearchResultCard
-                  key={tournament.id}
-                  tournament={tournament}
-                  facilityName={tournament.facilityName}
-                  facilityLocation={tournament.facilityLocation}
-                />
-              ))}
+            <Box>
+              {/* 3件ごとにチャンク分割してAffiBannerを挿入 */}
+              {Array.from({ length: Math.ceil(tournaments.length / 3) }, (_, chunkIndex) => {
+                const startIndex = chunkIndex * 3;
+                const chunkTournaments = tournaments.slice(startIndex, startIndex + 3);
+                
+                return (
+                  <Box key={`chunk-${chunkIndex}`}>
+                    <Box
+                      sx={{
+                        display: 'grid',
+                        gridTemplateColumns: {
+                          xs: '1fr',
+                          sm: 'repeat(2, 1fr)',
+                          md: 'repeat(3, 1fr)',
+                        },
+                        gap: 2,
+                        mb: 2,
+                      }}
+                    >
+                      {chunkTournaments.map((tournament) => (
+                        <TournamentSearchResultCard
+                          key={tournament.id}
+                          tournament={tournament}
+                          facilityName={tournament.facilityName}
+                          facilityLocation={tournament.facilityLocation}
+                        />
+                      ))}
+                    </Box>
+                    
+                    {/* 最後のチャンクでない場合はAffiBannerを表示 */}
+                    {chunkIndex < Math.ceil(tournaments.length / 3) - 1 && (
+                      <Box sx={{ my: 3 }}>
+                        <AffiBanner />
+                      </Box>
+                    )}
+                  </Box>
+                );
+              })}
             </Box>
           ) : (
             <Box sx={{ textAlign: 'center', py: 8 }}>
