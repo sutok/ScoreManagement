@@ -11,6 +11,7 @@ import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { type RecurringTournament } from '../../types/facility';
 import { formatRecurringPattern } from '../../utils/recurringPattern';
+import { AffiBanner } from '../AffiBanner';
 
 interface RecurringTournamentWithFacility extends RecurringTournament {
   facilityName?: string;
@@ -51,15 +52,24 @@ export const RecurringTournamentList = ({
   }
 
   return (
-    <Box
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
-        gap: 2,
-      }}
-    >
-      {tournaments.map((tournament) => (
-        <Card elevation={2} key={tournament.id}>
+    <Box>
+      {/* 3件ごとにチャンク分割してAffiBannerを挿入 */}
+      {Array.from({ length: Math.ceil(tournaments.length / 3) }, (_, chunkIndex) => {
+        const startIndex = chunkIndex * 3;
+        const chunkTournaments = tournaments.slice(startIndex, startIndex + 3);
+        
+        return (
+          <Box key={`chunk-${chunkIndex}`}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+                gap: 2,
+                mb: 2,
+              }}
+            >
+              {chunkTournaments.map((tournament) => (
+                <Card elevation={2} key={tournament.id}>
           <CardContent>
             <Box
               sx={{
@@ -137,7 +147,16 @@ export const RecurringTournamentList = ({
             )}
           </CardContent>
         </Card>
-      ))}
+              ))}
+            </Box>
+            
+            {/* 各チャンクの後にAffiBannerを表示 */}
+            <Box sx={{ my: 3 }}>
+              <AffiBanner />
+            </Box>
+          </Box>
+        );
+      })}
     </Box>
   );
 };
