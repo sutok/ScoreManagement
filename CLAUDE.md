@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-ボーリングゲームの得点記録システム
+ボーラード/ボーリングゲームの得点記録システム
 
 ### 設計ドキュメント
 

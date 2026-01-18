@@ -15,14 +15,13 @@ import {
   Info as InfoIcon,
   Store as StoreIcon,
 } from '@mui/icons-material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AffiBanner } from '../components/AffiBanner';
 
 export const FacilityRegistrationInfoPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const location = useLocation();
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -37,7 +36,7 @@ export const FacilityRegistrationInfoPage = () => {
         </Typography>
       </Box>
 
-      <AffiBanner key={location.key} />
+      <AffiBanner />
 
       {/* Main Content */}
       <Paper sx={{ p: 4, mb: 3 }}>
@@ -128,7 +127,7 @@ export const FacilityRegistrationInfoPage = () => {
         </Typography>
       </Paper>
 
-      <AffiBanner key={location.key} />
+      <AffiBanner />
 
       {/* CTA Buttons */}
       <Box

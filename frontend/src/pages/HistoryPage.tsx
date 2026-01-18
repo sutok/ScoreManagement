@@ -15,7 +15,7 @@ import {
   Collapse,
   IconButton,
 } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTranslation } from 'react-i18next';
@@ -30,11 +30,11 @@ import { trackFirestoreError } from '../utils/errorTracking';
 import { AppHeader } from '../components/AppHeader';
 import { PageHeader } from '../components/PageHeader';
 import { AdBanner } from '../components/AdBanner';
+import { AffiBanner } from '../components/AffiBanner';
 
 export const HistoryPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const location = useLocation();
   const { t, i18n } = useTranslation();
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
@@ -192,7 +192,7 @@ export const HistoryPage = () => {
           </Alert>
         )}
 
-        <AffiBanner key={location.key} />
+        <AffiBanner />
 
         {/* Statistics */}
         {stats.totalGames > 0 && (

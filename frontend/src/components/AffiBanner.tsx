@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import type { AffiliateLink } from '../types/affiliate';
 import affiliateLinksData from '../config/affiliateLinks.json';
+import { useAffiliateStore } from '../stores/affiliateStore';
 
 interface AffiBannerProps {
   affiliateIds?: string[];        // 表示するアフィリエイトID（指定なしは全て）
@@ -15,14 +16,24 @@ export const AffiBanner = ({
 }: AffiBannerProps) => {
   const affiliateLinks = affiliateLinksData as AffiliateLink[];
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Zustand storeから現在のアフィリエイトIDを取得
+  const { currentAffiliateId, initializeAffiliate } = useAffiliateStore();
 
   // affiliateIdsが指定されている場合はフィルタリング
   const filteredLinks = affiliateIds
     ? affiliateLinks.filter((link) => affiliateIds.includes(link.id))
     : affiliateLinks;
 
-  const [currentLink, setCurrentLink] = useState<AffiliateLink | null>(null);
-  const [mountKey, setMountKey] = useState(0);
+  // セッション開始時または未選択時にランダム選択を初期化
+  useEffect(() => {
+    initializeAffiliate(filteredLinks);
+  }, [filteredLinks, initializeAffiliate]);
+
+  // storeのIDから現在表示するアフィリエイトを検索
+  const currentLink = currentAffiliateId
+    ? filteredLinks.find((link) => link.id === currentAffiliateId)
+    : null;
 
   // コンポーネントマウント時のクリーンアップ
   // 空の依存配列により、マウント時に必ず実行される
@@ -42,23 +53,7 @@ export const AffiBanner = ({
       console.log('[AffiBanner] Resetting msmaflink global');
       delete (window as any).msmaflink;
     }
-
-    // マウントキーをインクリメントして、ランダム選択を強制実行
-    setMountKey(prev => prev + 1);
   }, []); // 空の依存配列：マウント時のみ実行
-
-  // ランダムに1つ選択
-  useEffect(() => {
-    if (filteredLinks.length === 0) {
-      setCurrentLink(null);
-      return;
-    }
-
-    // ランダムに選択
-    const randomIndex = Math.floor(Math.random() * filteredLinks.length);
-    console.log('[AffiBanner] Selected index:', randomIndex);
-    setCurrentLink(filteredLinks[randomIndex]);
-  }, [filteredLinks, mountKey]); // mountKeyが変わると再実行
 
   // HTMLタグ型のスクリプトを実行
   useEffect(() => {

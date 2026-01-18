@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+
 import {
   Container,
   Box,
@@ -31,7 +31,6 @@ import { AffiBanner } from '../components/AffiBanner';
 
 export const FacilitiesPage = () => {
   const { user } = useAuth();
-  const location = useLocation();
   const { t } = useTranslation();
 
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -163,7 +162,7 @@ export const FacilitiesPage = () => {
         showBackButton
       />
 
-      <AffiBanner key={location.key} />
+      <AffiBanner />
 
       {canManageFacilities && (
         <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
