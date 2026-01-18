@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { type Facility } from '../../types/facility';
+import { AffiBanner } from '../AffiBanner';
 
 interface FacilityListProps {
   facilities: Facility[];
@@ -34,15 +35,24 @@ export const FacilityList = ({
   }
 
   return (
-    <Box
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
-        gap: 2,
-      }}
-    >
-      {facilities.map((facility) => (
-        <Card elevation={2} key={facility.id}>
+    <Box>
+      {/* 3件ごとにチャンク分割してAffiBannerを挿入 */}
+      {Array.from({ length: Math.ceil(facilities.length / 3) }, (_, chunkIndex) => {
+        const startIndex = chunkIndex * 3;
+        const chunkFacilities = facilities.slice(startIndex, startIndex + 3);
+        
+        return (
+          <Box key={`chunk-${chunkIndex}`}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+                gap: 2,
+                mb: 2,
+              }}
+            >
+              {chunkFacilities.map((facility) => (
+                <Card elevation={2} key={facility.id}>
             <CardContent>
               <Box
                 sx={{
@@ -116,7 +126,16 @@ export const FacilityList = ({
               </Typography>
             </CardContent>
           </Card>
-      ))}
+              ))}
+            </Box>
+            
+            {/* 各チャンクの後にAffiBannerを表示 */}
+            <Box sx={{ my: 3 }}>
+              <AffiBanner />
+            </Box>
+          </Box>
+        );
+      })}
     </Box>
   );
 };
