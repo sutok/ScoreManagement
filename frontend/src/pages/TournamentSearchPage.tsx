@@ -213,12 +213,10 @@ export const TournamentSearchPage = () => {
                       ))}
                     </Box>
                     
-                    {/* 最後のチャンクでない場合はAffiBannerを表示 */}
-                    {chunkIndex < Math.ceil(tournaments.length / 3) - 1 && (
-                      <Box sx={{ my: 3 }}>
-                        <AffiBanner />
-                      </Box>
-                    )}
+                    {/* 各チャンクの後にAffiBannerを表示 */}
+                    <Box sx={{ my: 3 }}>
+                      <AffiBanner />
+                    </Box>
                   </Box>
                 );
               })}
